@@ -63,6 +63,7 @@ import java.util.Objects;
 /**
  *  1.Click監聽，皆由class一次寫好，方便處理觸發順序、優先。
  *  2.由於Map需直接寄生於Activity，故不會有另外的fl處理。
+ *  3.
  */
 public class RootActivity extends AppCompatActivity
         implements View.OnClickListener,OnMapReadyCallback {
