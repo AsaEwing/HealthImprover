@@ -1,0 +1,387 @@
+[
+    {
+        "outputFile": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/incremental/mergeDebugResources/merged.dir/values-sw720dp-v13/values-sw720dp-v13.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 55,
+                    "endOffset": 106
+                },
+                "from": {
+                    "file": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/src/main/res/values-sw720dp/dimens.xml",
+                    "position": {
+                        "startLine": 27,
+                        "startColumn": 4,
+                        "startOffset": 1447,
+                        "endColumn": 55,
+                        "endOffset": 1498
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 111,
+                    "endColumn": 60,
+                    "endOffset": 167
+                },
+                "from": {
+                    "file": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/src/main/res/values-sw720dp/dimens.xml",
+                    "position": {
+                        "startLine": 26,
+                        "startColumn": 4,
+                        "startOffset": 1386,
+                        "endColumn": 60,
+                        "endOffset": 1442
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 172,
+                    "endColumn": 54,
+                    "endOffset": 222
+                },
+                "from": {
+                    "file": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/src/main/res/values-sw720dp/dimens.xml",
+                    "position": {
+                        "startLine": 25,
+                        "startColumn": 4,
+                        "startOffset": 1331,
+                        "endColumn": 54,
+                        "endOffset": 1381
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 227,
+                    "endColumn": 68,
+                    "endOffset": 291
+                },
+                "from": {
+                    "file": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/src/main/res/values-sw720dp/dimens.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 372,
+                        "endColumn": 68,
+                        "endOffset": 436
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 296,
+                    "endColumn": 63,
+                    "endOffset": 355
+                },
+                "from": {
+                    "file": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/src/main/res/values-sw720dp/dimens.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 108,
+                        "endColumn": 63,
+                        "endOffset": 167
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 360,
+                    "endColumn": 66,
+                    "endOffset": 422
+                },
+                "from": {
+                    "file": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/src/main/res/values-sw720dp/dimens.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 237,
+                        "endColumn": 66,
+                        "endOffset": 299
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 8,
+                    "startColumn": 4,
+                    "startOffset": 427,
+                    "endColumn": 64,
+                    "endOffset": 487
+                },
+                "from": {
+                    "file": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/src/main/res/values-sw720dp/dimens.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 172,
+                        "endColumn": 64,
+                        "endOffset": 232
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 9,
+                    "startColumn": 4,
+                    "startOffset": 492,
+                    "endColumn": 67,
+                    "endOffset": 555
+                },
+                "from": {
+                    "file": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/src/main/res/values-sw720dp/dimens.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 304,
+                        "endColumn": 67,
+                        "endOffset": 367
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 560,
+                    "endColumn": 59,
+                    "endOffset": 615
+                },
+                "from": {
+                    "file": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/src/main/res/values-sw720dp/dimens.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 17,
+                        "endColumn": 59,
+                        "endOffset": 72
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 11,
+                    "startColumn": 4,
+                    "startOffset": 620,
+                    "endColumn": 71,
+                    "endOffset": 687
+                },
+                "from": {
+                    "file": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/src/main/res/values-sw720dp/dimens.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 4,
+                        "startOffset": 733,
+                        "endColumn": 71,
+                        "endOffset": 800
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 692,
+                    "endColumn": 81,
+                    "endOffset": 769
+                },
+                "from": {
+                    "file": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/src/main/res/values-sw720dp/dimens.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 4,
+                        "startOffset": 805,
+                        "endColumn": 81,
+                        "endOffset": 882
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 13,
+                    "startColumn": 4,
+                    "startOffset": 774,
+                    "endColumn": 72,
+                    "endOffset": 842
+                },
+                "from": {
+                    "file": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/src/main/res/values-sw720dp/dimens.xml",
+                    "position": {
+                        "startLine": 11,
+                        "startColumn": 4,
+                        "startOffset": 510,
+                        "endColumn": 72,
+                        "endOffset": 578
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 14,
+                    "startColumn": 4,
+                    "startOffset": 847,
+                    "endColumn": 77,
+                    "endOffset": 920
+                },
+                "from": {
+                    "file": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/src/main/res/values-sw720dp/dimens.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 4,
+                        "startOffset": 655,
+                        "endColumn": 77,
+                        "endOffset": 728
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 15,
+                    "startColumn": 4,
+                    "startOffset": 925,
+                    "endColumn": 68,
+                    "endOffset": 989
+                },
+                "from": {
+                    "file": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/src/main/res/values-sw720dp/dimens.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 441,
+                        "endColumn": 68,
+                        "endOffset": 505
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 16,
+                    "startColumn": 4,
+                    "startOffset": 994,
+                    "endColumn": 79,
+                    "endOffset": 1069
+                },
+                "from": {
+                    "file": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/src/main/res/values-sw720dp/dimens.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 4,
+                        "startOffset": 887,
+                        "endColumn": 79,
+                        "endOffset": 962
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 17,
+                    "startColumn": 4,
+                    "startOffset": 1074,
+                    "endColumn": 89,
+                    "endOffset": 1159
+                },
+                "from": {
+                    "file": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/src/main/res/values-sw720dp/dimens.xml",
+                    "position": {
+                        "startLine": 17,
+                        "startColumn": 4,
+                        "startOffset": 967,
+                        "endColumn": 89,
+                        "endOffset": 1052
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 18,
+                    "startColumn": 4,
+                    "startOffset": 1164,
+                    "endColumn": 79,
+                    "endOffset": 1239
+                },
+                "from": {
+                    "file": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/src/main/res/values-sw720dp/dimens.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 1131,
+                        "endColumn": 79,
+                        "endOffset": 1206
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 19,
+                    "startColumn": 4,
+                    "startOffset": 1244,
+                    "endColumn": 73,
+                    "endOffset": 1313
+                },
+                "from": {
+                    "file": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/src/main/res/values-sw720dp/dimens.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 4,
+                        "startOffset": 1057,
+                        "endColumn": 73,
+                        "endOffset": 1126
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 20,
+                    "startColumn": 4,
+                    "startOffset": 1318,
+                    "endColumn": 71,
+                    "endOffset": 1385
+                },
+                "from": {
+                    "file": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/src/main/res/values-sw720dp/dimens.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 4,
+                        "startOffset": 583,
+                        "endColumn": 71,
+                        "endOffset": 650
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 21,
+                    "startColumn": 4,
+                    "startOffset": 1390,
+                    "endColumn": 62,
+                    "endOffset": 1448
+                },
+                "from": {
+                    "file": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/src/main/res/values-sw720dp/dimens.xml",
+                    "position": {
+                        "startLine": 22,
+                        "startColumn": 4,
+                        "startOffset": 1245,
+                        "endColumn": 62,
+                        "endOffset": 1303
+                    }
+                }
+            }
+        ]
+    }
+]

@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "my-project-for-hiapp",
+  "private_key_id": "66933beb458de45134170ab221df0087ef62110c",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDFB9ZZsiZpXmF0\nw8udER2SToT/gIjdG5tQSXA58UUV+vPHTRyVEu+ATidsamUIQuGQTx3z8pI57NUM\n0hhdplgu55FPXzoRnmQ2sXiag8vpbwH7WFNdQjMyXrz1oAK5kgWOJI7sNkyf/hdy\n8eK0jqLNXl85zN7hwYm0iNiX/fBnQpYY5lAUQBvDvwGHR6HJjvLsjbsEXY+6pL2F\n10iB6QBJiWj7EFKMZLE9T3KtyDg5sNIoj2dE1hypayx873BH4nwrTsIPS/KtA6d8\npdxDJ2qkfJ6YgSUg42PNEX1F1DhqyA6InY0Gxl9kgVMBJB7679AXrQdi/MhimmCd\nE7cbmb41AgMBAAECggEAHizeGiybj2Wh/VUDORHm+oJGAi94Roy00637nxQhZYVi\nknJv3zDgN0FA7my4/nPnwccsKjFLTc3Er0r56lXQiZZzfbly1kHwzSOO+fMXZq/W\nmNzlH5JE7wDtZZzU7gC8ExHsRabnQ1WR18vN0aNKsbMzWFHVDLQsV9bhfR2qFNYr\n5YKKtiCuTob+zqyGOPYOFOXmstBi3qmKRMvjygDnE79Sr5t0s7s37DJ4Os3r3PvJ\n5iSwU8vi1H4n0RCKw8f4My2mnUsxsEPmLXPPrpuEjNSfUJ7ry1z7lW6ugfK5fZXV\nFWNb/OGzhlijUlxp2b6FFI3PuLN6FH0FnmxzytoaoQKBgQDunM4Cf92f7JJaGkRs\n8gmrkP4Dav3ARGdLbQUjGFxSHDCvz/DXPBqRkgP69OfO+GbTfJbCnppdJILU0gkm\nXdkYTE6nGGK9Kfri8BAs1hbGbENuUzSS+aJS/GrXojOrQj2XWEHlqTRKXJp+DuOS\neu8wtC+DfsuCcHySOlkFJnXi3QKBgQDTY1fiB+PCvak9j3ZQ4rxrutnSQn/7Jtsm\nFOOTuhQjgw+P5vFcEICCsmaeyjDqV2lLEBdkFQzGukQG/NcKbCXNys3DM3daM+aa\nvIkbiKGpl6k7J8h3d5pCnfBipTPcWG6luyX694FKAT2Vvk3ObZPylguTFGSfI8x9\n09hNOmP3OQKBgH2JohlOjJuHK7ib+UQYU14geoPx1m9BjdbxFLLSLkBE9JiLHnse\n9BuCZvWxxAPwTKkX83mRWEWI4Ax4NLgqx/0wqHDhM5GydHzRMLFmMbVTYGa6//4T\nuINQqiWpAOYpg54MoR7jVs+IyP9pdfGrHAzTv+u+2fNWmzOT3yIGih9BAoGBAMXI\ncqbq6OEB4gLWY0aFDvThTALd868DCRMVgmVrOoKLkxj6ZSPV0Nf4oem6lo/8n2j7\nMleTFnQuPY4oLe/zhl+JfIJCek6stvxaoRJhAZmTbGUL8RZOksf3zL4PgnmNSGHK\nvFuYDqE2je+4skYN4tqcJ1JDR25a6W9lskF3+6aJAoGBAI50iYWbayrQXhTD74tR\n2HVnVu+fSeUSPbzUm/9th3Gny1yGCCgZRr7D3RPmwKG6Lvvq6FP0rk9rRszWiQmS\nsSYJN/xNFNSXrhkDcSBtG95+meyYDk49l6hPX+Q1RGMZ6rofG6oOHyFNfb+fLHBf\nGWpFrMLuwteExJ1FWbsGkD/B\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-crashreporting-8pvvu@my-project-for-hiapp.iam.gserviceaccount.com",
+  "client_id": "100332563744603545311",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-crashreporting-8pvvu%40my-project-for-hiapp.iam.gserviceaccount.com"
+}

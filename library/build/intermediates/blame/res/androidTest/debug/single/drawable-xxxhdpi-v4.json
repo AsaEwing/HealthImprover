@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable-xxxhdpi-v4/ic_settings.png",
+        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/bundles/debug/res/drawable-xxxhdpi-v4/ic_settings.png"
+    },
+    {
+        "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable-xxxhdpi-v4/ic_add.png",
+        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/bundles/debug/res/drawable-xxxhdpi-v4/ic_add.png"
+    },
+    {
+        "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable-xxxhdpi-v4/ic_help.png",
+        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/bundles/debug/res/drawable-xxxhdpi-v4/ic_help.png"
+    }
+]

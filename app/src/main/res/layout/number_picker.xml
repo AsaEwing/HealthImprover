@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/NumberPicker_RL">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/NP_Time_RL">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/NP_LL_DateTime"
+            android:orientation="vertical"
+            android:visibility="visible"
+            android:divider="@drawable/auto_divider"
+            android:showDividers="end"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:layout_alignParentTop="true">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/NP_LL_Date"
+                android:orientation="horizontal"
+                android:weightSum="9"
+                android:visibility="visible"
+                android:paddingRight="6dp">
+                <TextView
+                    android:layout_weight="2"
+                    android:text="日期："
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/NP_text_Date1"
+                    android:paddingLeft="6dp"
+                    android:textSize="@dimen/auto_text"
+                    android:gravity="center_vertical" />
+                <Button
+                    android:layout_weight="7"
+                    android:text="2016/09/01"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/NP_text_Date2"
+                    android:paddingLeft="6dp"
+                    android:textSize="@dimen/auto_text"
+                    android:gravity="center_vertical" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/NP_LL_Time"
+                android:orientation="horizontal"
+                android:weightSum="9"
+                android:visibility="visible"
+                android:paddingRight="6dp">
+                <TextView
+                    android:layout_weight="2"
+                    android:text="時間："
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/NP_text_Time1"
+                    android:paddingLeft="6dp"
+                    android:textSize="@dimen/auto_text"
+                    android:gravity="center_vertical" />
+                <Button
+                    android:layout_weight="7"
+                    android:text="09:00"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/NP_text_Time2"
+                    android:paddingLeft="6dp"
+                    android:textSize="@dimen/auto_text"
+                    android:gravity="center_vertical" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="5"
+        android:id="@+id/NumberPicker_LL"
+        android:gravity="center"
+        android:layout_below="@+id/NP_Time_RL"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text=" "
+            android:layout_weight="1" />
+
+        <NumberPicker
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.4"
+            android:id="@+id/Diary_HW_Int"
+            android:orientation="vertical" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/Diary_Dot"
+            android:gravity="center_vertical|center_horizontal" />
+
+        <NumberPicker
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.4"
+            android:id="@+id/Diary_HW_Dec"
+            android:orientation="vertical"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text=" "
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+</RelativeLayout>

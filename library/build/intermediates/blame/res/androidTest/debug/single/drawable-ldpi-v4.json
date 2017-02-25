@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable-ldpi-v4/ic_action_mic.png",
+        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/bundles/debug/res/drawable-ldpi-v4/ic_action_mic.png"
+    },
+    {
+        "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable-ldpi-v4/ic_action_arrow_left.png",
+        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/bundles/debug/res/drawable-ldpi-v4/ic_action_arrow_left.png"
+    },
+    {
+        "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable-ldpi-v4/ic_action_cancel.png",
+        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/bundles/debug/res/drawable-ldpi-v4/ic_action_cancel.png"
+    }
+]

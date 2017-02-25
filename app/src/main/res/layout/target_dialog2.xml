@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:divider="@drawable/auto_divider"
+    android:showDividers="middle">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="7">
+
+        <TextView
+            android:text="到期日期："
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_weight="2.5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:padding="10dp" />
+
+        <EditText
+            android:text="2016/09/18"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/Target_textDay"
+            android:layout_centerHorizontal="true"
+            android:padding="10dp"
+            android:inputType="date" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="7">
+
+        <TextView
+            android:text="總共天數："
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_weight="2.5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:padding="10dp" />
+
+        <EditText
+            android:text="190"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/Target_textTime"
+            android:layout_centerHorizontal="true"
+            android:padding="10dp"
+            android:inputType="number" />
+
+        <TextView
+            android:text="天"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:padding="10dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

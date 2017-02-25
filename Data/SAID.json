@@ -1,0 +1,310 @@
+[
+  {
+    "Store_index": "1",
+    "Store_ID": "0001",
+    "Store_Name": "麥當勞",
+    "Store_Code1": "FEAA",
+    "Store_Code2": "FEAJ"
+  },
+  {
+    "Store_index": "2",
+    "Store_ID": "0002",
+    "Store_Name": "肯德基",
+    "Store_Code1": "FEAJ",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "3",
+    "Store_ID": "0003",
+    "Store_Name": "頂呱呱",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "4",
+    "Store_ID": "0004",
+    "Store_Name": "八方雲集",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "5",
+    "Store_ID": "0005",
+    "Store_Name": "PizzaHot",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "6",
+    "Store_ID": "0006",
+    "Store_Name": "達美樂",
+    "Store_Code1": "FEAJ",
+    "Store_Code2": "LEAJ"
+  },
+  {
+    "Store_index": "7",
+    "Store_ID": "0007",
+    "Store_Name": "四海遊龍",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "8",
+    "Store_ID": "0008",
+    "Store_Name": "三商巧福",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "9",
+    "Store_ID": "0009",
+    "Store_Name": "爭鮮",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "10",
+    "Store_ID": "0010",
+    "Store_Name": "MOS BUGER",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "11",
+    "Store_ID": "0011",
+    "Store_Name": "吉野家",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "12",
+    "Store_ID": "0012",
+    "Store_Name": "錢都",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "13",
+    "Store_ID": "0013",
+    "Store_Name": "SUBWAY",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "14",
+    "Store_ID": "0014",
+    "Store_Name": "BUGER KING",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "15",
+    "Store_ID": "0015",
+    "Store_Name": "大埔鐵板燒",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "16",
+    "Store_ID": "0016",
+    "Store_Name": "春水堂",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "17",
+    "Store_ID": "0017",
+    "Store_Name": "永和豆漿",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "18",
+    "Store_ID": "0018",
+    "Store_Name": "美而美",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "19",
+    "Store_ID": "0019",
+    "Store_Name": "美芝城",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "20",
+    "Store_ID": "0020",
+    "Store_Name": "拉亞漢堡",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "21",
+    "Store_ID": "0021",
+    "Store_Name": "麥味堡",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "22",
+    "Store_ID": "0022",
+    "Store_Name": "呷尚寶",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "23",
+    "Store_ID": "0023",
+    "Store_Name": "丹丹漢堡",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "24",
+    "Store_ID": "0024",
+    "Store_Name": "弘爺漢堡",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "25",
+    "Store_ID": "0025",
+    "Store_Name": "悟饕",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "26",
+    "Store_ID": "0026",
+    "Store_Name": "大肚魚",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "27",
+    "Store_ID": "0027",
+    "Store_Name": "星巴克",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "28",
+    "Store_ID": "0028",
+    "Store_Name": "COCO",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "29",
+    "Store_ID": "0029",
+    "Store_Name": "清心",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "30",
+    "Store_ID": "0030",
+    "Store_Name": "雀兒思啼",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "31",
+    "Store_ID": "0031",
+    "Store_Name": "COMBUY",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "32",
+    "Store_ID": "0032",
+    "Store_Name": "五十嵐",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "33",
+    "Store_ID": "0033",
+    "Store_Name": "茶湯會",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "34",
+    "Store_ID": "0034",
+    "Store_Name": "茶番",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "35",
+    "Store_ID": "0035",
+    "Store_Name": "樂法",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "36",
+    "Store_ID": "0036",
+    "Store_Name": "清玉",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "37",
+    "Store_ID": "0037",
+    "Store_Name": "樺達",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "38",
+    "Store_ID": "0038",
+    "Store_Name": "喫茶小舖",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "39",
+    "Store_ID": "0039",
+    "Store_Name": "大苑子",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "40",
+    "Store_ID": "0040",
+    "Store_Name": "天仁茗茶",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "41",
+    "Store_ID": "0041",
+    "Store_Name": "好了啦紅茶冰",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "42",
+    "Store_ID": "0042",
+    "Store_Name": "茶的魔手",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "43",
+    "Store_ID": "0043",
+    "Store_Name": "鮮茶道",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  },
+  {
+    "Store_index": "44",
+    "Store_ID": "0044",
+    "Store_Name": "台灣第一味",
+    "Store_Code1": "",
+    "Store_Code2": ""
+  }
+]

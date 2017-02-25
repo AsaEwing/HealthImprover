@@ -1,0 +1,110 @@
+{
+  "project_info": {
+    "project_number": "39764648669",
+    "firebase_url": "https://my-project-for-hiapp.firebaseio.com",
+    "project_id": "my-project-for-hiapp",
+    "storage_bucket": "my-project-for-hiapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:39764648669:android:27d689d63f1b7a06",
+        "android_client_info": {
+          "package_name": "com.google.samples.quickstart.signin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "39764648669-e48v01id62s1b3tq0gn8h039qvlr49pj.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "39764648669-flsnaffn7qdufqs9ob39c8eiu76ng59s.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "39764648669-7ptphtl62eags8dtis6evc9ucni06t9q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPmegFnitpkOQzCs1swmb-UfWFin6-WCQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:39764648669:android:9304a999e7094d48",
+        "android_client_info": {
+          "package_name": "com.asaewing.healthimprover"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "39764648669-jgrksj6upudfk78onkbfgjbm8sotg8ts.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.asaewing.healthimprover",
+            "certificate_hash": "805EE926C264A06E476393975A503E29AF7A370A"
+          }
+        },
+        {
+          "client_id": "39764648669-uliqafoo87tbbnak9ma86prg6vgn76m5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.asaewing.healthimprover",
+            "certificate_hash": "5ED0582EE2060783318E9D557661E8230DD0A59C"
+          }
+        },
+        {
+          "client_id": "39764648669-e48v01id62s1b3tq0gn8h039qvlr49pj.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "39764648669-flsnaffn7qdufqs9ob39c8eiu76ng59s.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "39764648669-7ptphtl62eags8dtis6evc9ucni06t9q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPmegFnitpkOQzCs1swmb-UfWFin6-WCQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "39764648669-e48v01id62s1b3tq0gn8h039qvlr49pj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

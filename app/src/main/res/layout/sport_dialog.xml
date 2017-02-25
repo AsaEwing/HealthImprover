@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/Sport_Time_RL">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/Sport_LL_DateTime"
+            android:orientation="vertical"
+            android:visibility="visible"
+            android:divider="@drawable/auto_divider"
+            android:showDividers="end"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:layout_alignParentTop="true">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/Sport_LL_Date"
+                android:orientation="horizontal"
+                android:weightSum="9"
+                android:visibility="visible"
+                android:paddingRight="6dp">
+                <TextView
+                    android:layout_weight="3"
+                    android:text="結束日期："
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/Sport_text_Date1"
+                    android:paddingLeft="6dp"
+                    android:textSize="@dimen/auto_text"
+                    android:gravity="center_vertical" />
+                <Button
+                    android:layout_weight="6"
+                    android:text="2016/09/01"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Sport_text_Date2"
+                    android:paddingLeft="6dp"
+                    android:textSize="@dimen/auto_text"
+                    android:gravity="center_vertical" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/Sport_LL_Time"
+                android:orientation="horizontal"
+                android:weightSum="9"
+                android:visibility="visible"
+                android:paddingRight="6dp">
+                <TextView
+                    android:layout_weight="3"
+                    android:text="結束時間："
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/Sport_text_Time1"
+                    android:paddingLeft="6dp"
+                    android:textSize="@dimen/auto_text"
+                    android:gravity="center_vertical" />
+                <Button
+                    android:layout_weight="6"
+                    android:text="09:00"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/Sport_text_Time2"
+                    android:paddingLeft="6dp"
+                    android:textSize="@dimen/auto_text"
+                    android:gravity="center_vertical" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/Sport_LL_conTime"
+                android:orientation="horizontal"
+                android:weightSum="9"
+                android:visibility="visible"
+                android:paddingRight="6dp">
+                <TextView
+                    android:layout_weight="3"
+                    android:text="總共時間："
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/Sport_text_conTime"
+                    android:paddingLeft="6dp"
+                    android:textSize="@dimen/auto_text"
+                    android:gravity="center_vertical" />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/Sport_edit_hour"
+                    android:layout_weight="1.5" />
+                <TextView
+                    android:layout_weight="1.5"
+                    android:text="小時"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/Sport_text_conTimeHour"
+                    android:paddingLeft="6dp"
+                    android:textSize="@dimen/auto_text"
+                    android:gravity="center_vertical" />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/Sport_edit_min"
+                    android:layout_weight="1.5" />
+                <TextView
+                    android:layout_weight="1.5"
+                    android:text="分鐘"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/Sport_text_conTimeMin"
+                    android:paddingLeft="6dp"
+                    android:textSize="@dimen/auto_text"
+                    android:gravity="center_vertical" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+
+    <RadioGroup
+        android:id="@+id/Sport_Group1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:orientation="horizontal"
+        android:padding="6dp">
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="11"
+            android:id="@+id/Sport_RB11"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:padding="2dp"
+            android:checked="true"
+            android:textSize="18sp" />
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="12"
+            android:id="@+id/Sport_RB12"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="2dp"
+            android:textSize="18sp" />
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="13"
+            android:id="@+id/Sport_RB13"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:padding="2dp"
+            android:textSize="18sp" />
+    </RadioGroup>
+    <RadioGroup
+        android:id="@+id/Sport_Group2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:orientation="horizontal"
+        android:padding="6dp">
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="21"
+            android:id="@+id/Sport_RB21"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:padding="2dp"
+            android:textSize="18sp" />
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="22"
+            android:id="@+id/Sport_RB22"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="2dp"
+            android:textSize="18sp" />
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="23"
+            android:id="@+id/Sport_RB23"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:padding="2dp"
+            android:textSize="18sp" />
+    </RadioGroup>
+    <RadioGroup
+        android:id="@+id/Sport_Group3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:orientation="horizontal"
+        android:padding="6dp">
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="31"
+            android:id="@+id/Sport_RB31"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:padding="2dp"
+            android:textSize="18sp" />
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="32"
+            android:id="@+id/Sport_RB32"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="2dp"
+            android:textSize="18sp" />
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="33"
+            android:id="@+id/Sport_RB33"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:padding="2dp"
+            android:textSize="18sp" />
+    </RadioGroup>
+
+</LinearLayout>

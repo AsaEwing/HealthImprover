@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+     >
+
+    <DigitalClock
+        android:id="@+id/dClock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="30dp"
+        android:layout_y="32dp"
+        android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="10dp"
+        android:layout_y="90dp"
+        android:text="一次性鬧鐘"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/mButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_x="160dp"
+        android:layout_y="86dp"
+        android:text="設定鬧鐘"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="10dp"
+        android:layout_y="227dp"
+        android:text="連續響鬧鐘"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/mButton4"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_x="160dp"
+        android:layout_y="269dp"
+        android:text="刪除鬧鐘"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/mButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_x="160dp"
+        android:layout_y="140dp"
+        android:text="刪除鬧鐘"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/mButton3"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_x="160dp"
+        android:layout_y="220dp"
+        android:text="設定鬧鐘"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/setTime2"
+        android:layout_width="135dp"
+        android:layout_height="wrap_content"
+        android:layout_x="10dp"
+        android:layout_y="278dp"
+        android:text="尚未設置"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/setTime1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="10dp"
+        android:layout_y="150dp"
+        android:text="尚未設置"
+        android:textSize="16sp" />
+
+</AbsoluteLayout>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/group1"
+        android:checkableBehavior="single">
+        <!--Main-->
+        <item
+            android:id="@+id/nav_Home"
+            android:icon="@drawable/ic_menu_home"
+            android:title="@string/nav_Home"/>
+        <item
+            android:id="@+id/nav_Map"
+            android:icon="@drawable/ic_menu_map"
+            android:title="@string/nav_Map"/>
+        <item
+            android:id="@+id/nav_Chat"
+            android:icon="@drawable/ic_menu_chat"
+            android:title="@string/nav_Chat"/>
+    </group>
+    <group
+        android:id="@+id/group2"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_BasicInfo"
+            android:icon="@drawable/ic_menu_basicinfo"
+            android:title="@string/nav_BasicInfo" />
+        <!--item
+            android:id="@+id/nav_MyDevice"
+            android:icon="@drawable/ic_menu_mydevice"
+            android:title="@string/nav_MyDevice" /-->
+        <item
+            android:id="@+id/nav_Heart"
+            android:icon="@drawable/ic_menu_heart"
+            android:title="@string/nav_Heart" />
+    </group>
+    <!--group
+        android:id="@+id/group3"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_ProductTour"
+            android:icon="@drawable/ic_menu_producttour"
+            android:title="@string/nav_ProductTour" />
+        <item
+            android:id="@+id/nav_AR_Exp"
+            android:icon="@drawable/ic_menu_ar_exp"
+            android:title="@string/nav_AR_Exp" />
+        <item
+            android:id="@+id/nav_Settings"
+            android:icon="@drawable/ic_menu_settings"
+            android:title="@string/nav_Settings" />
+    </group-->
+    <!--group
+        android:id="@+id/group4"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_Test01"
+            android:icon="@drawable/ic_menu_test01"
+            android:title="@string/nav_Test01" />
+        <item
+            android:id="@+id/nav_Test02"
+            android:icon="@drawable/ic_menu_test02"
+            android:title="@string/nav_Test02" />
+    </group-->
+    <group
+        android:id="@+id/group5"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_Note"
+            android:icon="@drawable/select_color_icon"
+            android:title="@string/nav_Note"/>
+        <item
+            android:id="@+id/nav_Camera"
+            android:icon="@drawable/take_picture_icon"
+            android:title="@string/nav_Camera"/>
+        <item
+            android:id="@+id/nav_Notification"
+            android:icon="@drawable/alarm_icon"
+            android:title="@string/nav_Notification"/>
+
+    </group>
+    <group
+        android:id="@+id/group6"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_Record"
+            android:icon="@drawable/ic_menu_record"
+            android:title="@string/nav_Record"/>
+
+    </group>
+</menu>

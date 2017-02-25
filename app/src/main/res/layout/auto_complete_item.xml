@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:divider="@drawable/auto_divider"
+        android:showDividers="middle"
+        android:paddingLeft="6dp"
+        android:paddingRight="6dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/AT_LL_R"
+                android:orientation="horizontal"
+                android:weightSum="9">
+
+                <TextView
+                    android:layout_weight="2"
+                    android:text="餐廳："
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/AT_text_R"
+                    android:paddingLeft="6dp"
+                    android:textSize="@dimen/auto_text"
+                    android:gravity="center_vertical" />
+
+                <com.asaewing.healthimprover.Others.MyAutoView
+                    android:layout_weight="7"
+                    android:hint="是哪個餐廳？"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/AT_AT_R"
+                    android:textSize="@dimen/auto_text"
+                    android:gravity="center_vertical" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/AT_LL_F"
+                android:orientation="horizontal"
+                android:weightSum="9">
+
+                <TextView
+                    android:layout_weight="2"
+                    android:text="飲食："
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/AT_text_F"
+                    android:paddingLeft="6dp"
+                    android:textSize="@dimen/auto_text"
+                    android:gravity="center_vertical"/>
+
+                <com.asaewing.healthimprover.Others.MyAutoView
+                    android:layout_weight="7"
+                    android:hint="吃了什麼？"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/AT_AT_F"
+                    android:textSize="@dimen/auto_text"
+                    android:gravity="center_vertical"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:id="@+id/AT_RL_O">
+
+            <TextView
+                android:text="備註："
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/AT_text_O"
+                android:paddingLeft="6dp"
+                android:paddingTop="6dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/AT_LL_Amount"
+                android:orientation="horizontal"
+                android:layout_below="@+id/AT_text_O"
+                android:weightSum="9">
+                <TextView
+                    android:layout_weight="2"
+                    android:text="數量："
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/AT_text_Amount"
+                    android:paddingLeft="6dp"
+                    android:textSize="@dimen/auto_text"
+                    android:gravity="center_vertical" />
+
+                <com.asaewing.healthimprover.Others.MyAutoView
+                    android:layout_weight="9"
+                    android:hint="總共幾份呢？"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/AT_AT_Amount" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/AT_LL_selfCal"
+                android:orientation="horizontal"
+                android:layout_below="@+id/AT_LL_Amount"
+                android:weightSum="9"
+                android:visibility="gone">
+                <TextView
+                    android:layout_weight="2"
+                    android:text="熱量："
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/AT_text_selfCal"
+                    android:paddingLeft="6dp"
+                    android:textSize="@dimen/auto_text"
+                    android:gravity="center_vertical" />
+
+                <EditText
+                    android:layout_weight="9"
+                    android:hint="一份約多少熱量呢？"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/AT_AT_selfCal" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/AT_LL_Size"
+                android:orientation="horizontal"
+                android:layout_below="@+id/AT_LL_selfCal"
+                android:weightSum="9"
+                android:visibility="gone">
+                <TextView
+                    android:layout_weight="2"
+                    android:text="大小："
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/AT_text_Size"
+                    android:paddingLeft="6dp"
+                    android:textSize="@dimen/auto_text"
+                    android:gravity="center_vertical" />
+
+                <com.asaewing.healthimprover.Others.MyAutoView
+                    android:layout_weight="9"
+                    android:hint="大、中、小？"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/AT_AT_Size" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/AT_LL_Sugar"
+                android:orientation="horizontal"
+                android:layout_below="@+id/AT_LL_Size"
+                android:weightSum="9"
+                android:visibility="gone">
+                <TextView
+                    android:layout_weight="2"
+                    android:text="甜度："
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/AT_text_Sugar"
+                    android:paddingLeft="6dp"
+                    android:textSize="@dimen/auto_text"
+                    android:gravity="center_vertical" />
+
+                <com.asaewing.healthimprover.Others.MyAutoView
+                    android:layout_weight="9"
+                    android:hint="正常？還是半糖？"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/AT_AT_Sugar" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/AT_LL_HotCold"
+                android:orientation="horizontal"
+                android:layout_below="@+id/AT_LL_Sugar"
+                android:weightSum="9"
+                android:visibility="gone">
+                <TextView
+                    android:layout_weight="2"
+                    android:text="冰塊："
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/AT_text_HotCold"
+                    android:paddingLeft="6dp"
+                    android:textSize="@dimen/auto_text"
+                    android:gravity="center_vertical" />
+
+                <com.asaewing.healthimprover.Others.MyAutoView
+                    android:layout_weight="9"
+                    android:hint="少冰？去冰？"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/AT_AT_HotCold" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

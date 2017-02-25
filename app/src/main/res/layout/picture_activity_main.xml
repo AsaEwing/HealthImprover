@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="7"
+    android:layout_margin="10dp">
+
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="match_parent"
+        android:layout_weight="5"
+        android:layout_height="0dp" />
+
+    <Button
+        android:id="@+id/camera"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="開啟相機"
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_margin="10dp"
+        android:paddingLeft="60dp"
+        android:paddingRight="60dp" />
+
+    <Button
+        android:id="@+id/photo"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="開啟相簿"
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:paddingLeft="60dp"
+        android:paddingRight="60dp" />
+
+</LinearLayout>

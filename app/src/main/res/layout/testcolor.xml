@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1"
+        android:id="@+id/backcolor">
+
+        <Button
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="@string/Blue"
+            android:background="#33B5E5"
+            android:id="@+id/Blue" />
+
+        <Button
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/Purple"
+            android:layout_weight="0.16"
+            android:background="#AA66CC"
+            android:text="@string/Purple" />
+
+        <Button
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="@string/Green"
+            android:background="#99CC00"
+            android:id="@+id/Green" />
+
+        <Button
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="@string/Orange"
+            android:background="#FFBB33"
+            android:id="@+id/Orange" />
+
+        <Button
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="@string/Red"
+            android:background="#FF4444"
+            android:id="@+id/Red" />
+
+    </LinearLayout>
+</LinearLayout>
