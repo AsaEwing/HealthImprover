@@ -8,3 +8,6 @@
 另外，本 App 還有記事、鬧鐘和拍照功能，讓使用者在記錄身高體重時，若有事情需要記錄能夠利用記事本記下來，又或者在飯後登記熱量時，設定鬧鐘提醒使用者幾點需要運動。本 App 還提供了提醒服務，在使用者忘記登記熱量 或是忘記吃飯時，會由 Weight Manage Server 提醒使用者進行登記，若是忘記吃飯也能達到提醒使用者的動作，長期使用甚至能改善使用者的生活規律。
 
 4.由於演算法部分無法公開，故此份檔案只有 App 部分。
+
+5.App 圖標
+![alt tag](https://github.com/AsaEwing/HealthImprover/blob/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png)
