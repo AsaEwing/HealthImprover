@@ -12,7 +12,7 @@ import java.util.HashMap;
  */
 public class InfoMap {
 
-    HashMap<String,String> mIM = new HashMap<>();
+    private HashMap<String,String> mIM = new HashMap<>();
 
     //TODO----put somethings----
     public void IMput (String key, Object object) {
@@ -95,7 +95,7 @@ public class InfoMap {
     }
 
     //TODO----Other----
-    public String BitMapToString(Bitmap bitmap){
+    private String BitMapToString(Bitmap bitmap){
         /*
         ByteArrayOutputStream baos=new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
@@ -116,7 +116,7 @@ public class InfoMap {
         }
     }
 
-    public Bitmap StringToBitMap(String encodedString){
+    private Bitmap StringToBitMap(String encodedString){
         /*
         try{
             byte [] encodeByte=Base64.decode(encodedString,Base64.DEFAULT);
