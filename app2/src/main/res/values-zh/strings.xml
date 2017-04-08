@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--TODO:__Original-->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">設定</string>
+
+    <!--TODO:__nav_Main-->
+    <string name="nav_Home">首頁</string>
+    <string name="nav_Diary">每日記錄</string>
+    <string name="nav_Calories">卡路里消耗</string>
+    <string name="nav_Sleep">睡眠狀態</string>
+    <string name="nav_Heart">心律</string>
+
+    <!--TODO:__nav_Account-->
+    <string name="nav_title_Ac">個人設置</string>
+    <string name="nav_BasicInfo">基本資料</string>
+    <string name="nav_MyDevice">我的設備</string>
+
+    <!--TODO:__nav_Other-->
+    <string name="nav_title_Other">其它</string>
+    <string name="nav_ProductTour">產品導覽</string>
+    <string name="nav_AR_Exp">權責說明</string>
+    <string name="nav_Settings">App設定</string>
+
+    <!--TODO:__nav_Test Dev.-->
+    <string name="nav_title_TestDev">測試與開發</string>
+    <string name="nav_Test01">T.D.01</string>
+    <string name="nav_Test02">T.D.02</string>
+    <string name="loading">載入中</string>
+    <string name="sign_out">登出</string>
+    <string name="signed_in">已登入</string>
+    <string name="signed_out">已登出</string>
+    <string name="signing_in">登入中</string>
+    <string name="signio_facebook_bt_in">Facebook 登入</string>
+    <string name="signio_facebook_bt_out">Facebook 登出</string>
+    <string name="signio_google_bt_in">Google 登入</string>
+    <string name="signio_google_bt_out">Google 登出</string>
+    <string name="Diary_Sex">性別</string>
+    <string name="Diary_Sex_Female">女</string>
+    <string name="Diary_Sex_Male">男</string>
+    <string name="Diary_Height">身高</string>
+    <string name="Diary_Weight">體重</string>
+    <string name="FABM_Height"> 身高 </string>
+    <string name="FABM_Weight"> 體重 </string>
+    <string name="FABM_Food"> 飲食 </string>
+    <string name="CBar_Step">步</string>
+    <string name="CBar_Calories">卡</string>
+    <string name="Dialog_Title_Height">請選擇你的身高</string>
+    <string name="Dialog_Title_Weight">請選擇你的體重</string>
+    <string name="Dialog_button_OK">確認</string>
+    <string name="Dialog_button_Cancel">取消</string>
+    <string name="nav_Map">地圖</string>
+    <string name="nav_Chat">聊天</string>
+
+    <string name="EnterButton">輸入</string>
+    <string name="send">輸入</string>
+    <string name="textHit">請输入訊息</string>
+
+    <string name="PD_title">請稍後</string>
+    <string name="PD_text">資料讀取中…</string>
+
+    <string name="HiCard_firstUse">歡迎使用HiApp</string>
+    <string name="HiCard_firstOpen">歡迎回到HiApp</string>
+
+    <string name="Heart_bt_start">開始</string>
+    <string name="Green">綠色</string>
+    <string name="Orange">橘色</string>
+    <string name="Purple">紫色</string>
+    <string name="Red">紅色</string>
+    <string name="Blue">藍色</string>
+    <string name="content">內容</string>
+
+    <string name="signIn_button_Cancel">取消</string>
+    <string name="signIn_button_OK">確認</string>
+    <string name="signIn1_title">帳戶綁定</string>
+    <string name="signIn1_content">請於下一步驟綁定帳戶！\n否則，將資料無法保存！</string>
+    <string name="signIn1_button_OK">下一步</string>
+    <string name="signIn2_title">帳戶選擇</string>
+    <string name="signIn2_content">請選擇欲綁定之帳戶！</string>
+    <string name="signIn2_button_OK">上一步</string>
+    <string name="nav_Camera">照相</string>
+    <string name="nav_Note">記事</string>
+    <string name="nav_Notification">提醒</string>
+    <string name="modify">修改</string>
+
+    <string name="bi_gender_title">請選擇你的生理性別</string>
+    <string name="bi_birthday_title">請問你的生日幾號</string>
+    <string name="bi_wake_time_title">請問你平時的起床時間</string>
+    <string name="Food_Send">送出</string>
+    <string name="Food_Cancel">取消</string>
+
+    <string name="cfab_Sport">紀錄運動</string>
+    <string name="cfab_Target">新增目標</string>
+    <string name="Dialog_button_OK2">下一步</string>
+    <string name="cfab_Recommend">意見回饋</string>
+    <string name="nav_Record">記錄</string>
+
+</resources>

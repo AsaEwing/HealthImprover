@@ -1,7 +1,7 @@
 [
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/ic_launcher.png",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/tk.zielony/carbon/0.6.0/res/drawable-hdpi-v4/ic_launcher.png"
+        "source": "/Users/asaewing/.android/build-cache/d25f46522971096742dbca0afaa7b73138b54c1f/output/res/drawable-hdpi-v4/ic_launcher.png"
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/ic_help.png",
@@ -13,7 +13,7 @@
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/vpi__tab_selected_holo.9.png",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/drawable-hdpi-v4/vpi__tab_selected_holo.9.png"
+        "source": "/Users/asaewing/.android/build-cache/e37d405c0181bc996190fd9b4302b10bfda4c3c4/output/res/drawable-hdpi-v4/vpi__tab_selected_holo.9.png"
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/ic_settings.png",
@@ -41,15 +41,15 @@
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/vpi__tab_selected_focused_holo.9.png",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/drawable-hdpi-v4/vpi__tab_selected_focused_holo.9.png"
+        "source": "/Users/asaewing/.android/build-cache/e37d405c0181bc996190fd9b4302b10bfda4c3c4/output/res/drawable-hdpi-v4/vpi__tab_selected_focused_holo.9.png"
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/vpi__tab_unselected_pressed_holo.9.png",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/drawable-hdpi-v4/vpi__tab_unselected_pressed_holo.9.png"
+        "source": "/Users/asaewing/.android/build-cache/e37d405c0181bc996190fd9b4302b10bfda4c3c4/output/res/drawable-hdpi-v4/vpi__tab_unselected_pressed_holo.9.png"
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/vpi__tab_unselected_focused_holo.9.png",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/drawable-hdpi-v4/vpi__tab_unselected_focused_holo.9.png"
+        "source": "/Users/asaewing/.android/build-cache/e37d405c0181bc996190fd9b4302b10bfda4c3c4/output/res/drawable-hdpi-v4/vpi__tab_unselected_focused_holo.9.png"
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/ic_action_search.png",
@@ -57,10 +57,10 @@
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/vpi__tab_selected_pressed_holo.9.png",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/drawable-hdpi-v4/vpi__tab_selected_pressed_holo.9.png"
+        "source": "/Users/asaewing/.android/build-cache/e37d405c0181bc996190fd9b4302b10bfda4c3c4/output/res/drawable-hdpi-v4/vpi__tab_selected_pressed_holo.9.png"
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/vpi__tab_unselected_holo.9.png",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/drawable-hdpi-v4/vpi__tab_unselected_holo.9.png"
+        "source": "/Users/asaewing/.android/build-cache/e37d405c0181bc996190fd9b4302b10bfda4c3c4/output/res/drawable-hdpi-v4/vpi__tab_unselected_holo.9.png"
     }
 ]

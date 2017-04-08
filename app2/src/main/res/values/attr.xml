@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CircularProgressBar">
+        <attr name="cpb_progress" format="integer" />
+        <attr name="cpb_progressbar_color" format="color" />
+        <attr name="cpb_background_progressbar_color" format="color" />
+        <attr name="cpb_progressbar_width" format="dimension" />
+        <attr name="cpb_background_progressbar_width" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="FABMenu">
+        <attr name="needHaveText" format="boolean" />
+        <attr name="FABMenu_colorPressed" format="color" />
+        <attr name="FABMenu_colorNormal" format="color" />
+        <attr name="FABMenu_colorRipple" format="color" />
+        <attr name="FABMenu_colorDisabled" format="color" />
+        <attr name="FABMenu_shadow" format="boolean" />
+        <attr name="FABMenu_type" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="mini" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="FAB_item">
+        <attr name="FT_needText" format="boolean" />
+        <attr name="FI_colorNormal" format="color" />
+        <attr name="FI_type" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="mini" value="1" />
+        </attr>
+    </declare-styleable>
+
+</resources>

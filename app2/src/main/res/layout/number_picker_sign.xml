@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="5"
+        android:id="@+id/NumberPicker_LL"
+        android:gravity="center"
+        android:layout_below="@+id/NP_Time_RL"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text=" "
+            android:layout_weight="1" />
+
+        <NumberPicker
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.4"
+            android:id="@+id/Diary_HW_Int"
+            android:orientation="vertical" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/Diary_Dot"
+            android:gravity="center_vertical|center_horizontal" />
+
+        <NumberPicker
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.4"
+            android:id="@+id/Diary_HW_Dec"
+            android:orientation="vertical"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text=" "
+            android:layout_weight="1" />
+
+    </LinearLayout>
+</RelativeLayout>

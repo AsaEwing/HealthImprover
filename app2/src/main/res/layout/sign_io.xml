@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:weightSum="1"
+    android:gravity="center_horizontal">
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/signio_google_bt_in"
+        android:id="@+id/signio_google_bt"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/signio_bt_google"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/signio_facebook_bt_in"
+        android:id="@+id/signio_facebook_bt"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/signio_bt_facebook" />
+
+</LinearLayout>

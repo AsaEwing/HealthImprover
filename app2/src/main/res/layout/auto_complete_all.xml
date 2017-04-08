@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="6dp"
+    android:paddingStart="10dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="false"
+        android:layout_centerHorizontal="true"
+        android:fillViewport="true"
+        android:id="@+id/Food_Scroll">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/AT_LL_DateTime"
+                android:orientation="vertical"
+                android:visibility="visible"
+                android:divider="@drawable/auto_divider"
+                android:showDividers="end"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
+                android:layout_alignParentTop="true">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/AT_LL_Date"
+                    android:orientation="horizontal"
+                    android:weightSum="9"
+                    android:visibility="visible"
+                    android:paddingRight="6dp">
+                    <TextView
+                        android:layout_weight="2"
+                        android:text="日期："
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:id="@+id/AT_text_Date1"
+                        android:paddingLeft="6dp"
+                        android:textSize="@dimen/auto_text"
+                        android:gravity="center_vertical" />
+                    <Button
+                        android:layout_weight="7"
+                        android:text="2016/09/01"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/AT_text_Date2"
+                        android:paddingLeft="6dp"
+                        android:textSize="@dimen/auto_text"
+                        android:gravity="center_vertical" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/AT_LL_Time"
+                    android:orientation="horizontal"
+                    android:weightSum="9"
+                    android:visibility="visible"
+                    android:paddingRight="6dp">
+                    <TextView
+                        android:layout_weight="2"
+                        android:text="時間："
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:id="@+id/AT_text_Time1"
+                        android:paddingLeft="6dp"
+                        android:textSize="@dimen/auto_text"
+                        android:gravity="center_vertical" />
+                    <Button
+                        android:layout_weight="7"
+                        android:text="09:00"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:id="@+id/AT_text_Time2"
+                        android:paddingLeft="6dp"
+                        android:textSize="@dimen/auto_text"
+                        android:gravity="center_vertical" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <include
+                android:id="@+id/AutoInclude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                layout="@layout/auto_complete_item"
+                android:layout_below="@+id/AT_LL_DateTime"
+                android:layout_alignParentStart="true" />
+
+            <LinearLayout
+                android:id="@+id/AutoBt_LL"
+                android:layout_below="@+id/AutoInclude"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true">
+
+                <Button
+                    android:text="新增"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/AutoBt_Add"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentBottom="false"
+                    android:layout_marginRight="10dp" />
+
+                <Button
+                    android:text="刪除"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/AutoBt_Delete"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginLeft="10dp" />
+
+            </LinearLayout>
+
+            <com.asaewing.healthimprover.Others.ScrollDisabledListView
+                android:id="@+id/Food_List"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="12dp"
+                android:paddingRight="6dp"
+                android:dividerHeight="1dp"
+                android:divider="@drawable/auto_divider"
+                android:layout_below="@+id/AutoBt_LL"
+                android:layout_alignParentStart="true" />
+            <!--tools:ignore="NestedScrolling"-->
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

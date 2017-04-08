@@ -5,27 +5,27 @@
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable/abc_tab_indicator_material.xml",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable/abc_tab_indicator_material.xml"
+        "source": "/Users/asaewing/.android/build-cache/b06c5539f348e39a79a10b00f698f010cbd3a540/output/res/drawable/abc_tab_indicator_material.xml"
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable/abc_dialog_material_background_light.xml",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable/abc_dialog_material_background_light.xml"
+        "source": "/Users/asaewing/.android/build-cache/b06c5539f348e39a79a10b00f698f010cbd3a540/output/res/drawable/abc_dialog_material_background_light.xml"
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable/abc_btn_borderless_material.xml",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable/abc_btn_borderless_material.xml"
+        "source": "/Users/asaewing/.android/build-cache/b06c5539f348e39a79a10b00f698f010cbd3a540/output/res/drawable/abc_btn_borderless_material.xml"
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable/carbon_windowbackground_dark.xml",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/tk.zielony/carbon/0.6.0/res/drawable/carbon_windowbackground_dark.xml"
+        "source": "/Users/asaewing/.android/build-cache/d25f46522971096742dbca0afaa7b73138b54c1f/output/res/drawable/carbon_windowbackground_dark.xml"
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable/abc_list_selector_holo_dark.xml",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable/abc_list_selector_holo_dark.xml"
+        "source": "/Users/asaewing/.android/build-cache/b06c5539f348e39a79a10b00f698f010cbd3a540/output/res/drawable/abc_list_selector_holo_dark.xml"
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable/abc_switch_thumb_material.xml",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable/abc_switch_thumb_material.xml"
+        "source": "/Users/asaewing/.android/build-cache/b06c5539f348e39a79a10b00f698f010cbd3a540/output/res/drawable/abc_switch_thumb_material.xml"
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable/ic_arrow_drop_down.png",
@@ -33,23 +33,23 @@
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable/abc_cab_background_internal_bg.xml",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable/abc_cab_background_internal_bg.xml"
+        "source": "/Users/asaewing/.android/build-cache/b06c5539f348e39a79a10b00f698f010cbd3a540/output/res/drawable/abc_cab_background_internal_bg.xml"
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable/background_tab.xml",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/com.astuetz/pagerslidingtabstrip/1.0.1/res/drawable/background_tab.xml"
+        "source": "/Users/asaewing/.android/build-cache/2accf6d86b55e74ee63c074813b1036460c3f113/output/res/drawable/background_tab.xml"
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable/abc_item_background_holo_light.xml",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable/abc_item_background_holo_light.xml"
+        "source": "/Users/asaewing/.android/build-cache/b06c5539f348e39a79a10b00f698f010cbd3a540/output/res/drawable/abc_item_background_holo_light.xml"
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable/abc_cab_background_top_material.xml",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable/abc_cab_background_top_material.xml"
+        "source": "/Users/asaewing/.android/build-cache/b06c5539f348e39a79a10b00f698f010cbd3a540/output/res/drawable/abc_cab_background_top_material.xml"
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable/abc_btn_default_mtrl_shape.xml",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable/abc_btn_default_mtrl_shape.xml"
+        "source": "/Users/asaewing/.android/build-cache/b06c5539f348e39a79a10b00f698f010cbd3a540/output/res/drawable/abc_btn_default_mtrl_shape.xml"
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable/toolbar_shadow.xml",
@@ -57,7 +57,7 @@
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable/abc_dialog_material_background_dark.xml",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable/abc_dialog_material_background_dark.xml"
+        "source": "/Users/asaewing/.android/build-cache/b06c5539f348e39a79a10b00f698f010cbd3a540/output/res/drawable/abc_dialog_material_background_dark.xml"
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable/navigation_drawer_bottom_shadow.xml",
@@ -65,7 +65,7 @@
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable/abc_btn_radio_material.xml",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable/abc_btn_radio_material.xml"
+        "source": "/Users/asaewing/.android/build-cache/b06c5539f348e39a79a10b00f698f010cbd3a540/output/res/drawable/abc_btn_radio_material.xml"
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable/navigation_drawer_selector.xml",
@@ -73,46 +73,46 @@
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable/abc_btn_check_material.xml",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable/abc_btn_check_material.xml"
+        "source": "/Users/asaewing/.android/build-cache/b06c5539f348e39a79a10b00f698f010cbd3a540/output/res/drawable/abc_btn_check_material.xml"
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable/abc_ratingbar_full_material.xml",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable/abc_ratingbar_full_material.xml"
+        "source": "/Users/asaewing/.android/build-cache/b06c5539f348e39a79a10b00f698f010cbd3a540/output/res/drawable/abc_ratingbar_full_material.xml"
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable/carbon_windowbackground_light.xml",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/tk.zielony/carbon/0.6.0/res/drawable/carbon_windowbackground_light.xml"
+        "source": "/Users/asaewing/.android/build-cache/d25f46522971096742dbca0afaa7b73138b54c1f/output/res/drawable/carbon_windowbackground_light.xml"
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable/abc_edit_text_material.xml",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable/abc_edit_text_material.xml"
+        "source": "/Users/asaewing/.android/build-cache/b06c5539f348e39a79a10b00f698f010cbd3a540/output/res/drawable/abc_edit_text_material.xml"
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable/abc_spinner_textfield_background_material.xml",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable/abc_spinner_textfield_background_material.xml"
+        "source": "/Users/asaewing/.android/build-cache/b06c5539f348e39a79a10b00f698f010cbd3a540/output/res/drawable/abc_spinner_textfield_background_material.xml"
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable/abc_textfield_search_material.xml",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable/abc_textfield_search_material.xml"
+        "source": "/Users/asaewing/.android/build-cache/b06c5539f348e39a79a10b00f698f010cbd3a540/output/res/drawable/abc_textfield_search_material.xml"
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable/abc_list_selector_background_transition_holo_light.xml",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable/abc_list_selector_background_transition_holo_light.xml"
+        "source": "/Users/asaewing/.android/build-cache/b06c5539f348e39a79a10b00f698f010cbd3a540/output/res/drawable/abc_list_selector_background_transition_holo_light.xml"
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable/abc_list_selector_holo_light.xml",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable/abc_list_selector_holo_light.xml"
+        "source": "/Users/asaewing/.android/build-cache/b06c5539f348e39a79a10b00f698f010cbd3a540/output/res/drawable/abc_list_selector_holo_light.xml"
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable/abc_item_background_holo_dark.xml",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable/abc_item_background_holo_dark.xml"
+        "source": "/Users/asaewing/.android/build-cache/b06c5539f348e39a79a10b00f698f010cbd3a540/output/res/drawable/abc_item_background_holo_dark.xml"
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable/vpi__tab_indicator.xml",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/drawable/vpi__tab_indicator.xml"
+        "source": "/Users/asaewing/.android/build-cache/e37d405c0181bc996190fd9b4302b10bfda4c3c4/output/res/drawable/vpi__tab_indicator.xml"
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable/abc_list_selector_background_transition_holo_dark.xml",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable/abc_list_selector_background_transition_holo_dark.xml"
+        "source": "/Users/asaewing/.android/build-cache/b06c5539f348e39a79a10b00f698f010cbd3a540/output/res/drawable/abc_list_selector_background_transition_holo_dark.xml"
     }
 ]

@@ -1,18 +1,18 @@
 [
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable-ldrtl-xxxhdpi/abc_spinner_mtrl_am_alpha.9.png",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable-ldrtl-xxxhdpi/abc_spinner_mtrl_am_alpha.9.png"
+        "source": "/Users/asaewing/.android/build-cache/b06c5539f348e39a79a10b00f698f010cbd3a540/output/res/drawable-ldrtl-xxxhdpi/abc_spinner_mtrl_am_alpha.9.png"
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable-ldrtl-xxxhdpi/abc_ic_ab_back_mtrl_am_alpha.png",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable-ldrtl-xxxhdpi/abc_ic_ab_back_mtrl_am_alpha.png"
+        "source": "/Users/asaewing/.android/build-cache/b06c5539f348e39a79a10b00f698f010cbd3a540/output/res/drawable-ldrtl-xxxhdpi/abc_ic_ab_back_mtrl_am_alpha.png"
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable-ldrtl-xxxhdpi/abc_ic_menu_copy_mtrl_am_alpha.png",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable-ldrtl-xxxhdpi/abc_ic_menu_copy_mtrl_am_alpha.png"
+        "source": "/Users/asaewing/.android/build-cache/b06c5539f348e39a79a10b00f698f010cbd3a540/output/res/drawable-ldrtl-xxxhdpi/abc_ic_menu_copy_mtrl_am_alpha.png"
     },
     {
         "merged": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/res/merged/androidTest/debug/drawable-ldrtl-xxxhdpi/abc_ic_menu_cut_mtrl_alpha.png",
-        "source": "/Users/asaewing/AsaWorks/AS-Project/HealthImprover/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable-ldrtl-xxxhdpi/abc_ic_menu_cut_mtrl_alpha.png"
+        "source": "/Users/asaewing/.android/build-cache/b06c5539f348e39a79a10b00f698f010cbd3a540/output/res/drawable-ldrtl-xxxhdpi/abc_ic_menu_cut_mtrl_alpha.png"
     }
 ]

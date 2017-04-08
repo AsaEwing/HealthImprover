@@ -6,4 +6,31 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="g_top_margin">100dp</dimen>
+
+    <!-- GENERAL -->
+    <dimen name="default_stroke_width">15dp</dimen>
+    <dimen name="default_background_stroke_width">17dp</dimen>
+
+    <dimen name="FABMenu_size_normal">56dp</dimen>
+    <dimen name="FABMenu_size_mini">40dp</dimen>
+    <dimen name="FABMenu_shadow_size">12dp</dimen>
+
+    <dimen name="FABMenu_scroll_threshold">4dp</dimen>
+    <dimen name="FABMenu_elevation_lollipop">8dp</dimen>
+    <dimen name="FABMenu_press_translation_z">6dp</dimen>
+
+    <dimen name="default_padding">6dp</dimen>
+    <dimen name="title_txt_size">24sp</dimen>
+    <dimen name="default_margin">2dp</dimen>
+
+    <dimen name="widget_margin">8dp</dimen>
+
+    <dimen name="divider_size">2sp</dimen>
+
+    <dimen name="auto_text">18sp</dimen>
+
 </resources>
