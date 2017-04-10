@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.asaewing.healthimprover.MainActivity">
+    tools:context="com.asaewing.healthimprover.app2.MainActivity2">
 
     <!--<include layout="@layout/content_main" />-->
     <LinearLayout
