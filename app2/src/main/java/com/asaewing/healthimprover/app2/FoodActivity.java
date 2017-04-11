@@ -33,12 +33,12 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TimePicker;
 
-import com.asaewing.healthimprover.Others.CT48;
-import com.asaewing.healthimprover.Others.HiDBHelper;
-import com.asaewing.healthimprover.Others.ListAdapter;
-import com.asaewing.healthimprover.Others.MyAutoView;
-import com.asaewing.healthimprover.Others.ScrollDisabledListView;
-import com.asaewing.healthimprover.Others.TypeTextView;
+import com.asaewing.healthimprover.app2.Others.CT48;
+import com.asaewing.healthimprover.app2.Others.HiDBHelper;
+import com.asaewing.healthimprover.app2.Adapter.ListAdapter;
+import com.asaewing.healthimprover.app2.ViewOthers.MyAutoView;
+import com.asaewing.healthimprover.app2.Others.ScrollDisabledListView;
+import com.asaewing.healthimprover.app2.ViewOthers.TypeTextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -814,7 +814,7 @@ public class FoodActivity extends AppCompatActivity
                     //values.put(HiDBHelper., tmpMap.get(ListAdapter.KEY_FI_Type));
 
                     Log.d(TAG,"**Food_fab_Send**"+values);
-                    MainActivity.helper.CalInInsert(values);
+                    MainActivity2.helper.CalInInsert(values);
                 }
 
                 /*
@@ -836,7 +836,7 @@ public class FoodActivity extends AppCompatActivity
                     e.printStackTrace();
                 }
 
-                MainActivity.volleyMethod.vpostSend_FoodJson(new JSONObject[]{tmpJO});
+                MainActivity2.volleyMethod.vpostSend_FoodJson(new JSONObject[]{tmpJO});
                 fabMainClose();
                 break;
             case R.id.Food_Cancel:
