@@ -6,3 +6,15 @@
 .DS_Store
 /build
 /captures
+/app/my-project-for-hiapp-firebase-crashreporting-8pvvu-66933beb45.json
+/app/google-services.json
+/app2/google-services.json
+libs/
+src/main/res/svg-design/
+src/main/res/raw/
+app/src/main/res/raw/
+app/src/main/res/svg-design/
+app2/src/main/res/raw/
+app2/src/main/res/svg-design/
+node_modules/
+material-design-icons/
