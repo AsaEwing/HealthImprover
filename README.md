@@ -11,3 +11,5 @@
 
 5.App 圖標
 ![alt tag](https://github.com/AsaEwing/HealthImprover/blob/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png)
+
+6.目前正開發第二版，主要方向為：一為，向下支援至4.4。二為，將程式碼簡潔化。
