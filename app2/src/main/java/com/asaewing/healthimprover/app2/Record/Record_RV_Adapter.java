@@ -1,4 +1,4 @@
-package com.asaewing.healthimprover.app2.Others;
+package com.asaewing.healthimprover.app2.Record;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,9 +9,6 @@ import com.asaewing.healthimprover.app2.R;
 
 import java.util.List;
 
-/**
- * Created by asaewing on 2017/1/26.
- */
 
 public class Record_RV_Adapter
         extends RecyclerView.Adapter<Record_ViewHolder> {

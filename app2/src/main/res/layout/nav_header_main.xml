@@ -13,7 +13,7 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:gravity="center_vertical">
 
-    <com.asaewing.healthimprover.app2.Others.CircleImageView
+    <com.asaewing.healthimprover.app2.ViewOthers.CircleImageView
         android:id="@+id/ac_image"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

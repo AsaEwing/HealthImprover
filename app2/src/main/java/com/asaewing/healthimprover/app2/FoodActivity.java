@@ -37,7 +37,7 @@ import com.asaewing.healthimprover.app2.Others.CT48;
 import com.asaewing.healthimprover.app2.Others.HiDBHelper;
 import com.asaewing.healthimprover.app2.Adapter.ListAdapter;
 import com.asaewing.healthimprover.app2.ViewOthers.MyAutoView;
-import com.asaewing.healthimprover.app2.Others.ScrollDisabledListView;
+import com.asaewing.healthimprover.app2.ViewOthers.ScrollDisabledListView;
 import com.asaewing.healthimprover.app2.ViewOthers.TypeTextView;
 
 import org.json.JSONArray;

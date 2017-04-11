@@ -19,8 +19,8 @@ import android.widget.Toast;
 import com.asaewing.healthimprover.app2.MainActivity2;
 import com.asaewing.healthimprover.app2.Others.DividerItemDecoration;
 import com.asaewing.healthimprover.app2.Others.HiDBHelper;
-import com.asaewing.healthimprover.app2.Others.RecordItem;
-import com.asaewing.healthimprover.app2.Others.Record_RV_Adapter;
+import com.asaewing.healthimprover.app2.Record.RecordItem;
+import com.asaewing.healthimprover.app2.Record.Record_RV_Adapter;
 import com.asaewing.healthimprover.app2.R;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.asaewing.healthimprover.app2.Others;
+package com.asaewing.healthimprover.app2.ViewOthers;
 
 import android.content.Context;
 import android.graphics.Bitmap;

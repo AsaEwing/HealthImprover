@@ -9,7 +9,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -18,6 +17,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -26,19 +26,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.NumberPicker;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -51,14 +47,13 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 //import com.facebook.FacebookSdk;
 //import com.facebook.appevents.AppEventsLogger;
 import com.asaewing.healthimprover.app2.Others.CT48;
-import com.asaewing.healthimprover.app2.Others.CircleImageView;
+import com.asaewing.healthimprover.app2.ViewOthers.CircleImageView;
 import com.asaewing.healthimprover.app2.Others.DownloadImageTask;
 import com.asaewing.healthimprover.app2.Others.HiDBHelper;
 import com.asaewing.healthimprover.app2.fl.fl_Diary;
@@ -67,7 +62,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
@@ -76,8 +70,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.crash.FirebaseCrash;
 
 import org.json.JSONArray;
@@ -89,7 +81,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
@@ -673,7 +664,7 @@ public class MainActivity2 extends RootActivity2
 
                 try {
                     if (!fl_flag_now.equals(strTmp)){
-                        int nav_int = flStringToIdChange(strTmp);
+                        int nav_int = flManager.getIdFromTagString(strTmp);
 
                         MenuItem item = mNavView.getMenu().findItem(nav_int);
                         item.setChecked(true);
@@ -1035,7 +1026,7 @@ public class MainActivity2 extends RootActivity2
         if (itemId != id_nav_now) {
             id_nav_before = id_nav_temp;
             id_nav_now = itemId;
-            flChange(flIdToStringChange(itemId));
+            flChange(flManager.getTagStringFromId(itemId));
         }
 
         mDrawer.closeDrawer(GravityCompat.START);
@@ -1076,20 +1067,7 @@ public class MainActivity2 extends RootActivity2
         return super.onOptionsItemSelected(item);
     }*/
 
-    //TODO----Self----
-    @Override
-    protected String flIdToStringChange(int nav_id) {
-        Log.d(TAG,"**fl_IdToStrChange**"+nav_id);
 
-        return super.flIdToStringChange(nav_id);
-    }
-
-    @Override
-    protected int flStringToIdChange(String nav_s) {
-        Log.d(TAG,"**fl_StrToIdChange**"+nav_s);
-
-        return super.flStringToIdChange(nav_s);
-    }
 
     @Override
     public void flChange(String nav_s) {
@@ -1672,9 +1650,11 @@ public class MainActivity2 extends RootActivity2
             if (strTmp!=null && !strTmp.equals("null") && !strTmp.equals("")){
                 mInfoMap.IMput(HiDBHelper.KEY_AC_LoginType,strTmp);
 
-                if (Objects.equals(strTmp, "google")){
-                    mInfoMap.IMput(HiDBHelper.KEY_AC_GoogleMail,dataObject.getString(HiDBHelper.KEY_AC_Account));
-                    mInfoMap.IMput(HiDBHelper.KEY_AC_Account,dataObject.getString(HiDBHelper.KEY_AC_Account));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    if (Objects.equals(strTmp, "google")){
+                        mInfoMap.IMput(HiDBHelper.KEY_AC_GoogleMail,dataObject.getString(HiDBHelper.KEY_AC_Account));
+                        mInfoMap.IMput(HiDBHelper.KEY_AC_Account,dataObject.getString(HiDBHelper.KEY_AC_Account));
+                    }
                 }
             }
         } catch (JSONException e) {
@@ -2316,8 +2296,10 @@ public class MainActivity2 extends RootActivity2
                         @Override
                         public void onResponse(Bitmap response) {
                             String strTmp= response.toString();
-                            if (!Objects.equals(strTmp, "")){
-                                mInfoMap.IMput(HiDBHelper.KEY_AC_Image,response);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                                if (!Objects.equals(strTmp, "")){
+                                    mInfoMap.IMput(HiDBHelper.KEY_AC_Image,response);
+                                }
                             }
 
                             Log.d(TAG, "vpost_GetAccountImage:OK**" + strTmp);

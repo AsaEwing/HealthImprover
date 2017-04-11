@@ -1,4 +1,4 @@
-package com.asaewing.healthimprover.app2.Others;
+package com.asaewing.healthimprover.app2.Record;
 
 
 public class RecordItem {

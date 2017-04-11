@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.asaewing.healthimprover.app2.MainActivity2;
-import com.asaewing.healthimprover.app2.Others.CircleImageView;
+import com.asaewing.healthimprover.app2.ViewOthers.CircleImageView;
 import com.asaewing.healthimprover.app2.Others.DownloadImageTask;
 import com.asaewing.healthimprover.app2.R;
 import com.google.android.gms.auth.api.Auth;

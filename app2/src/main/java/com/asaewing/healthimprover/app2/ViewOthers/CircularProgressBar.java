@@ -1,4 +1,4 @@
-package com.asaewing.healthimprover.app2.Others;
+package com.asaewing.healthimprover.app2.ViewOthers;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
