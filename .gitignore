@@ -16,7 +16,7 @@ app/src/main/res/raw/
 app/src/main/res/svg-design/
 app2/src/main/res/raw/
 app2/src/main/res/svg-design/
-/material-design-icons/
-/node_modules/
-/google-services/
+/material-design-icons/*
+/node_modules/*
+/google-services/*
 /library/
