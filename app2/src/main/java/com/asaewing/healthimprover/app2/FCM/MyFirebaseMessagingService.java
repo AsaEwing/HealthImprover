@@ -6,10 +6,6 @@ import android.widget.Toast;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-/**
- * Created by asa on 2016/11/22.
- */
-
 public class MyFirebaseMessagingService  extends FirebaseMessagingService {
     private String TAG = "FCM_Service";
     @Override

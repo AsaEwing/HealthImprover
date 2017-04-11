@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.multidex.MultiDex;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -57,8 +59,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-//import com.asaewing.healthimprover.fl.fl_Calories;
-
 /**
  *  1.Click監聽，皆由class一次寫好，方便處理觸發順序、優先。
  *  2.由於Map需直接寄生於Activity，故不會有另外的fl處理。
@@ -66,6 +66,13 @@ import java.util.Objects;
  */
 public class RootActivity2 extends AppCompatActivity
         implements View.OnClickListener,OnMapReadyCallback {
+
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 
     //TODO----Object----
     //標示、判別
@@ -1049,8 +1056,10 @@ public class RootActivity2 extends AppCompatActivity
             if (wantTo.equals("fl_navHome")) {
                 HiCard_Text.start("");
             }
-        } else if (Objects.equals(whereFrom,"") && Objects.equals(wantTo,"")) {
-            HiText = newText;
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (Objects.equals(whereFrom,"") && Objects.equals(wantTo,"")) {
+                HiText = newText;
+            }
         }
 
         HiCard_Text.start(HiText);
