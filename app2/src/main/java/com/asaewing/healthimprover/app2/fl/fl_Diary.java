@@ -37,6 +37,7 @@ import android.widget.Toast;
 
 import com.asaewing.healthimprover.app2.FoodActivity;
 import com.asaewing.healthimprover.app2.MainActivity2;
+import com.asaewing.healthimprover.app2.Manager.VolleyManager;
 import com.asaewing.healthimprover.app2.Others.CT48;
 import com.asaewing.healthimprover.app2.Others.HiDBHelper;
 import com.asaewing.healthimprover.app2.R;
@@ -49,7 +50,11 @@ import java.util.Calendar;
 /**
  *
  */
-public class fl_Diary extends RootFragment implements View.OnClickListener,View.OnKeyListener{
+@SuppressLint("ValidFragment")
+public class fl_Diary extends RootFragment
+        implements View.OnClickListener,View.OnKeyListener{
+
+    private VolleyManager mVolleyManager;
 
     private int HH,HL,WH,WL,tmpH,tmpL;
     private float Height,Weight;
@@ -66,13 +71,14 @@ public class fl_Diary extends RootFragment implements View.OnClickListener,View.
     public static boolean fabFlag = true;
     private static View rootView2;
 
-    public fl_Diary() {
+    public fl_Diary(VolleyManager volleyManager) {
         // Required empty public constructor
+        this.mVolleyManager = volleyManager;
     }
 
-    public static fl_Diary newInstance() {
+    public static fl_Diary newInstance(VolleyManager volleyManager) {
 
-        return new fl_Diary();
+        return new fl_Diary(volleyManager);
     }
 
     //TODO----Data----
@@ -171,7 +177,9 @@ public class fl_Diary extends RootFragment implements View.OnClickListener,View.
                     String tmp3 = String.format("mode=3 Day:%s"
                             ,editDay.getText().toString());
                     //Toast.makeText(getActivity(),tmp3,Toast.LENGTH_SHORT).show();
-                    MainActivity2.volleyMethod.vpostGet_Pre(3,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH)+1,calendar.get(Calendar.DAY_OF_MONTH)
+                    /*MainActivity2.volleyMethod.vpostGet_Pre(3,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH)+1,calendar.get(Calendar.DAY_OF_MONTH)
+                            ,Integer.parseInt(editDay.getText().toString())+1,0);*/
+                    mVolleyManager.vpostGet_Pre(3,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH)+1,calendar.get(Calendar.DAY_OF_MONTH)
                             ,Integer.parseInt(editDay.getText().toString())+1,0);
 
                 } else if (!editWeight.getText().toString().equals("") && !editDay.getText().toString().equals("")){
@@ -179,7 +187,10 @@ public class fl_Diary extends RootFragment implements View.OnClickListener,View.
                             ,editDay.getText().toString()
                             ,editWeight.getText().toString());
                     //Toast.makeText(getActivity(),tmp2,Toast.LENGTH_SHORT).show();
-                    MainActivity2.volleyMethod.vpostGet_Pre(2,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH)+1,calendar.get(Calendar.DAY_OF_MONTH)
+                    /*MainActivity2.volleyMethod.vpostGet_Pre(2,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH)+1,calendar.get(Calendar.DAY_OF_MONTH)
+                            ,Integer.parseInt(editDay.getText().toString())+1
+                            ,Double.parseDouble(editWeight.getText().toString()));*/
+                    mVolleyManager.vpostGet_Pre(2,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH)+1,calendar.get(Calendar.DAY_OF_MONTH)
                             ,Integer.parseInt(editDay.getText().toString())+1
                             ,Double.parseDouble(editWeight.getText().toString()));
                 }
@@ -728,7 +739,12 @@ public class fl_Diary extends RootFragment implements View.OnClickListener,View.
                             values.put(HiDBHelper.KEY_Weight_Weight,String.valueOf(wAll));
                             MainActivity2.helper.WeightInsert(values);
 
-                            MainActivity2.volleyMethod.vpostSend_WeightJson(new String[]{strDate},new String[]{strTime},new double[]{wAll});
+                            /*MainActivity2.volleyMethod.vpostSend_WeightJson(new String[]{strDate},
+                                    new String[]{strTime},
+                                    new double[]{wAll});*/
+                            mVolleyManager.vpostSend_WeightJson(new String[]{strDate},
+                                    new String[]{strTime},
+                                    new double[]{wAll});
                         }
                         setBMI();
                         ListUpdate();

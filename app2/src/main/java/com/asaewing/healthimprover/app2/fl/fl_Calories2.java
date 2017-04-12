@@ -45,6 +45,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.asaewing.healthimprover.app2.MainActivity2;
+import com.asaewing.healthimprover.app2.Manager.VolleyManager;
 import com.asaewing.healthimprover.app2.Others.CT48;
 import com.asaewing.healthimprover.app2.Others.HiDBHelper;
 import com.asaewing.healthimprover.app2.R;
@@ -58,9 +59,12 @@ import java.util.Calendar;
 /**
  *
  */
+@SuppressLint("ValidFragment")
 public class fl_Calories2 extends RootFragment
         implements View.OnClickListener {
     //implements View.OnClickListener, GestureDetector.OnGestureListener
+
+    private VolleyManager mVolleyManager;
 
     //private CircularProgressBar CPBar;
     private ProgressBar mProgressBar_In,mProgressBar_Out;
@@ -101,12 +105,13 @@ public class fl_Calories2 extends RootFragment
 
     //private float fabMoveR,fabMoveR45;
 
-    public fl_Calories2() {
+    public fl_Calories2(VolleyManager volleyManager) {
         // Required empty public constructor
+        this.mVolleyManager = volleyManager;
     }
 
-    public static fl_Calories2 newInstance() {
-        fl_Calories2 fragment = new fl_Calories2();
+    public static fl_Calories2 newInstance(VolleyManager volleyManager) {
+        fl_Calories2 fragment = new fl_Calories2(volleyManager);
 
         return fragment;
     }
@@ -938,7 +943,11 @@ public class fl_Calories2 extends RootFragment
                         values.put(HiDBHelper.KEY_Target_TargetValue, String.valueOf(targetValue));
                         MainActivity2.helper.TargetInsert(values);
 
-                        MainActivity2.volleyMethod.vpostSend_TargetJson(startDay,startTime
+                        /*MainActivity2.volleyMethod.vpostSend_TargetJson(startDay,startTime
+                                ,String.valueOf(rangeDayEdit[0]),String.valueOf(0)
+                                ,endDay[0],"00:00:00"
+                                ,target, String.valueOf(targetValue));*/
+                        mVolleyManager.vpostSend_TargetJson(startDay,startTime
                                 ,String.valueOf(rangeDayEdit[0]),String.valueOf(0)
                                 ,endDay[0],"00:00:00"
                                 ,target, String.valueOf(targetValue));
@@ -1160,9 +1169,10 @@ public class fl_Calories2 extends RootFragment
                                 values.put(HiDBHelper.KEY_CalOut_Continue,String.valueOf(conTime));
                                 MainActivity2.helper.CalOutInsert(values);
 
-                                MainActivity2.volleyMethod.vpostSend_SportJson(date[0],time[0]
-                                ,RB_List_KEY[ii],String.valueOf(cal),"","",String.valueOf(conTime),"");
-
+                                /*MainActivity2.volleyMethod.vpostSend_SportJson(date[0],time[0]
+                                ,RB_List_KEY[ii],String.valueOf(cal),"","",String.valueOf(conTime),"");*/
+                                mVolleyManager.vpostSend_SportJson(date[0],time[0]
+                                        ,RB_List_KEY[ii],String.valueOf(cal),"","",String.valueOf(conTime),"");
                                 initValueGet(false);
                                 break;
                             }
@@ -1406,7 +1416,8 @@ public class fl_Calories2 extends RootFragment
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        MainActivity2.volleyMethod.vpostSend_Recommend(tmpStr[0]);
+                        //MainActivity2.volleyMethod.vpostSend_Recommend(tmpStr[0]);
+                        mVolleyManager.vpostSend_Recommend(tmpStr[0]);
 
                         MainActivity2.fabMainClose();
                     }

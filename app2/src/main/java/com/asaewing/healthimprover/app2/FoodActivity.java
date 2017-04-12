@@ -209,24 +209,26 @@ public class FoodActivity extends AppCompatActivity
             FoodIdFirst = true;
 
             for (jj=indexFind;jj<cursorF.getCount();jj++){
-                if (Objects.equals(AutoItemId_F[jj].substring(0, 4), AutoItemId_R[ii])
-                        && FoodIdFirst){
-                    AutoRangeIndex_F[ii]=jj;
-                    FoodIdFirst = false;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    if (Objects.equals(AutoItemId_F[jj].substring(0, 4), AutoItemId_R[ii])
+                            && FoodIdFirst){
+                        AutoRangeIndex_F[ii]=jj;
+                        FoodIdFirst = false;
 
-                } else if (!Objects.equals(AutoItemId_F[jj].substring(0, 4), AutoItemId_R[ii])){
-                    if (!FoodIdFirst) {
-                        indexFind = jj;
+                    } else if (!Objects.equals(AutoItemId_F[jj].substring(0, 4), AutoItemId_R[ii])){
+                        if (!FoodIdFirst) {
+                            indexFind = jj;
 
-                    } else {
-                        if (ii-1>=0){
-                            AutoRangeIndex_F[ii]=-1;
                         } else {
-                            AutoRangeIndex_F[ii]=0;
+                            if (ii-1>=0){
+                                AutoRangeIndex_F[ii]=-1;
+                            } else {
+                                AutoRangeIndex_F[ii]=0;
+                            }
                         }
-                    }
 
-                    break;
+                        break;
+                    }
                 }
             }
         }
@@ -681,26 +683,28 @@ public class FoodActivity extends AppCompatActivity
 
                 Map<String, String> item = new HashMap<>();
 
-                if (!Objects.equals(strR, "") && !Objects.equals(strR, "<無>")
-                        && (!Objects.equals(strF, "") && !Objects.equals(strF, "<無>"))){
-                    tmpStr += helper.FoodNameFindId(strR,strF);
-                    if (tmpStr.length()>0){
-                        double normalCal = Double.parseDouble(helper.FoodIdFindCal(tmpStr)[0]);
-                        double amountCal = Double.parseDouble(strAmount);
-                        double allCal = normalCal*amountCal;
-                        tmpAllCal += String.valueOf(allCal);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    if (!Objects.equals(strR, "") && !Objects.equals(strR, "<無>")
+                            && (!Objects.equals(strF, "") && !Objects.equals(strF, "<無>"))){
+                        tmpStr += helper.FoodNameFindId(strR,strF);
+                        if (tmpStr.length()>0){
+                            double normalCal = Double.parseDouble(helper.FoodIdFindCal(tmpStr)[0]);
+                            double amountCal = Double.parseDouble(strAmount);
+                            double allCal = normalCal*amountCal;
+                            tmpAllCal += String.valueOf(allCal);
 
-                        item.put(ListAdapter.KEY_FI_Type,"Y");
-                    } else {
-                        tmpStr += AutoText_R.getText().toString();
-                        tmpStr += "/";
-                        tmpStr += AutoText_F.getText().toString();
-                        double normalCal = Double.parseDouble(AutoText_selfCal.getText().toString());
-                        double amountCal = Double.parseDouble(strAmount);
-                        double allCal = normalCal*amountCal;
-                        tmpAllCal += String.valueOf(allCal);
+                            item.put(ListAdapter.KEY_FI_Type,"Y");
+                        } else {
+                            tmpStr += AutoText_R.getText().toString();
+                            tmpStr += "/";
+                            tmpStr += AutoText_F.getText().toString();
+                            double normalCal = Double.parseDouble(AutoText_selfCal.getText().toString());
+                            double amountCal = Double.parseDouble(strAmount);
+                            double allCal = normalCal*amountCal;
+                            tmpAllCal += String.valueOf(allCal);
 
-                        item.put(ListAdapter.KEY_FI_Type,"N");
+                            item.put(ListAdapter.KEY_FI_Type,"N");
+                        }
                     }
                 }
 
@@ -827,16 +831,20 @@ public class FoodActivity extends AppCompatActivity
                 try {
                     tmpJO.put("date",date);
                     tmpJO.put("time",time);
-                    tmpJO.put("item", new JSONArray(tmpItem_Id));
-                    tmpJO.put("note", new JSONArray(tmpNote));
-                    tmpJO.put("times",new JSONArray(tmpTimes));
-                    tmpJO.put("value",new JSONArray(tmpValue));
-                    tmpJO.put("type", new JSONArray(tmpType));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                        tmpJO.put("item", new JSONArray(tmpItem_Id));
+                        tmpJO.put("note", new JSONArray(tmpNote));
+                        tmpJO.put("times",new JSONArray(tmpTimes));
+                        tmpJO.put("value",new JSONArray(tmpValue));
+                        tmpJO.put("type", new JSONArray(tmpType));
+                    }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-                MainActivity2.volleyMethod.vpostSend_FoodJson(new JSONObject[]{tmpJO});
+                //MainActivity2.volleyMethod.vpostSend_FoodJson(new JSONObject[]{tmpJO});
+                MainActivity2.volleyManager.vpostSend_FoodJson(new JSONObject[]{tmpJO});
                 fabMainClose();
                 break;
             case R.id.Food_Cancel:
@@ -899,52 +907,54 @@ public class FoodActivity extends AppCompatActivity
                 String strF = AutoText_F.getText().toString();
                 String tmpStr = "";
 
-                if (!Objects.equals(strR, "") && !Objects.equals(strR, "<無>")
-                        && (!Objects.equals(strF, "") && !Objects.equals(strF, "<無>"))){
-                    if (helper.FoodNameFindId(strR,strF)==""){
-                        AutoText_F.setText("");
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    if (!Objects.equals(strR, "") && !Objects.equals(strR, "<無>")
+                            && (!Objects.equals(strF, "") && !Objects.equals(strF, "<無>"))){
+                        if (helper.FoodNameFindId(strR,strF)==""){
+                            AutoText_F.setText("");
 
-                        int ii = position;
-                        int tmpFirst = AutoRangeIndex_F[ii];
-                        int tmpEnd = AutoRangeIndex_F[ii+1];
+                            int ii = position;
+                            int tmpFirst = AutoRangeIndex_F[ii];
+                            int tmpEnd = AutoRangeIndex_F[ii+1];
 
-                        String[] tmpARItemT_F = {"<無>"};
-                        String[] tmpARItemId_F = {"None"};
-                        AutoText_F.setText("",filterFlag);
+                            String[] tmpARItemT_F = {"<無>"};
+                            String[] tmpARItemId_F = {"None"};
+                            AutoText_F.setText("",filterFlag);
 
-                        if (tmpFirst != -1) {
-                            ii = position + 2;
-                            while (tmpEnd == -1) {
-                                tmpEnd = AutoRangeIndex_F[ii];
-                                ii++;
-                            }
-                            int tmpRange = tmpEnd - tmpFirst;
+                            if (tmpFirst != -1) {
+                                ii = position + 2;
+                                while (tmpEnd == -1) {
+                                    tmpEnd = AutoRangeIndex_F[ii];
+                                    ii++;
+                                }
+                                int tmpRange = tmpEnd - tmpFirst;
 
-                            if (tmpRange > 0) {
-                                tmpARItemT_F = new String[tmpRange];
-                                tmpARItemId_F = new String[tmpRange];
+                                if (tmpRange > 0) {
+                                    tmpARItemT_F = new String[tmpRange];
+                                    tmpARItemId_F = new String[tmpRange];
 
-                                for (int jj = tmpFirst; jj < tmpEnd; jj++) {
-                                    tmpARItemT_F[jj - tmpFirst] = AutoItemT_F[jj];
-                                    tmpARItemId_F[jj - tmpFirst] = AutoItemId_F[jj];
+                                    for (int jj = tmpFirst; jj < tmpEnd; jj++) {
+                                        tmpARItemT_F[jj - tmpFirst] = AutoItemT_F[jj];
+                                        tmpARItemId_F[jj - tmpFirst] = AutoItemId_F[jj];
+                                    }
                                 }
                             }
+
+                            ArrayAdapter tmpAdapterF = new ArrayAdapter<>(this,
+                                    android.R.layout.simple_dropdown_item_1line,
+                                    tmpARItemT_F);
+
+                            AutoText_F.setAdapter(tmpAdapterF);
+                            AutoText_F.showDropDown();
+
+                            CountAutoFinish[0] = 1;
+                            AutoText_R.clearFocus();
+                            //AutoText_F.setNextFocusDownId(AutoText_F.getId());
+                            AutoText_F.requestFocus();
+                            //AutoText_F.setCursorVisible(true);
                         }
-
-                        ArrayAdapter tmpAdapterF = new ArrayAdapter<>(this,
-                                android.R.layout.simple_dropdown_item_1line,
-                                tmpARItemT_F);
-
-                        AutoText_F.setAdapter(tmpAdapterF);
-                        AutoText_F.showDropDown();
-
-                        CountAutoFinish[0] = 1;
-                        AutoText_R.clearFocus();
-                        //AutoText_F.setNextFocusDownId(AutoText_F.getId());
-                        AutoText_F.requestFocus();
-                        //AutoText_F.setCursorVisible(true);
+                        CountAutoFinish[0] = 2;
                     }
-                    CountAutoFinish[0] = 2;
                 }
                 CountAutoFinish[0] = 2;
             }
@@ -957,13 +967,15 @@ public class FoodActivity extends AppCompatActivity
                 int tmpCount = 0;
                 String tmpRId = "";
                 for (int ii=0;ii<AutoItemT_F.length;ii++){
-                    if (Objects.equals(AutoItemT_F[ii], tmpF)){
-                        tmpCount++;
-                        tmpRId = tmpRId+"+"+AutoItemId_F[ii].substring(0,4);
-                        Log.d("**AutoItemClick**",
-                                "**FFF**AutoItemId_F"+AutoItemId_F[ii]
-                                        +"**"+AutoItemId_F[ii].substring(0,4));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                        if (Objects.equals(AutoItemT_F[ii], tmpF)){
+                            tmpCount++;
+                            tmpRId = tmpRId+"+"+AutoItemId_F[ii].substring(0,4);
+                            Log.d("**AutoItemClick**",
+                                    "**FFF**AutoItemId_F"+AutoItemId_F[ii]
+                                            +"**"+AutoItemId_F[ii].substring(0,4));
 
+                        }
                     }
                 }
 
@@ -985,9 +997,11 @@ public class FoodActivity extends AppCompatActivity
 
                         String tmpOneId = tmpRId.substring(kk,kk+4);
                         Log.d("**AutoItemClick**", "**FFF**tmpItemId==="+tmpOneId);
-                        if (!Objects.equals(tmpARItemId_R2[tmpCountIndex], tmpOneId)){
-                            tmpARItemId_R2[tmpCountIndex] = tmpOneId;
-                            tmpCountIndex++;
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                            if (!Objects.equals(tmpARItemId_R2[tmpCountIndex], tmpOneId)){
+                                tmpARItemId_R2[tmpCountIndex] = tmpOneId;
+                                tmpCountIndex++;
+                            }
                         }
                     }
                     Log.d("**AutoItemClick**", "**FFF**tmpItemId2==="+ Arrays.toString(tmpARItemId_R2));
@@ -999,9 +1013,11 @@ public class FoodActivity extends AppCompatActivity
 
                     for (int ii=1;ii<tmpCountIndex+1;ii++){
                         for (int jj=0;jj<AutoItemId_R.length;jj++){
-                            if (Objects.equals(tmpARItemId_R2[ii-1], AutoItemId_R[jj])){
-                                tmpARItemT_R[ii] = AutoItemT_R[jj];
-                                tmpARItemId_R[ii] = AutoItemId_R[jj];
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                                if (Objects.equals(tmpARItemId_R2[ii-1], AutoItemId_R[jj])){
+                                    tmpARItemT_R[ii] = AutoItemT_R[jj];
+                                    tmpARItemId_R[ii] = AutoItemId_R[jj];
+                                }
                             }
                         }
                     }
@@ -1014,8 +1030,10 @@ public class FoodActivity extends AppCompatActivity
                     tmpARItemT_R[1] = "<無>";
                     tmpARItemId_R[1] = tmpRId.substring(1,5);
                     for (int jj=0;jj<AutoItemId_R.length;jj++){
-                        if (Objects.equals(tmpARItemId_R[1], AutoItemId_R[jj])){
-                            tmpARItemT_R[1] = AutoItemT_R[jj];
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                            if (Objects.equals(tmpARItemId_R[1], AutoItemId_R[jj])){
+                                tmpARItemT_R[1] = AutoItemT_R[jj];
+                            }
                         }
                     }
 
@@ -1064,14 +1082,16 @@ public class FoodActivity extends AppCompatActivity
             String strF = AutoText_F.getText().toString();
             String tmpStr = "";
 
-            if (!Objects.equals(strR, "") && !Objects.equals(strR, "<無>")
-                    && (!Objects.equals(strF, "") && !Objects.equals(strF, "<無>"))){
-                tmpStr += helper.FoodNameFindId(strR,strF);
-                if (tmpStr.length()==0){
-                    AutoLL_selfCal.setVisibility(View.VISIBLE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (!Objects.equals(strR, "") && !Objects.equals(strR, "<無>")
+                        && (!Objects.equals(strF, "") && !Objects.equals(strF, "<無>"))){
+                    tmpStr += helper.FoodNameFindId(strR,strF);
+                    if (tmpStr.length()==0){
+                        AutoLL_selfCal.setVisibility(View.VISIBLE);
+                    }
                 }
             }
-            
+
         } else  {
             //AutoBt_Add.setClickable(false);
             AutoLL_selfCal.setVisibility(View.GONE);
@@ -1087,11 +1107,13 @@ public class FoodActivity extends AppCompatActivity
         String tmpStrId = "";
 
         if (tmpStrR.length()>0 && tmpStrF.length()>0){
-            if (!Objects.equals(tmpStrR, "") && !Objects.equals(tmpStrR, "<無>")
-                    && (!Objects.equals(tmpStrF, "") && !Objects.equals(tmpStrF, "<無>"))){
-                tmpStrId += helper.FoodNameFindId(tmpStrR,tmpStrF);
-                if (tmpStrId.length()==0){
-                    AutoLL_selfCal.setVisibility(View.VISIBLE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (!Objects.equals(tmpStrR, "") && !Objects.equals(tmpStrR, "<無>")
+                        && (!Objects.equals(tmpStrF, "") && !Objects.equals(tmpStrF, "<無>"))){
+                    tmpStrId += helper.FoodNameFindId(tmpStrR,tmpStrF);
+                    if (tmpStrId.length()==0){
+                        AutoLL_selfCal.setVisibility(View.VISIBLE);
+                    }
                 }
             }
         } else AutoLL_selfCal.setVisibility(View.GONE);

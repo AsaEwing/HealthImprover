@@ -27,6 +27,7 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
+import com.asaewing.healthimprover.app2.Manager.VolleyManager;
 import com.asaewing.healthimprover.app2.Others.InfoMap;
 import com.asaewing.healthimprover.app2.ViewOthers.TypeTextView;
 import com.asaewing.healthimprover.app2.ViewPager.CirclePageIndicator;
@@ -54,6 +55,7 @@ import java.util.Objects;
 public class RootActivity2 extends AppCompatActivity
         implements View.OnClickListener,OnMapReadyCallback {
 
+    public static VolleyManager volleyManager;
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -105,6 +107,9 @@ public class RootActivity2 extends AppCompatActivity
     //mCoverView
     protected static View mCoverView;    //當fab展開時，用來呈現fab的覆蓋頁面，
                                         //用來提醒使用者的界面使用優先
+
+
+    protected fl_Manager flManager = new fl_Manager(this,TAG);
 
     //TODO----Life----
     @Override
@@ -172,8 +177,8 @@ public class RootActivity2 extends AppCompatActivity
         fabMain.setOnClickListener(this);
 
         //初始頁面
-        this.addPage(R.string.nav_Diary, fl_Diary.newInstance());
-        this.addPage(R.string.nav_Calories, fl_Calories2.newInstance());
+        this.addPage(R.string.nav_Diary, fl_Diary.newInstance(volleyManager));
+        this.addPage(R.string.nav_Calories, fl_Calories2.newInstance(volleyManager));
         //addPage(R.string.nav_Sleep, fl_Sleep.newInstance());
         mInfoMap.IMput("VPhomeBefore",1);
         fl_flag = 1;
@@ -183,6 +188,8 @@ public class RootActivity2 extends AppCompatActivity
         mViewPagerAdapter = new ViewPagerAdapter(this,getSupportFragmentManager(),mListVPItem);
         mViewPager = (ViewPager)findViewById(R.id.fl_c_ViewPager);
         assert mViewPager != null;
+        mViewPager.removeAllViewsInLayout();
+        mViewPager.removeAllViews();
         mViewPager.setAdapter(mViewPagerAdapter);
         mViewPager.setClickable(false);
         mViewPagerListener = new ViewPagerListener();
@@ -354,9 +361,9 @@ public class RootActivity2 extends AppCompatActivity
             switch (fl_flag_now) {
                 case "fl_navHome":
                     if (mPagePosition == 0) {
-                        fl_Diary.newInstance().fabMainClick();
+                        fl_Diary.newInstance(volleyManager).fabMainClick();
                     } else if (mPagePosition == 1) {
-                        fl_Calories2.newInstance().fabMainClick();
+                        fl_Calories2.newInstance(volleyManager).fabMainClick();
                     } else if (mPagePosition == 2) {
                         //fl_Sleep.newInstance().fabMainClick();
                     }
@@ -393,9 +400,9 @@ public class RootActivity2 extends AppCompatActivity
                 switch (fl_flag_now) {
                     case "fl_navHome":
                         if (mPagePosition == 0) {
-                            fl_Diary.newInstance().fabClose(false);
+                            fl_Diary.newInstance(volleyManager).fabClose(false);
                         } else if (mPagePosition == 1) {
-                            fl_Calories2.newInstance().fabClose(false);
+                            fl_Calories2.newInstance(volleyManager).fabClose(false);
                         } else if (mPagePosition == 2) {
                             //fl_Sleep.newInstance().fabClose(false);
                         }
@@ -411,8 +418,6 @@ public class RootActivity2 extends AppCompatActivity
     public void onMapReady(GoogleMap googleMap) {
 
     }
-
-    fl_Manager flManager = new fl_Manager(this,TAG);
 
     /** flChange>>負責fl轉換，即頁面轉換 **/
     @TargetApi(Build.VERSION_CODES.KITKAT)
@@ -457,8 +462,8 @@ public class RootActivity2 extends AppCompatActivity
             Fragment_RL.setVisibility(View.GONE);
             VP_RL.setVisibility(View.VISIBLE);
 
-            addPage(R.string.nav_Diary, fl_Diary.newInstance());
-            addPage(R.string.nav_Calories, fl_Calories2.newInstance());
+            addPage(R.string.nav_Diary, fl_Diary.newInstance(volleyManager));
+            addPage(R.string.nav_Calories, fl_Calories2.newInstance(volleyManager));
             //addPage(R.string.nav_Sleep, fl_Sleep.newInstance());
 
             mViewPagerAdapter = new ViewPagerAdapter(this, getSupportFragmentManager(), mListVPItem);
@@ -735,10 +740,10 @@ public class RootActivity2 extends AppCompatActivity
                 case "fl_navHome":
                     switch (mPagePosition) {
                         case 0:
-                            fl_Diary.newInstance().fabClose(false);
+                            fl_Diary.newInstance(volleyManager).fabClose(false);
                             break;
                         case 1:
-                            fl_Calories2.newInstance().fabClose(false);
+                            fl_Calories2.newInstance(volleyManager).fabClose(false);
                             break;
                         case 2:
                             //fl_Sleep.newInstance().fabClose(false);

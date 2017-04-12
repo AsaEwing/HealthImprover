@@ -11,8 +11,7 @@ import java.util.List;
 /**
  *
  */
-public class ViewPagerAdapter extends FragmentStatePagerAdapter
-         {
+public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private List<ViewPagerItem> mLF;
     Context mContext;

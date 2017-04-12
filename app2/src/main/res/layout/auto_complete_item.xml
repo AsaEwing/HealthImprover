@@ -35,7 +35,7 @@
                     android:textSize="@dimen/auto_text"
                     android:gravity="center_vertical" />
 
-                <com.asaewing.healthimprover.Others.MyAutoView
+                <com.asaewing.healthimprover.app2.ViewOthers.MyAutoView
                     android:layout_weight="7"
                     android:hint="是哪個餐廳？"
                     android:layout_width="0dp"
@@ -62,7 +62,7 @@
                     android:textSize="@dimen/auto_text"
                     android:gravity="center_vertical"/>
 
-                <com.asaewing.healthimprover.Others.MyAutoView
+                <com.asaewing.healthimprover.app2.ViewOthers.MyAutoView
                     android:layout_weight="7"
                     android:hint="吃了什麼？"
                     android:layout_width="0dp"
@@ -108,7 +108,7 @@
                     android:textSize="@dimen/auto_text"
                     android:gravity="center_vertical" />
 
-                <com.asaewing.healthimprover.Others.MyAutoView
+                <com.asaewing.healthimprover.app2.ViewOthers.MyAutoView
                     android:layout_weight="9"
                     android:hint="總共幾份呢？"
                     android:layout_width="0dp"
@@ -164,7 +164,7 @@
                     android:textSize="@dimen/auto_text"
                     android:gravity="center_vertical" />
 
-                <com.asaewing.healthimprover.Others.MyAutoView
+                <com.asaewing.healthimprover.app2.ViewOthers.MyAutoView
                     android:layout_weight="9"
                     android:hint="大、中、小？"
                     android:layout_width="0dp"
@@ -192,7 +192,7 @@
                     android:textSize="@dimen/auto_text"
                     android:gravity="center_vertical" />
 
-                <com.asaewing.healthimprover.Others.MyAutoView
+                <com.asaewing.healthimprover.app2.ViewOthers.MyAutoView
                     android:layout_weight="9"
                     android:hint="正常？還是半糖？"
                     android:layout_width="0dp"
@@ -220,7 +220,7 @@
                     android:textSize="@dimen/auto_text"
                     android:gravity="center_vertical" />
 
-                <com.asaewing.healthimprover.Others.MyAutoView
+                <com.asaewing.healthimprover.app2.ViewOthers.MyAutoView
                     android:layout_weight="9"
                     android:hint="少冰？去冰？"
                     android:layout_width="0dp"
