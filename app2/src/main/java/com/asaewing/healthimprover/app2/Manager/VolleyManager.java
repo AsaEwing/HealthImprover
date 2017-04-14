@@ -40,18 +40,20 @@ public class VolleyManager {
     private String mTAG;
     private InfoMap mInfoMap;
     private HiDBHelper helper;
+    private DataManager dataManager;
 
     public VolleyManager(MainActivity2 context,
-                         String TAG,
-                         InfoMap infoMap, HiDBHelper hiDBHelper){
+                         String TAG){
         mContext = context;
-        mTAG = TAG;
-        mInfoMap = infoMap;
-        helper = hiDBHelper;
+        mTAG = TAG+" , VolleyManager";
+        this.dataManager = mContext.getDataManager();
+        mInfoMap = dataManager.mInfoMap;
+        helper = dataManager.helper;
 
         //this.mContext = context;
         mRequestQueue = Volley.newRequestQueue(mContext);
-        mRequestQueue.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<Object>() {
+        mRequestQueue.addRequestFinishedListener(
+                new RequestQueue.RequestFinishedListener<Object>() {
 
             @Override
             public void onRequestFinished(Request request) {
@@ -59,7 +61,7 @@ public class VolleyManager {
                 if (request.getTag()=="vpostGet_IdToken"){
                     if (mContext.firstOpen){
                         Log.d(mTAG,"**Data22**");
-                        boolean update = mContext.updateData();
+                        boolean update = mContext.getDataManager().updateData();
                         if (update){
                             Log.d(mTAG,"**Data33**");
                             vpost_GetAccountInfo();
@@ -518,7 +520,7 @@ public class VolleyManager {
 
                                     Log.d(mTAG, "vpost_GetAccountInfo22:" + dataObject.toString());
                                     Log.d(mTAG, "vpost_GetAccountInfo22:" + dataObject.getString("account"));
-                                    mContext.AccountInfoGet(dataObject);
+                                    mContext.getDataManager().AccountInfoGet(dataObject);
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();

@@ -21,17 +21,28 @@ public class DataManager {
 
     private MainActivity2 mContext;
     private String mTAG;
-    private InfoMap mInfoMap;
-    private HiDBHelper helper;
+    public InfoMap mInfoMap;
+    public HiDBHelper helper;
 
     public DataManager(MainActivity2 context, 
-                       String TAG,
-                       InfoMap infoMap,
-                       HiDBHelper hiDBHelper){
+                       String TAG){
+        //, InfoMap infoMap, HiDBHelper hiDBHelper
         mContext = context;
-        mTAG = TAG;
-        mInfoMap = infoMap;
-        helper = hiDBHelper;
+        mTAG = TAG+" , DataManager";
+        //mInfoMap = infoMap;
+        //helper = hiDBHelper;
+
+        helper = new HiDBHelper(context.getApplicationContext());
+        mInfoMap = new InfoMap();
+    }
+
+    public void onRestart() {
+        helper = new HiDBHelper(mContext.getApplicationContext());
+        Log.d(mTAG,"**Yes_onRestart**");
+    }
+
+    public void onDestroy() {
+        helper.close();
     }
 
     public boolean updateData(){
@@ -528,7 +539,7 @@ public class DataManager {
             if (strTmp!=null && !strTmp.equals("null") && !strTmp.equals("")){
                 mInfoMap.IMput(HiDBHelper.KEY_AC_Image_url,strTmp);
                 //volleyMethod.vpost_GetAccountImage(strTmp);
-                mContext.volleyManager.vpost_GetAccountImage(strTmp);
+                mContext.getVolleyManager().vpost_GetAccountImage(strTmp);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -537,15 +548,15 @@ public class DataManager {
         Log.d(mTAG, "**AccountInfoGet**Dialog**"+arrayList.size());
         if (arrayList.size()>0){
             Log.d(mTAG, "**AccountInfoGet**Dialog");
-            mContext.arrayListInfo = arrayList;
-            mContext.signInDialog3(0);
+            mContext.getAccountManager().arrayListInfo = arrayList;
+            mContext.getAccountManager().signInDialog3(0);
         } else {
             Log.d(mTAG, "**AccountInfoGet**NoDialog");
             saveDataSP();
 
             if (mInfoMap.IMgetBoolean(HiDBHelper.KEY_Flag_UseFirst)){
                 //volleyMethod.VVvpost_GetWeightRecord("","");
-                mContext.volleyManager.VVvpost_GetWeightRecord("","");
+                mContext.getVolleyManager().VVvpost_GetWeightRecord("","");
             } else {
                 mContext.initView();
             }

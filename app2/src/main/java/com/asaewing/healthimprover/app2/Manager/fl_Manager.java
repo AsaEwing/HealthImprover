@@ -28,7 +28,7 @@ public class fl_Manager {
 
     public fl_Manager(Context context, String TAG){
         mContext = context;
-        mTAG = TAG;
+        mTAG = TAG+" , fl_Manager";
     }
 
     /** getTagStringFromId>>負責將nav傳過來的id轉成string **/

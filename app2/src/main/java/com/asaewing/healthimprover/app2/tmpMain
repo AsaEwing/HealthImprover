@@ -1,1249 +1,239 @@
-    public class VolleyMethod{
+/** fabMainChange>>負責把主fab在更換fl或頁面時，進行互動動畫與標誌轉換 **/
+    public void fabMainChange(final int pagePositionVP) {
+        fabMain_NeedGONE = false;
 
-        public RequestQueue mRequestQueue;
-        private String sURL_Server = "http://asa-asa.noip.me:4";
-        //private String sURL_Server = "http://192.168.1.4";
-        private String sURL_getGoogleIdToken = sURL_Server+"/weight_control/app_web_vers/google_verified.php";
-        private String sURL_InfoPutGet = sURL_Server+"/weight_control/app_web_vers/record_modify.php";
-        private String sURL_sendAccountInfo = sURL_Server+"/weight_control/app_web_vers/profile_modify.php";
-        private String sURL_FCMID_Send = sURL_Server+"/weight_control/app_web_vers/fcm_register.php";
-        private String sURL_Recommend_Send = sURL_Server+"/weight_control/app_web_vers/recommend_accepter.php";
-        private String sURL_Pre_Get = sURL_Server+"/weight_control/app_web_vers/command_handler.php";
+        if (fabMain_isGONE) {
+            //原本fabMain是GONE，所以要看他待會要不要回復，以及要的話應該長怎樣
+            switch (fl_flag_now) {
+                case "fl_navHome":
+                    fabMain.setVisibility(View.VISIBLE);
+                    fabMain.setClickable(false);
+                    fabMain_isGONE = false;
+                    switch (pagePositionVP) {
+                        case 0:
+                            fabMain.setImageResource(R.drawable.ic_fab_paint_bk);
+                            fabMain.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0x3f, 0xc0, 0x06)));
+                            break;
+                        case 1:
+                            fabMain.setImageResource(R.drawable.ic_menu_calories);
+                            fabMain.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0xff, 0x8f, 0x00)));
+                            break;
+                        case 2:
+                            fabMain.setImageResource(R.drawable.ic_menu_sleep);
+                            fabMain.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0xff, 0xd2, 0xf2)));
+                            break;
+                    }
+                    break;
 
-        private Context mContext;
+                case "fl_Map":
+                    fabMain.setVisibility(View.VISIBLE);
+                    fabMain.setClickable(false);
+                    fabMain_isGONE = false;
+                    fabMain.setImageResource(R.drawable.ic_fab_mylocation_blue);
+                    fabMain.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0xff, 0xff, 0xff)));
+                    break;
 
-        public String uid = "";
-        public String idToken = "";
+                default:
+                    fabMain_NeedGONE = true;
+                    break;
+            }
 
-        private String TAG = "VolleyMethod";
+            if (!fabMain_NeedGONE) {
+                //而且待會也不需要隱藏，所以動畫開始把fabMain從無變到有
+                //記得要等到動畫結束，才能使fabMain可以點擊
+                fabMain.setRotation(0);
+                fabMain.animate().alpha(1f).scaleX(1f).scaleY(1f).setDuration(150)
+                        .setInterpolator(new OvershootInterpolator())
+                        .setListener(new Animator.AnimatorListener() {
+                            @Override
+                            public void onAnimationStart(Animator animation) {
+                                fabMain.setClickable(false);
+                            }
 
-        //private String pre_Target = "PreActivity.py %d %04d/%02d/%02d %d 2 %.2f";
-        //private String pre_NoTarget = "PreActivity.py %d %04d/%02d/%02d %d 3";
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                fabMain.setClickable(true);
+                            }
 
-        @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        int dayDiffW,countOp;
-        Calendar cStartW,cEndW,tmpcStartW,tmpcEndW;
-        int dayDiffC,countOpC;
-        Calendar cStartC,cEndC,tmpcStartC,tmpcEndC;
+                            @Override
+                            public void onAnimationCancel(Animator animation) {
 
-        public VolleyMethod(){
+                            }
 
-            this.mContext = getApplication();
-            mRequestQueue = Volley.newRequestQueue(mContext);
-            mRequestQueue.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<Object>() {
+                            @Override
+                            public void onAnimationRepeat(Animator animation) {
 
-                @Override
-                public void onRequestFinished(Request request) {
+                            }
+                        });
+            }
 
-                    if (request.getTag()=="vpostGet_IdToken"){
-                        if (firstOpen){
-                            Log.d(TAG,"**Data22**");
-                            boolean update = updateData();
-                            if (update){
-                                Log.d(TAG,"**Data33**");
-                                vpost_GetAccountInfo();
-                                //vpostSend_FCMId();
+        } else {
+            //原本fabMain是VISIBLE，所以要看他待會要不要回復，以及要的話應該長怎樣，所以先變成無
+            fabMain.animate().alpha(0f).scaleX(0f).scaleY(0f).setDuration(150)
+                    .setInterpolator(new OvershootInterpolator())
+                    .setListener(new Animator.AnimatorListener() {
+
+                        @Override
+                        public void onAnimationStart(Animator animation) {
+                            fabMain.setClickable(false);
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            fabMain.setRotation(0);
+                            switch (fl_flag_now) {
+                                case "fl_navHome":
+                                    switch (pagePositionVP) {
+                                        case 0:
+                                            fabMain.setImageResource(R.drawable.ic_fab_paint_bk);
+                                            fabMain.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0x3f, 0xc0, 0x06)));
+                                            break;
+                                        case 1:
+                                            fabMain.setImageResource(R.drawable.ic_menu_calories);
+                                            fabMain.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0xff, 0x8f, 0x00)));
+                                            break;
+                                        case 2:
+                                            fabMain.setImageResource(R.drawable.ic_menu_sleep);
+                                            fabMain.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0xff, 0xd2, 0xf2)));
+                                            break;
+                                    }
+                                    break;
+
+                                case "fl_Map":
+                                    fabMain.setImageResource(R.drawable.ic_fab_mylocation_blue);
+                                    fabMain.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0xff, 0xff, 0xff)));
+                                    break;
+
+                                default:
+                                    fabMain_NeedGONE = true;
+                                    break;
+                            }
+                            fabMain.setRotation(0);
+
+                            if (fabMain_NeedGONE) {
+                                fabMain.setVisibility(View.GONE);
+                                fabMain_isGONE = true;
                             } else {
-                                initView();
-                            }
-                        }
-                    } else if (request.getTag()=="vpost_GetAccountInfo"){
-                        /*Bundle bundle = new Bundle();
-                        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, uid);
-                        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, mInfoMap.IMgetString(HiDBHelper.KEY_AC_Name));
-                        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
-                        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
-                        */
-                        vpostSend_FCMId();
-                    } else if (request.getTag()=="vpostSend_FCMId"){
-                        //VVvpost_GetWeightRecord("","");
+                                fabMain.animate().alpha(1f).scaleX(1f).scaleY(1f).setDuration(150)
+                                        .setInterpolator(new OvershootInterpolator())
+                                        .setListener(new Animator.AnimatorListener() {
+                                            @Override
+                                            public void onAnimationStart(Animator animation) {
 
-                    } else if (request.getTag()=="vpost_GetWeightRecord"){
-                        if (countOp>1){
-                            tmpcStartW.add(Calendar.DAY_OF_YEAR,6);
-                            tmpcEndW.add(Calendar.DAY_OF_YEAR,6);
-                            vpost_GetWeightRecord(df.format(tmpcStartW.getTime()),df.format(tmpcEndW.getTime()));
-                            Log.d(TAG,"**W_countOp0**"+countOp);
-                        } else if (countOp==1){
-                            tmpcStartW.add(Calendar.DAY_OF_YEAR,6);
-                            tmpcEndW.add(Calendar.DAY_OF_YEAR,6);
-                            vpost_GetWeightRecord(df.format(tmpcStartW.getTime()),"");
-                            Log.d(TAG,"**W_countOp1**"+countOp);
-                        } else {
-                            dayDiffW = 0;
-                            countOp = 0;
-                            cStartW.clear();
-                            cEndW.clear();
-                            tmpcStartW.clear();
-                            tmpcEndW.clear();
-                            Log.d(TAG,"**W_countOp2**"+countOp);
-                            //if (firstOpen) initView();
-                            VVvpost_GetCalInRecord("","");
-                        }
-                        Log.d(TAG,"**W_countOp3**"+countOp);
-                        countOp--;
-                    } else if (request.getTag()=="vpost_GetCalInRecord"){
-                        if (countOp>1){
-                            tmpcStartW.add(Calendar.DAY_OF_YEAR,6);
-                            tmpcEndW.add(Calendar.DAY_OF_YEAR,6);
-                            vpost_GetCalInRecord(df.format(tmpcStartW.getTime()),df.format(tmpcEndW.getTime()));
-                            Log.d(TAG,"**Ci_countOp0**"+countOp);
-                        } else if (countOp==1){
-                            tmpcStartW.add(Calendar.DAY_OF_YEAR,6);
-                            tmpcEndW.add(Calendar.DAY_OF_YEAR,6);
-                            vpost_GetCalInRecord(df.format(tmpcStartW.getTime()),"");
-                            Log.d(TAG,"**Ci_countOp1**"+countOp);
-                        } else {
-                            dayDiffW = 0;
-                            countOp = 0;
-                            cStartW.clear();
-                            cEndW.clear();
-                            tmpcStartW.clear();
-                            tmpcEndW.clear();
-                            Log.d(TAG,"**Ci_countOp2**"+countOp);
-                            //if (firstOpen) initView();
-                            VVvpost_GetCalOutRecord("","");
-                        }
-                        Log.d(TAG,"**Ci_countOp3**"+countOp);
-                        countOp--;
-                    } else if (request.getTag()=="vpost_GetCalOutRecord"){
-                        if (countOp>1){
-                            tmpcStartW.add(Calendar.DAY_OF_YEAR,6);
-                            tmpcEndW.add(Calendar.DAY_OF_YEAR,6);
-                            vpost_GetCalOutRecord(df.format(tmpcStartW.getTime()),df.format(tmpcEndW.getTime()));
-                            Log.d(TAG,"**Co_countOp0**"+countOp);
-                        } else if (countOp==1){
-                            tmpcStartW.add(Calendar.DAY_OF_YEAR,6);
-                            tmpcEndW.add(Calendar.DAY_OF_YEAR,6);
-                            vpost_GetCalOutRecord(df.format(tmpcStartW.getTime()),"");
-                            Log.d(TAG,"**Co_countOp1**"+countOp);
-                        } else {
-                            dayDiffW = 0;
-                            countOp = 0;
-                            cStartW.clear();
-                            cEndW.clear();
-                            tmpcStartW.clear();
-                            tmpcEndW.clear();
-                            Log.d(TAG,"**Co_countOp2**"+countOp);
-                            //if (firstOpen) initView();
-                            VVvpost_GetTargetRecord("","");
-                        }
-                        Log.d(TAG,"**Co_countOp3**"+countOp);
-                        countOp--;
-                    } else if (request.getTag()=="vpost_GetTargetRecord"){
-                        if (countOp>1){
-                            tmpcStartW.add(Calendar.DAY_OF_YEAR,6);
-                            tmpcEndW.add(Calendar.DAY_OF_YEAR,6);
-                            vpost_GetTargetRecord(df.format(tmpcStartW.getTime()),df.format(tmpcEndW.getTime()));
-                            Log.d(TAG,"**T_countOp0**"+countOp);
-                        } else if (countOp==1){
-                            tmpcStartW.add(Calendar.DAY_OF_YEAR,6);
-                            tmpcEndW.add(Calendar.DAY_OF_YEAR,6);
-                            vpost_GetTargetRecord(df.format(tmpcStartW.getTime()),"");
-                            Log.d(TAG,"**T_countOp1**"+countOp);
-                        } else {
-                            dayDiffW = 0;
-                            countOp = 0;
-                            cStartW.clear();
-                            cEndW.clear();
-                            tmpcStartW.clear();
-                            tmpcEndW.clear();
-                            Log.d(TAG,"**T_countOp2**"+countOp);
-
-                            if (firstOpen) initView();
-                        }
-                        Log.d(TAG,"**T_countOp3**"+countOp);
-                        countOp--;
-                    } else if (request.getTag()=="vpostGet_Pre"){
-                        hidePreProgressDialog();
-                    }
-                }
-            });
-        }
-
-        public void VVvpost_GetWeightRecord(String startDate,String endDate){
-            Calendar c1 = Calendar.getInstance();
-            Calendar c2 = Calendar.getInstance();
-
-            Log.d(TAG,"**GetWeightRecord**Day**01**"+df.format(c1.getTime()));
-            Log.d(TAG,"**GetWeightRecord**Day**02**"+df.format(c2.getTime()));
-
-            String date1=startDate;
-            if (startDate.equals("")){
-                date1 = mInfoMap.IMgetString(HiDBHelper.KEY_AC_initDate);
-            }
-            try {
-                c1.setTime(df.parse(date1));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            if (!endDate.equals("")){
-                try {
-                    c2.setTime(df.parse(endDate));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            Log.d(TAG,"**GetWeightRecord**Day**03**"+df.format(c1.getTime()));
-            Log.d(TAG,"**GetWeightRecord**Day**04**"+df.format(c2.getTime()));
-
-            int rangeYear = c2.get(Calendar.YEAR)-c1.get(Calendar.YEAR);
-            int day1 = c1.get(Calendar.DAY_OF_YEAR);
-            int day2 = c2.get(Calendar.DAY_OF_YEAR);
-            dayDiffW = day2-day1;
-            for (int ii=c1.get(Calendar.YEAR);ii<c1.get(Calendar.YEAR)+rangeYear;ii++){
-                if ((ii%4)==0)dayDiffW += 366;
-                else dayDiffW += 365;
-            }
-            countOp = (int)((double)dayDiffW/6)+1;
-            cStartW = Calendar.getInstance();
-            cEndW = Calendar.getInstance();
-            cStartW.set(c1.get(Calendar.YEAR),c1.get(Calendar.MONTH),c1.get(Calendar.HOUR_OF_DAY));
-            cEndW.set(c2.get(Calendar.YEAR),c2.get(Calendar.MONTH),c2.get(Calendar.HOUR_OF_DAY));
-            tmpcStartW = Calendar.getInstance();
-            tmpcEndW = Calendar.getInstance();
-            tmpcStartW.set(c1.get(Calendar.YEAR),c1.get(Calendar.MONTH),c1.get(Calendar.HOUR_OF_DAY));
-            tmpcEndW.set(c1.get(Calendar.YEAR),c1.get(Calendar.MONTH),c1.get(Calendar.HOUR_OF_DAY));
-            tmpcEndW.add(Calendar.DAY_OF_YEAR,5);
-
-            Log.d(TAG,"**GetWeightRecord**Day**05**"+dayDiffW);
-            Log.d(TAG,"**GetWeightRecord**Day**00**count**"+countOp);
-            Log.d(TAG,"**GetWeightRecord**Day**DayTest**01**"+df.format(c1.getTime()));
-            Log.d(TAG,"**GetWeightRecord**Day**DayTest**02**"+df.format(c2.getTime()));
-            Log.d(TAG,"**GetWeightRecord**Day**DayTest**01**"+df.format(tmpcStartW.getTime()));
-            Log.d(TAG,"**GetWeightRecord**Day**DayTest**02**"+df.format(tmpcEndW.getTime()));
-
-            vpost_GetWeightRecord(df.format(tmpcStartW.getTime()),df.format(tmpcEndW.getTime()));
-        }
-
-        public void VVvpost_GetCalInRecord(String startDate,String endDate){
-            Calendar c1 = Calendar.getInstance();
-            Calendar c2 = Calendar.getInstance();
-
-            Log.d(TAG,"**GetCalInRecord**Day**01**"+df.format(c1.getTime()));
-            Log.d(TAG,"**GetCalInRecord**Day**02**"+df.format(c2.getTime()));
-
-            String date1=startDate;
-            if (startDate.equals("")){
-                date1 = mInfoMap.IMgetString(HiDBHelper.KEY_AC_initDate);
-            }
-            try {
-                c1.setTime(df.parse(date1));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            if (!endDate.equals("")){
-                try {
-                    c2.setTime(df.parse(endDate));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            Log.d(TAG,"**GetCalInRecord**Day**03**"+df.format(c1.getTime()));
-            Log.d(TAG,"**GetCalInRecord**Day**04**"+df.format(c2.getTime()));
-
-            int rangeYear = c2.get(Calendar.YEAR)-c1.get(Calendar.YEAR);
-            int day1 = c1.get(Calendar.DAY_OF_YEAR);
-            int day2 = c2.get(Calendar.DAY_OF_YEAR);
-            dayDiffW = day2-day1;
-            for (int ii=c1.get(Calendar.YEAR);ii<c1.get(Calendar.YEAR)+rangeYear;ii++){
-                if ((ii%4)==0)dayDiffW += 366;
-                else dayDiffW += 365;
-            }
-            countOp = (int)((double)dayDiffW/6)+1;
-            cStartW = Calendar.getInstance();
-            cEndW = Calendar.getInstance();
-            cStartW.set(c1.get(Calendar.YEAR),c1.get(Calendar.MONTH),c1.get(Calendar.HOUR_OF_DAY));
-            cEndW.set(c2.get(Calendar.YEAR),c2.get(Calendar.MONTH),c2.get(Calendar.HOUR_OF_DAY));
-            tmpcStartW = Calendar.getInstance();
-            tmpcEndW = Calendar.getInstance();
-            tmpcStartW.set(c1.get(Calendar.YEAR),c1.get(Calendar.MONTH),c1.get(Calendar.HOUR_OF_DAY));
-            tmpcEndW.set(c1.get(Calendar.YEAR),c1.get(Calendar.MONTH),c1.get(Calendar.HOUR_OF_DAY));
-            tmpcEndW.add(Calendar.DAY_OF_YEAR,5);
-
-            Log.d(TAG,"**GetCalInRecord**Day**05**"+dayDiffW);
-            Log.d(TAG,"**GetCalInRecord**Day**00**count**"+countOp);
-            Log.d(TAG,"**GetCalInRecord**Day**DayTest**01**"+df.format(c1.getTime()));
-            Log.d(TAG,"**GetCalInRecord**Day**DayTest**02**"+df.format(c2.getTime()));
-            Log.d(TAG,"**GetCalInRecord**Day**DayTest**01**"+df.format(tmpcStartW.getTime()));
-            Log.d(TAG,"**GetCalInRecord**Day**DayTest**02**"+df.format(tmpcEndW.getTime()));
-
-            vpost_GetCalInRecord(df.format(tmpcStartW.getTime()),df.format(tmpcEndW.getTime()));
-        }
-
-        public void VVvpost_GetCalOutRecord(String startDate,String endDate){
-            Calendar c1 = Calendar.getInstance();
-            Calendar c2 = Calendar.getInstance();
-
-            Log.d(TAG,"**GetCalOutRecord**Day**01**"+df.format(c1.getTime()));
-            Log.d(TAG,"**GetCalOutRecord**Day**02**"+df.format(c2.getTime()));
-
-            String date1=startDate;
-            if (startDate.equals("")){
-                date1 = mInfoMap.IMgetString(HiDBHelper.KEY_AC_initDate);
-            }
-            try {
-                c1.setTime(df.parse(date1));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            if (!endDate.equals("")){
-                try {
-                    c2.setTime(df.parse(endDate));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            Log.d(TAG,"**GetCalOutRecord**Day**03**"+df.format(c1.getTime()));
-            Log.d(TAG,"**GetCalOutRecord**Day**04**"+df.format(c2.getTime()));
-
-            int rangeYear = c2.get(Calendar.YEAR)-c1.get(Calendar.YEAR);
-            int day1 = c1.get(Calendar.DAY_OF_YEAR);
-            int day2 = c2.get(Calendar.DAY_OF_YEAR);
-            dayDiffW = day2-day1;
-            for (int ii=c1.get(Calendar.YEAR);ii<c1.get(Calendar.YEAR)+rangeYear;ii++){
-                if ((ii%4)==0)dayDiffW += 366;
-                else dayDiffW += 365;
-            }
-            countOp = (int)((double)dayDiffW/6)+1;
-            cStartW = Calendar.getInstance();
-            cEndW = Calendar.getInstance();
-            cStartW.set(c1.get(Calendar.YEAR),c1.get(Calendar.MONTH),c1.get(Calendar.HOUR_OF_DAY));
-            cEndW.set(c2.get(Calendar.YEAR),c2.get(Calendar.MONTH),c2.get(Calendar.HOUR_OF_DAY));
-            tmpcStartW = Calendar.getInstance();
-            tmpcEndW = Calendar.getInstance();
-            tmpcStartW.set(c1.get(Calendar.YEAR),c1.get(Calendar.MONTH),c1.get(Calendar.HOUR_OF_DAY));
-            tmpcEndW.set(c1.get(Calendar.YEAR),c1.get(Calendar.MONTH),c1.get(Calendar.HOUR_OF_DAY));
-            tmpcEndW.add(Calendar.DAY_OF_YEAR,5);
-
-            Log.d(TAG,"**GetCalOutRecord**Day**05**"+dayDiffW);
-            Log.d(TAG,"**GetCalOutRecord**Day**00**count**"+countOp);
-            Log.d(TAG,"**GetCalOutRecord**Day**DayTest**01**"+df.format(c1.getTime()));
-            Log.d(TAG,"**GetCalOutRecord**Day**DayTest**02**"+df.format(c2.getTime()));
-            Log.d(TAG,"**GetCalOutRecord**Day**DayTest**01**"+df.format(tmpcStartW.getTime()));
-            Log.d(TAG,"**GetCalOutRecord**Day**DayTest**02**"+df.format(tmpcEndW.getTime()));
-
-            vpost_GetCalOutRecord(df.format(tmpcStartW.getTime()),df.format(tmpcEndW.getTime()));
-        }
-
-        public void VVvpost_GetTargetRecord(String startDate,String endDate){
-            Calendar c1 = Calendar.getInstance();
-            Calendar c2 = Calendar.getInstance();
-
-            Log.d(TAG,"**GetTargetRecord**Day**01**"+df.format(c1.getTime()));
-            Log.d(TAG,"**GetTargetRecord**Day**02**"+df.format(c2.getTime()));
-
-            String date1=startDate;
-            if (startDate.equals("")){
-                date1 = mInfoMap.IMgetString(HiDBHelper.KEY_AC_initDate);
-            }
-            try {
-                c1.setTime(df.parse(date1));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            if (!endDate.equals("")){
-                try {
-                    c2.setTime(df.parse(endDate));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            Log.d(TAG,"**GetTargetRecord**Day**03**"+df.format(c1.getTime()));
-            Log.d(TAG,"**GetTargetRecord**Day**04**"+df.format(c2.getTime()));
-
-            int rangeYear = c2.get(Calendar.YEAR)-c1.get(Calendar.YEAR);
-            int day1 = c1.get(Calendar.DAY_OF_YEAR);
-            int day2 = c2.get(Calendar.DAY_OF_YEAR);
-            dayDiffW = day2-day1;
-            for (int ii=c1.get(Calendar.YEAR);ii<c1.get(Calendar.YEAR)+rangeYear;ii++){
-                if ((ii%4)==0)dayDiffW += 366;
-                else dayDiffW += 365;
-            }
-            countOp = (int)((double)dayDiffW/6)+1;
-            cStartW = Calendar.getInstance();
-            cEndW = Calendar.getInstance();
-            cStartW.set(c1.get(Calendar.YEAR),c1.get(Calendar.MONTH),c1.get(Calendar.HOUR_OF_DAY));
-            cEndW.set(c2.get(Calendar.YEAR),c2.get(Calendar.MONTH),c2.get(Calendar.HOUR_OF_DAY));
-            tmpcStartW = Calendar.getInstance();
-            tmpcEndW = Calendar.getInstance();
-            tmpcStartW.set(c1.get(Calendar.YEAR),c1.get(Calendar.MONTH),c1.get(Calendar.HOUR_OF_DAY));
-            tmpcEndW.set(c1.get(Calendar.YEAR),c1.get(Calendar.MONTH),c1.get(Calendar.HOUR_OF_DAY));
-            tmpcEndW.add(Calendar.DAY_OF_YEAR,5);
-
-            Log.d(TAG,"**GetTargetRecord**Day**05**"+dayDiffW);
-            Log.d(TAG,"**GetTargetRecord**Day**00**count**"+countOp);
-            Log.d(TAG,"**GetTargetRecord**Day**DayTest**01**"+df.format(c1.getTime()));
-            Log.d(TAG,"**GetTargetRecord**Day**DayTest**02**"+df.format(c2.getTime()));
-            Log.d(TAG,"**GetTargetRecord**Day**DayTest**01**"+df.format(tmpcStartW.getTime()));
-            Log.d(TAG,"**GetTargetRecord**Day**DayTest**02**"+df.format(tmpcEndW.getTime()));
-
-            vpost_GetTargetRecord(df.format(tmpcStartW.getTime()),df.format(tmpcEndW.getTime()));
-        }
-
-        public void vpostGet_IdToken(final String sendStr) {
-            StringRequest mStringRequest = new StringRequest(Request.Method.POST, sURL_getGoogleIdToken,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            //System.out.println("请求结果:" + response);
-                            Log.d(TAG, "**vpostGet_IdToken1**:" + response);
-
-                            if (response.contains("&")){
-                                uid = response.substring(0,response.indexOf("&"));
-                                idToken = response.substring(response.indexOf("&")+1);
-                            }
-
-                            Toast.makeText(mContext,"MS登入成功",Toast.LENGTH_SHORT).show();
-
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            //System.out.println("请求错误:" + error.toString());
-                            Log.d(TAG, "vpostGet_IdToken_Error:" + error.toString());
-
-                            Toast.makeText(mContext,"MS登入失敗",Toast.LENGTH_SHORT).show();
-
-                        }
-                    }
-            ) {
-                // 携带参数
-                @Override
-                protected HashMap<String, String> getParams()
-                        throws AuthFailureError {
-                    HashMap<String, String> hashMap = new HashMap<>();
-                    hashMap.put("idtoken", sendStr);
-                    return hashMap;
-                }
-
-                // Volley请求类提供了一个 getHeaders（）的方法，重载这个方法可以自定义HTTP 的头信息。（也可不实现）
-            /*public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Accept", "application/json");
-                headers.put("Content-Type", "application/json; charset=UTF-8");
-                return headers;
-            }*/
-
-            };
-            mStringRequest.setTag("vpostGet_IdToken");
-            mStringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                    10000,
-                    2,
-                    2f));
-            mRequestQueue.add(mStringRequest);
-        }
-
-        public void vpost_GetAccountInfo(){
-            Log.d(TAG, "**vpost_GetAccountInfo**:" );
-            JSONObject Info_JO = new JSONObject();
-            try {
-                Info_JO.put("uid",uid);
-                Info_JO.put("token",idToken);
-                Info_JO.put("action", "read");
-                Info_JO.put("read_options", "profile");
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            Log.d(TAG, "**vpost_GetAccountInfo**:" + Info_JO.toString());
-
-            JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                    (Request.Method.POST, sURL_InfoPutGet, Info_JO,
-                            new Response.Listener<JSONObject>() {
-
-                                @Override
-                                public void onResponse(JSONObject response) {
-                                    //mTxtDisplay.setText("Response: " + response.toString());
-                                    Log.d(TAG, "vpost_GetAccountInfo:" + response.toString());
-                                    try {
-                                        JSONObject dataObject = response.getJSONArray("data").getJSONObject(0);
-
-                                        Log.d(TAG, "vpost_GetAccountInfo22:" + dataObject.toString());
-                                        Log.d(TAG, "vpost_GetAccountInfo22:" + dataObject.getString("account"));
-                                        AccountInfoGet(dataObject);
-
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            },
-                            new Response.ErrorListener() {
-
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    // TODO Auto-generated method stub
-                                    Log.d(TAG, "vpost_GetAccountInfo_Error:" + error.toString());
-                                }
-                            });
-            jsObjRequest.setTag("vpost_GetAccountInfo");
-            mRequestQueue.add(jsObjRequest);
-        }
-
-        public void vpost_GetAccountImage(String urlImage){
-            ImageRequest imageRequest = new ImageRequest(
-                    urlImage,
-                    new Response.Listener<Bitmap>() {
-                        @Override
-                        public void onResponse(Bitmap response) {
-                            String strTmp= response.toString();
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                                if (!Objects.equals(strTmp, "")){
-                                    mInfoMap.IMput(HiDBHelper.KEY_AC_Image,response);
-                                }
-                            }
-
-                            Log.d(TAG, "vpost_GetAccountImage:OK**" + strTmp);
-                        }
-                    }, 0, 0, Bitmap.Config.RGB_565, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.d(TAG, "vpost_GetAccountImage:error**" + error.toString());
-                }
-            });
-
-            imageRequest.setTag("vpost_GetAccountImage");
-            mRequestQueue.add(imageRequest);
-        }
-
-        public void vpost_GetWeightRecord(String startDate,String endDate){
-            Log.d(TAG, "**vpost_GetWeightRecord**:" );
-            Log.d(TAG,"**vpost_GetWeightRecord**DayTest**0**"+dayDiffW);
-            Log.d(TAG,"**vpost_GetWeightRecord**DayTest**0**count**"+countOp);
-            Log.d(TAG,"**vpost_GetWeightRecord**DayTest**1**"+startDate);
-            Log.d(TAG,"**vpost_GetWeightRecord**DayTest**2**"+endDate);
-            JSONObject Info_JO = new JSONObject();
-            try {
-                Info_JO.put("uid",uid);
-                Info_JO.put("token",idToken);
-                Info_JO.put("action", "read");
-                Info_JO.put("read_options", "weight");
-                Info_JO.put("start_date", startDate);
-                Info_JO.put("end_date", endDate);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            Log.d(TAG, "**vpost_GetWeightRecord**:" + Info_JO.toString());
-
-            JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                    (Request.Method.POST, sURL_InfoPutGet, Info_JO,
-                            new Response.Listener<JSONObject>() {
-
-                                @Override
-                                public void onResponse(JSONObject response) {
-                                    //mTxtDisplay.setText("Response: " + response.toString());
-                                    Log.d(TAG, "vpost_GetWeightRecord:" + response.toString());
-                                    try {
-                                        final JSONArray jsonArray = response.getJSONArray("data");
-                                        final int count = jsonArray.length();
-                                        if (count>0){
-                                            Thread thread = new Thread(new Runnable(){
-                                                @Override
-                                                public void run() {
-                                                    // TODO Auto-generated method stub
-                                                    int count = jsonArray.length();
-                                                    for (int ii=0;ii<count;ii++){
-                                                        ContentValues values = new ContentValues();
-                                                        try {
-                                                            String date = jsonArray.getJSONObject(ii).getString("date");
-                                                            String time = jsonArray.getJSONObject(ii).getString("time");
-                                                            String weight = jsonArray.getJSONObject(ii).getString("weight");
-                                                            CT48 ct48 = new CT48(time);
-                                                            Log.d(TAG,"**Weight**"+date+"**"+time+"**"+weight);
-                                                            values.put(HiDBHelper.KEY_Weight_Date, date);
-                                                            values.put(HiDBHelper.KEY_Weight_Time, time);
-                                                            values.put(HiDBHelper.KEY_Weight_Time48, ct48.getCt48());
-                                                            values.put(HiDBHelper.KEY_Weight_Weight, weight);
-                                                            helper.WeightInsert(values);
-                                                        } catch (JSONException e) {
-                                                            e.printStackTrace();
-                                                        }
-
-
-                                                    }
-                                                }
-                                            });
-                                            thread.start();
-
-                                            try {
-                                                thread.join();
-                                                Log.d(TAG,"**Thread**join**");
-                                            } catch (InterruptedException e) {
-                                                e.printStackTrace();
                                             }
 
-                                            while (thread.isAlive()){
-                                                Log.d(TAG,"**Alive**");
+                                            @Override
+                                            public void onAnimationEnd(Animator animation) {
+                                                fabMain.setClickable(true);
                                             }
-                                        }
-                                        Log.d(TAG, "vpost_GetWeightRecord:count=" + count);
 
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            },
-                            new Response.ErrorListener() {
+                                            @Override
+                                            public void onAnimationCancel(Animator animation) {
 
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    // TODO Auto-generated method stub
-                                    Log.d(TAG, "vpost_GetWeightRecord_Error:" + error.toString());
-                                }
-                            });
-            jsObjRequest.setTag("vpost_GetWeightRecord");
-            jsObjRequest.setRetryPolicy(new DefaultRetryPolicy(
-                    20000,
-                    2,
-                    2f));
-            mRequestQueue.add(jsObjRequest);
-        }
+                                            }
 
-        public void vpost_GetCalInRecord(String startDate,String endDate){
-            Log.d(TAG, "**vpost_GetCalInRecord**:" );
-            Log.d(TAG,"**vpost_GetCalInRecord**DayTest**0**"+dayDiffW);
-            Log.d(TAG,"**vpost_GetCalInRecord**DayTest**0**count**"+countOp);
-            Log.d(TAG,"**vpost_GetCalInRecord**DayTest**1**"+startDate);
-            Log.d(TAG,"**vpost_GetCalInRecord**DayTest**2**"+endDate);
-            JSONObject Info_JO = new JSONObject();
-            try {
-                Info_JO.put("uid",uid);
-                Info_JO.put("token",idToken);
-                Info_JO.put("action", "read");
-                Info_JO.put("read_options", "eat");
-                Info_JO.put("start_date", startDate);
-                Info_JO.put("end_date", endDate);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+                                            @Override
+                                            public void onAnimationRepeat(Animator animation) {
 
-            Log.d(TAG, "**vpost_GetCalInRecord**:" + Info_JO.toString());
-
-            JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                    (Request.Method.POST, sURL_InfoPutGet, Info_JO,
-                            new Response.Listener<JSONObject>() {
-
-                                @Override
-                                public void onResponse(JSONObject response) {
-                                    //mTxtDisplay.setText("Response: " + response.toString());
-                                    Log.d(TAG, "vpost_GetCalInRecord:" + response.toString());
-                                    try {
-                                        JSONArray data = response.getJSONArray("data");
-
-                                        for (int ii=0;ii<data.length();ii++){
-                                            JSONObject oneObject = data.getJSONObject(ii);
-                                            String time = oneObject.getString("time");
-                                            CT48 ct48 = new CT48(time);
-                                            ContentValues values = new ContentValues();
-                                            values.put(HiDBHelper.KEY_CalIn_Date, oneObject.getString("date"));
-                                            values.put(HiDBHelper.KEY_CalIn_Time, time);
-                                            values.put(HiDBHelper.KEY_CalIn_Time48, ct48.getCt48());
-                                            values.put(HiDBHelper.KEY_CalIn_Fname, oneObject.getString("items"));
-                                            values.put(HiDBHelper.KEY_CalIn_oneCal, oneObject.getString("calorie"));
-                                            values.put(HiDBHelper.KEY_CalIn_Amount, "1");
-                                            values.put(HiDBHelper.KEY_CalIn_CG, oneObject.getString("items_weight"));
-                                            helper.CalInInsert(values);
-                                            //Log.d(TAG, "vpost_GetCalInRecord0:" + data.getJSONObject(ii));
-                                            Log.d(TAG, "vpost_GetCalInRecord1:" + values.toString());
-                                        }
-
-                                        //Log.d(TAG, "vpost_GetWeightRecord:" + dataObject.getString("account"));
-
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            },
-                            new Response.ErrorListener() {
-
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    // TODO Auto-generated method stub
-                                    Log.d(TAG, "vpost_GetCalInRecord_Error:" + error.toString());
-                                }
-                            });
-            jsObjRequest.setTag("vpost_GetCalInRecord");
-            jsObjRequest.setRetryPolicy(new DefaultRetryPolicy(
-                    20000,
-                    2,
-                    2f));
-            mRequestQueue.add(jsObjRequest);
-        }
-
-        public void vpost_GetCalOutRecord(String startDate,String endDate){
-            Log.d(TAG, "**vpost_GetCalOutRecord**:" );
-            Log.d(TAG,"**vpost_GetCalOutRecord**DayTest**0**"+dayDiffW);
-            Log.d(TAG,"**vpost_GetCalOutRecord**DayTest**0**count**"+countOp);
-            Log.d(TAG,"**vpost_GetCalOutRecord**DayTest**1**"+startDate);
-            Log.d(TAG,"**vpost_GetCalOutRecord**DayTest**2**"+endDate);
-            JSONObject Info_JO = new JSONObject();
-            try {
-                Info_JO.put("uid",uid);
-                Info_JO.put("token",idToken);
-                Info_JO.put("action", "read");
-                Info_JO.put("read_options", "sport");
-                Info_JO.put("start_date", startDate);
-                Info_JO.put("end_date", endDate);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            Log.d(TAG, "**vpost_GetCalOutRecord**:" + Info_JO.toString());
-
-            JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                    (Request.Method.POST, sURL_InfoPutGet, Info_JO,
-                            new Response.Listener<JSONObject>() {
-
-                                @Override
-                                public void onResponse(JSONObject response) {
-                                    //mTxtDisplay.setText("Response: " + response.toString());
-                                    Log.d(TAG, "vpost_GetCalOutRecord:" + response.toString());
-                                    try {
-                                        JSONArray data = response.getJSONArray("data");
-
-                                        for (int ii=0;ii<data.length();ii++){
-                                            JSONObject oneObject = data.getJSONObject(ii);
-                                            String time = oneObject.getString("time");
-                                            CT48 ct48 = new CT48(time);
-                                            ContentValues values = new ContentValues();
-                                            values.put(HiDBHelper.KEY_CalOut_Date, oneObject.getString("date"));
-                                            values.put(HiDBHelper.KEY_CalOut_Time, time);
-                                            values.put(HiDBHelper.KEY_CalOut_Time48, ct48.getCt48());
-                                            values.put(HiDBHelper.KEY_CalOut_Sport, oneObject.getString("sport"));
-                                            values.put(HiDBHelper.KEY_CalOut_Cal, oneObject.getString("cal"));
-                                            values.put(HiDBHelper.KEY_CalOut_HeartRate, oneObject.getString("heart_rate"));
-                                            values.put(HiDBHelper.KEY_CalOut_Strength, oneObject.getString("strength"));
-                                            values.put(HiDBHelper.KEY_CalOut_Continue, oneObject.getString("continue_time"));
-                                            values.put(HiDBHelper.KEY_CalOut_Distance, oneObject.getString("distance"));
-                                            helper.CalOutInsert(values);
-                                            //Log.d(TAG, "vpost_GetCalInRecord0:" + data.getJSONObject(ii));
-                                            Log.d(TAG, "vpost_GetCalOutRecord:" + values.toString());
-                                        }
-
-                                        //Log.d(TAG, "vpost_GetWeightRecord:" + dataObject.getString("account"));
-
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            },
-                            new Response.ErrorListener() {
-
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    // TODO Auto-generated method stub
-                                    Log.d(TAG, "vpost_GetCalOutRecord_Error:" + error.toString());
-                                }
-                            });
-            jsObjRequest.setTag("vpost_GetCalOutRecord");
-            jsObjRequest.setRetryPolicy(new DefaultRetryPolicy(
-                    20000,
-                    2,
-                    2f));
-            mRequestQueue.add(jsObjRequest);
-        }
-
-        public void vpost_GetTargetRecord(String startDate,String endDate){
-            Log.d(TAG, "**vpost_GetTargetRecord**:" );
-            Log.d(TAG,"**vpost_GetTargetRecord**DayTest**0**"+dayDiffW);
-            Log.d(TAG,"**vpost_GetTargetRecord**DayTest**0**count**"+countOp);
-            Log.d(TAG,"**vpost_GetTargetRecord**DayTest**1**"+startDate);
-            Log.d(TAG,"**vpost_GetTargetRecord**DayTest**2**"+endDate);
-            JSONObject Info_JO = new JSONObject();
-            try {
-                Info_JO.put("uid",uid);
-                Info_JO.put("token",idToken);
-                Info_JO.put("action", "read");
-                Info_JO.put("read_options", "target");
-                Info_JO.put("start_date", startDate);
-                Info_JO.put("end_date", endDate);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            Log.d(TAG, "**vpost_GetTargetRecord**:" + Info_JO.toString());
-
-            JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                    (Request.Method.POST, sURL_InfoPutGet, Info_JO,
-                            new Response.Listener<JSONObject>() {
-
-                                @Override
-                                public void onResponse(JSONObject response) {
-                                    //mTxtDisplay.setText("Response: " + response.toString());
-                                    Log.d(TAG, "vpost_GetTargetRecord:" + response.toString());
-                                    try {
-                                        JSONArray data = response.getJSONArray("data");
-
-                                        for (int ii=0;ii<data.length();ii++){
-                                            JSONObject oneObject = data.getJSONObject(ii);
-                                            ContentValues values = new ContentValues();
-                                            values.put(HiDBHelper.KEY_Target_initDate, oneObject.getString("start_date"));
-                                            values.put(HiDBHelper.KEY_Target_initTime, oneObject.getString("start_time"));
-                                            values.put(HiDBHelper.KEY_Target_endDate, oneObject.getString("end_date"));
-                                            values.put(HiDBHelper.KEY_Target_endTime, oneObject.getString("end_time"));
-                                            values.put(HiDBHelper.KEY_Target_conDay, oneObject.getString("continue_day"));
-                                            values.put(HiDBHelper.KEY_Target_conHour, oneObject.getString("continue_hour"));
-                                            values.put(HiDBHelper.KEY_Target_Target, oneObject.getString("target_name"));
-                                            values.put(HiDBHelper.KEY_Target_TargetValue, oneObject.getString("target_value"));
-                                            helper.TargetInsert(values);
-                                            //Log.d(TAG, "vpost_GetCalInRecord0:" + data.getJSONObject(ii));
-                                            Log.d(TAG, "vpost_GetTargetRecord:" + values.toString());
-                                        }
-
-                                        //Log.d(TAG, "vpost_GetWeightRecord:" + dataObject.getString("account"));
-
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            },
-                            new Response.ErrorListener() {
-
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    // TODO Auto-generated method stub
-                                    Log.d(TAG, "vpost_GetTargetRecordError:" + error.toString());
-                                }
-                            });
-            jsObjRequest.setTag("vpost_GetTargetRecord");
-            jsObjRequest.setRetryPolicy(new DefaultRetryPolicy(
-                    20000,
-                    2,
-                    2f));
-            mRequestQueue.add(jsObjRequest);
-        }
-
-        public void vpostGet_Pre(final int mode, final int endYear, final int endMonth, final int endDay, final int preDay, final double needWeight) {
-            StringRequest mStringRequest = new StringRequest(Request.Method.POST, sURL_Pre_Get,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            //System.out.println("请求结果:" + response);
-                            Log.d(TAG, "**vpostGet_Pre1**:" + response);
-
-                            try {
-                                if (mode==2){
-                                    //addCal=3900&date=2016-11-08&weight=54.07914
-                                    int andIndex = response.indexOf("&");
-
-                                    String tmp = response.substring(response.indexOf("addCal=")+7,andIndex);
-                                    Log.d(TAG, "**vpostGet_Pre2**1:addCal=" + tmp);
-
-                                    andIndex = response.indexOf("&",andIndex+1);
-                                    tmp = response.substring(response.indexOf("date=")+5,andIndex);
-                                    Log.d(TAG, "**vpostGet_Pre2**2:date=" + tmp);
-
-                                    tmp = response.substring(response.indexOf("weight=")+7);
-                                    Log.d(TAG, "**vpostGet_Pre2**3:weight=" + tmp);
-
-                                } else if (mode==3){
-                                    //date=2016-11-08&weight=52.33512
-                                    int andIndex = response.indexOf("&");
-
-                                    String tmp = response.substring(response.indexOf("date=")+5,andIndex);
-                                    Log.d(TAG, "**vpostGet_Pre3**1:date=" + tmp);
-
-                                    tmp = response.substring(response.indexOf("weight=")+7);
-                                    Log.d(TAG, "**vpostGet_Pre3**2:weight=" + tmp);
-
-                                }
-
-                                fl_Diary.newInstance();
-                                fl_Diary.PreUpdate(mode,response);
-                            } catch (Exception e){
-                                e.printStackTrace();
+                                            }
+                                        });
                             }
-                            /*if (response.contains("&")){
-                                uid = response.substring(0,response.indexOf("&"));
-                                idToken = response.substring(response.indexOf("&")+1);
-                            }*/
-                            //Toast.makeText(mContext,"OK:"+response,Toast.LENGTH_SHORT).show();
                         }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            //System.out.println("请求错误:" + error.toString());
-                            Log.d(TAG, "vpostGet_Pre_Error:" + error.toString());
-                            //Toast.makeText(mContext,"Err:"+error.toString(),Toast.LENGTH_SHORT).show();
-                        }
-                    }
-            ) {
-                // 携带参数
-                @SuppressLint("DefaultLocale")
-                @Override
-                protected HashMap<String, String> getParams()
-                        throws AuthFailureError {
-                    String pre_Target = "python3.4 PreActivity.py %s %04d/%02d/%02d %s 2 %.2f";
-                    String pre_NoTarget = "python3.4 PreActivity.py %s %04d/%02d/%02d %s 3";
-                    String command = "";
-                    Log.d(TAG, "vpostGet_Pre_mode:" + mode);
-                    //Log.d(TAG, "vpostGet_Pre_Command1:" + command);
-                    if (mode==2){
-                        command = String.format(pre_Target,uid,endYear,endMonth,endDay,preDay,needWeight);
-                    } else if (mode==3){
-                        command = String.format(pre_NoTarget,uid,endYear,endMonth,endDay,preDay);
-                    }
-
-                    Log.d(TAG, "vpostGet_Pre_Command2:" + command);
-                    //Toast.makeText(mContext,"Err:"+command,Toast.LENGTH_LONG).show();
-                    HashMap<String, String> hashMap = new HashMap<>();
-                    hashMap.put("uid", uid);
-                    hashMap.put("token", idToken);
-                    hashMap.put("command", command);
-                    return hashMap;
-                }
-
-                // Volley请求类提供了一个 getHeaders（）的方法，重载这个方法可以自定义HTTP 的头信息。（也可不实现）
-            /*public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Accept", "application/json");
-                headers.put("Content-Type", "application/json; charset=UTF-8");
-                return headers;
-            }*/
-
-            };
-            mStringRequest.setTag("vpostGet_Pre");
-            mStringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                    20000,
-                    2,
-                    2f));
-            mRequestQueue.add(mStringRequest);
-            showPreProgressDialog();
-        }
-        ////////////////////////////////////////////////////////////////////////////////////
-        public void vpostSend_FCMId() {
-            StringRequest mStringRequest = new StringRequest(Request.Method.POST, sURL_FCMID_Send,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            //System.out.println("请求结果:" + response);
-                            Log.d(TAG, "**vpostSend_FCMId**OK:" + response);
-
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            //System.out.println("请求错误:" + error.toString());
-                            Log.d(TAG, "**vpostSend_FCMId**Error:" + error.toString());
-                        }
-                    }
-            ) {
-                // 携带参数
-                @Override
-                protected HashMap<String, String> getParams()
-                        throws AuthFailureError {
-                    HashMap<String, String> hashMap = new HashMap<>();
-                    hashMap.put("uid",uid);
-                    hashMap.put("token",idToken);
-                    hashMap.put("reg_id",mInfoMap.IMgetString(HiDBHelper.KEY_AC_FCM_id));
-                    return hashMap;
-                }
-
-                // Volley请求类提供了一个 getHeaders（）的方法，重载这个方法可以自定义HTTP 的头信息。（也可不实现）
-            /*public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Accept", "application/json");
-                headers.put("Content-Type", "application/json; charset=UTF-8");
-                return headers;
-            }*/
-
-            };
-            mStringRequest.setTag("vpostSend_FCMId");
-            mRequestQueue.add(mStringRequest);
-        }
-
-        public void vpostSend_Recommend(final String recommend) {
-            Log.d(TAG,"**Recommend**"+recommend);
-            StringRequest mStringRequest = new StringRequest(Request.Method.POST, sURL_Recommend_Send,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            //System.out.println("请求结果:" + response);
-                            Log.d(TAG, "**vpostSend_Recommend**OK:" + response);
-
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            //System.out.println("请求错误:" + error.toString());
-                            Log.d(TAG, "**vpostSend_Recommend**Error:" + error.toString());
-                        }
-                    }
-            ) {
-                // 携带参数
-                @Override
-                protected HashMap<String, String> getParams()
-                        throws AuthFailureError {
-                    HashMap<String, String> hashMap = new HashMap<>();
-                    hashMap.put("uid",uid);
-                    hashMap.put("recommend",recommend);
-                    return hashMap;
-                }
-
-                // Volley请求类提供了一个 getHeaders（）的方法，重载这个方法可以自定义HTTP 的头信息。（也可不实现）
-            /*public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Accept", "application/json");
-                headers.put("Content-Type", "application/json; charset=UTF-8");
-                return headers;
-            }*/
-
-            };
-            mStringRequest.setTag("vpostSend_Recommend");
-            mRequestQueue.add(mStringRequest);
-        }
-
-        public void vpostSend_FoodJson(JSONObject[] jsonObjectAll){
-            JSONArray JA_All = new JSONArray();
-            for (JSONObject aJsonObjectAll : jsonObjectAll) {
-                JA_All.put(aJsonObjectAll);
-            }
-            JSONObject end_JO = new JSONObject();
-            try {
-                end_JO.put("uid",uid);
-                end_JO.put("token",idToken);
-                end_JO.put("action","insert");
-                end_JO.put("record_options","1");
-                end_JO.put("record",JA_All);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            Log.d(TAG, "**vpostSend_FoodJson**:" + end_JO.toString());
-
-            JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                    (Request.Method.POST, sURL_InfoPutGet, end_JO, new Response.Listener<JSONObject>() {
 
                         @Override
-                        public void onResponse(JSONObject response) {
-                            //mTxtDisplay.setText("Response: " + response.toString());
-                            Log.d(TAG, "vpostSend_FoodJson**OK:" + response.toString());
+                        public void onAnimationCancel(Animator animation) {
+
                         }
-                    }, new Response.ErrorListener() {
 
                         @Override
-                        public void onErrorResponse(VolleyError error) {
-                            // TODO Auto-generated method stub
-                            Log.d(TAG, "vpostSend_FoodJson**Error:" + error.toString());
+                        public void onAnimationRepeat(Animator animation) {
+
                         }
                     });
-            jsObjRequest.setTag("vpostSend_FoodJson");
-            mRequestQueue.add(jsObjRequest);
+        }
+    }
+
+    /** fabMainClick>> **/
+    public static void fabMainClick() {
+        fabOpen = !fabOpen;
+
+        if (fabOpen) {
+            mCoverView.setVisibility(View.VISIBLE);
+            mCoverView.setClickable(false);
+            //mCoverView.setClickable(true);
+        } else {
+            //String tmpHi = "";
+            //assert HiCard_Text != null;
+            //HiCard_Text.start(tmpHi);
         }
 
-        public void vpostSend_WeightJson(String[] date,String[] time,double[] weight){
-            int countWeight = date.length;
-            JSONArray jaAll =new JSONArray();
-            for (int ii=0;ii<countWeight;ii++){
-                JSONObject jsonObject = new JSONObject();
-                try {
-                    jsonObject.put("date",date[ii]);
-                    jsonObject.put("time",time[ii]);
-                    jsonObject.put("value",weight[ii]);
-                    jaAll.put(jsonObject);
+        CoverViewAnimate(fabOpen);
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
+        switch (fl_flag_now) {
+            case "fl_navHome":
+                if (mPagePosition == 0) {
+                    fl_Diary.newInstance().fabMainClick();
+                    /*Fragment fragment = getSupportFragmentManager().findFragmentByTag(fl_flag_now);
+                    if (fragment.getClass()==RootFragment.class){
+                        ((RootFragment)fragment).fabMainClick();
+                    }*/
+                } else if (mPagePosition == 1) {
+                    fl_Calories2.newInstance().fabMainClick();
+                } else if (mPagePosition == 2) {
+                    //fl_Sleep.newInstance().fabMainClick();
                 }
+                break;
 
-            }
-
-
-            JSONObject end_JO = new JSONObject();
-            try {
-                end_JO.put("uid",uid);
-                end_JO.put("token",idToken);
-                end_JO.put("action","insert");
-                end_JO.put("record_options","2");
-                end_JO.put("record",jaAll);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            Log.d(TAG, "**vpostSend_WeightJson**:" + end_JO.toString());
-
-            JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                    (Request.Method.POST, sURL_InfoPutGet, end_JO, new Response.Listener<JSONObject>() {
-
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            //mTxtDisplay.setText("Response: " + response.toString());
-                            Log.d(TAG, "vpostSend_WeightJson**OK:" + response.toString());
-                        }
-                    }, new Response.ErrorListener() {
-
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            // TODO Auto-generated method stub
-                            Log.d(TAG, "vpostSend_WeightJson**Error:" + error.toString());
-                        }
-                    });
-            jsObjRequest.setTag("vpostSend_WeightJson");
-            mRequestQueue.add(jsObjRequest);
         }
+    }
 
-        public void vpostSend_ACJson(final String key, final String value){
-            StringRequest mStringRequest = new StringRequest(Request.Method.POST, sURL_sendAccountInfo,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            //System.out.println("请求结果:" + response);
-                            Log.d(TAG, "**vpostSend_ACJson**OK**:" + response);
+    /** fabMainClose>>負責將展開的小fab收回的動畫 **/
+    public static void fabMainClose() {
+        if (fabOpen) {
+            fabOpen = false;
 
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            //System.out.println("请求错误:" + error.toString());
-                            Log.d(TAG, "vpostSend_ACJson_Error:" + error.toString());
+            CoverViewAnimate(false);
+
+            switch (fl_flag_now) {
+                case "fl_navHome":
+                    switch (mPagePosition) {
+                        case 0:
+                            fl_Diary.newInstance().fabClose(false);
+                            break;
+                        case 1:
+                            fl_Calories2.newInstance().fabClose(false);
+                            break;
+                        case 2:
+                            //fl_Sleep.newInstance().fabClose(false);
+                            break;
+                    }
+                    break;
+
+                case "fl_Map":
+                    //dimBackground(1.0f,0.5f);
+                    break;
+            }
+        }
+    }
+
+    public static void CoverViewAnimate(final boolean needOpen){
+        mCoverView.animate().scaleX(needOpen ? 100F : 0F)
+                .scaleY(needOpen ? 100F : 0F)
+                .alpha(needOpen ? 1F : 0F)
+                .setDuration(100)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        mCoverView.setClickable(false);
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        if (!needOpen) {
+                            mCoverView.setVisibility(View.GONE);
+                        } else {
+                            mCoverView.setClickable(true);
                         }
                     }
-            ) {
-                // 携带参数
-                @Override
-                protected HashMap<String, String> getParams()
-                        throws AuthFailureError {
-                    HashMap<String, String> hashMap = new HashMap<>();
-                    hashMap.put("uid",uid);
-                    hashMap.put("token",idToken);
-                    hashMap.put("col",key);
-                    hashMap.put("val",value);
-                    return hashMap;
-                }
-
-            };
-            mStringRequest.setTag("vpostSend_ACJson");
-            mRequestQueue.add(mStringRequest);
-        }
-
-        public void vpostSend_TargetJson(String initDay,String initTime
-                ,String conDay,String conHour
-                ,String endDay,String endTime,String target,String targetValue){
-
-            JSONArray jaAll =new JSONArray();
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.put("start_date",initDay);
-                jsonObject.put("start_time",initTime);
-                jsonObject.put("continue_day",conDay);
-                jsonObject.put("continue_hour",conHour);
-                jsonObject.put("end_date",endDay);
-                jsonObject.put("end_time",endTime);
-                jsonObject.put("target_name",target);
-                jsonObject.put("target_value",targetValue);
-                jaAll.put(jsonObject);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-
-            JSONObject end_JO = new JSONObject();
-            try {
-                end_JO.put("uid",uid);
-                end_JO.put("token",idToken);
-                end_JO.put("action","insert");
-                end_JO.put("record_options","5");
-                end_JO.put("record",jaAll);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            Log.d(TAG, "**vpostSend_TargetJson**:" + end_JO.toString());
-
-            JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                    (Request.Method.POST, sURL_InfoPutGet, end_JO, new Response.Listener<JSONObject>() {
-
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            //mTxtDisplay.setText("Response: " + response.toString());
-                            Log.d(TAG, "vpostSend_TargetJson**OK:" + response.toString());
-                        }
-                    }, new Response.ErrorListener() {
-
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            // TODO Auto-generated method stub
-                            Log.d(TAG, "vpostSend_TargetJson**Error:" + error.toString());
-                        }
-                    });
-            jsObjRequest.setTag("vpostSend_TargetJson");
-            mRequestQueue.add(jsObjRequest);
-        }
-
-        public void vpostSend_SportJson(String initDay,String initTime
-                ,String sport,String cal
-                ,String heartRate,String strength,String contTime,String distance){
-
-            JSONArray jaAll =new JSONArray();
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.put("date",initDay);
-                jsonObject.put("time",initTime);
-                jsonObject.put("sport",sport);
-                jsonObject.put("cal",cal);
-                jsonObject.put("heart_rate",heartRate);
-                jsonObject.put("strength",strength);
-                jsonObject.put("continue_time",contTime);
-                jsonObject.put("distance",distance);
-                jaAll.put(jsonObject);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-
-            JSONObject end_JO = new JSONObject();
-            try {
-                end_JO.put("uid",uid);
-                end_JO.put("token",idToken);
-                end_JO.put("action","insert");
-                end_JO.put("record_options","4");
-                end_JO.put("record",jaAll);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            Log.d(TAG, "**vpostSend_SportJson**:" + end_JO.toString());
-
-            JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                    (Request.Method.POST, sURL_InfoPutGet, end_JO, new Response.Listener<JSONObject>() {
-
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            //mTxtDisplay.setText("Response: " + response.toString());
-                            Log.d(TAG, "vpostSend_SportJson**OK:" + response.toString());
-                        }
-                    }, new Response.ErrorListener() {
-
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            // TODO Auto-generated method stub
-                            Log.d(TAG, "vpostSend_SportJson**Error:" + error.toString());
-                        }
-                    });
-            jsObjRequest.setTag("vpostSend_SportJson");
-            mRequestQueue.add(jsObjRequest);
-        }
-
+                });
     }

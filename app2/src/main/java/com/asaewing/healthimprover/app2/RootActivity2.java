@@ -1,12 +1,8 @@
 package com.asaewing.healthimprover.app2;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -23,11 +19,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
-import com.asaewing.healthimprover.app2.Manager.VolleyManager;
+import com.asaewing.healthimprover.app2.Manager.FabMainManager;
 import com.asaewing.healthimprover.app2.Others.InfoMap;
 import com.asaewing.healthimprover.app2.ViewOthers.TypeTextView;
 import com.asaewing.healthimprover.app2.ViewPager.CirclePageIndicator;
@@ -55,8 +50,6 @@ import java.util.Objects;
 public class RootActivity2 extends AppCompatActivity
         implements View.OnClickListener,OnMapReadyCallback {
 
-    public static VolleyManager volleyManager;
-
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -73,8 +66,6 @@ public class RootActivity2 extends AppCompatActivity
                                                     //0是Map，1是Home，2是其餘
     protected boolean fl_flag_before_map = false;   //紀錄前一次的fl是不是Map，因為Layout的不同
     protected static int mPagePosition = 0;         //紀錄ViewPager的當前頁數
-    protected boolean fabMain_NeedGONE = false;     //紀錄待會的fab要不要隱藏起來
-    protected boolean fabMain_isGONE = false;       //紀錄現在的fab是否隱藏起來
     protected static boolean fabOpen = false;       //判斷fab是否展開了小fab
 
     //記憶資料
@@ -85,7 +76,7 @@ public class RootActivity2 extends AppCompatActivity
 
     //ViewPager
     protected List<ViewPagerItem> mListVPItem = new ArrayList<>();  //收集有哪些fl要變成VP，且照順序
-    protected ViewPagerAdapter mViewPagerAdapter;                   //VP的適配
+    public ViewPagerAdapter mViewPagerAdapter;                   //VP的適配
     protected ViewPager mViewPager;
     protected ViewPagerListener mViewPagerListener;                 //VP的監聽
     protected CirclePageIndicator mViewPagerIndicator;              //VP的指示，
@@ -108,20 +99,21 @@ public class RootActivity2 extends AppCompatActivity
     protected static View mCoverView;    //當fab展開時，用來呈現fab的覆蓋頁面，
                                         //用來提醒使用者的界面使用優先
 
-
-    protected fl_Manager flManager = new fl_Manager(this,TAG);
+    protected fl_Manager flManager;
+    protected static FabMainManager fabMainManager;
 
     //TODO----Life----
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         TAG = getClass().getSimpleName();
         Log.d(TAG,"**"+TAG+"**onCreate");  //Log，onCreate Start
         setContentView(R.layout.activity_main); //主Layout
 
-        mInfoMap = new InfoMap();
+
+
+        //mInfoMap = new InfoMap();
 
         //Ads deviceId to get
         @SuppressLint("HardwareIds")
@@ -158,6 +150,20 @@ public class RootActivity2 extends AppCompatActivity
 
         assert HiCard_Text != null;
         HiCard_Text.start(getString(R.string.HiCard_firstOpen));
+
+        //mCoverView
+        mCoverView = findViewById(R.id.cover);
+        assert mCoverView != null;
+        mCoverView.setVisibility(View.GONE);
+        mCoverView.setOnClickListener(this);
+
+        //FAB Main
+        fabMain = (FloatingActionButton)findViewById(R.id.fab_Main);
+        assert fabMain != null;
+        fabMain.setOnClickListener(this);
+
+        flManager = new fl_Manager(this,TAG);
+        fabMainManager = new FabMainManager(this,TAG,fabMain,mCoverView);
     }
 
     protected void initView(){
@@ -171,18 +177,17 @@ public class RootActivity2 extends AppCompatActivity
         assert VP_RL != null;
         VP_RL.setVisibility(View.VISIBLE);
 
-        //FAB Main
-        fabMain = (FloatingActionButton)findViewById(R.id.fab_Main);
-        assert fabMain != null;
-        fabMain.setOnClickListener(this);
+
 
         //初始頁面
-        this.addPage(R.string.nav_Diary, fl_Diary.newInstance(volleyManager));
-        this.addPage(R.string.nav_Calories, fl_Calories2.newInstance(volleyManager));
+        addPage(R.string.nav_Diary, fl_Diary.newInstance(),"fl_Diary");
+        addPage(R.string.nav_Calories, fl_Calories2.newInstance(),"fl_Calories");
         //addPage(R.string.nav_Sleep, fl_Sleep.newInstance());
         mInfoMap.IMput("VPhomeBefore",1);
         fl_flag = 1;
-        fl_flag_now = "fl_navHome";
+        //fl_flag_now = "fl_navHome";
+        //fabMainManager.setFl_FlagNow(fl_flag_now);
+        setFl_FlagNow("fl_navHome");
 
         //ViewPager
         mViewPagerAdapter = new ViewPagerAdapter(this,getSupportFragmentManager(),mListVPItem);
@@ -211,11 +216,7 @@ public class RootActivity2 extends AppCompatActivity
         mInfoMap.IMput("WindowWidth",metrics.widthPixels);
         mInfoMap.IMput("WindowHeight",metrics.heightPixels);
 
-        //mCoverView
-        mCoverView = findViewById(R.id.cover);
-        assert mCoverView != null;
-        mCoverView.setVisibility(View.GONE);
-        mCoverView.setOnClickListener(this);
+
 
         /*//HiCard
         HiCard = (CardView)findViewById(R.id.HiCardView);
@@ -322,57 +323,15 @@ public class RootActivity2 extends AppCompatActivity
         int vId = v.getId();
 
         if (vId == R.id.toolbar) {
-            //fl_Calories.newInstance().fabClose(false);
-            //fl_Diary.newInstance().fabClose(false);
-            fabMainClose();
+            fabMainManager.fabMainClose(mPagePosition);
 
         } else if (vId == R.id.fab_Main && !fl_flag_now.equals("fl_Map")) {
             fabOpen = !fabOpen;
-
-            if (fabOpen) {
-                mCoverView.setVisibility(View.VISIBLE);
-                mCoverView.setClickable(false);
-                //mCoverView.setClickable(true);
-            } else {
-                //String tmpHi = "";
-                //assert HiCard_Text != null;
-                //HiCard_Text.start(tmpHi);
-            }
-            mCoverView.animate().scaleX(fabOpen ? 100F : 0F)
-                    .scaleY(fabOpen ? 100F : 0F)
-                    .alpha(fabOpen ? 1F : 0F)
-                    .setDuration(100)
-                    .setListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationStart(Animator animation) {
-                            mCoverView.setClickable(false);
-                        }
-
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            if (!fabOpen) {
-                                mCoverView.setVisibility(View.GONE);
-                            } else {
-                                mCoverView.setClickable(true);
-                            }
-                        }
-                    });
-
-            switch (fl_flag_now) {
-                case "fl_navHome":
-                    if (mPagePosition == 0) {
-                        fl_Diary.newInstance(volleyManager).fabMainClick();
-                    } else if (mPagePosition == 1) {
-                        fl_Calories2.newInstance(volleyManager).fabMainClick();
-                    } else if (mPagePosition == 2) {
-                        //fl_Sleep.newInstance().fabMainClick();
-                    }
-                    break;
-
-            }
+            fabMainManager.fabMainClick(mPagePosition);
 
         } else if (vId == R.id.cover  || vId == R.id.HiCardView) {
-            fabOpen = !fabOpen;
+
+            fabOpen = false;
 
             if (vId == R.id.HiCardView) {
                 String tmpHi = "叫我幹嘛呢？";
@@ -380,36 +339,8 @@ public class RootActivity2 extends AppCompatActivity
                 HiCard_Text.start(tmpHi);
             }
 
-            if (!fabOpen) {
-                mCoverView.animate().scaleX(0F)
-                        .scaleY(0F)
-                        .alpha(0F)
-                        .setDuration(100)
-                        .setListener(new AnimatorListenerAdapter() {
-                            @Override
-                            public void onAnimationStart(Animator animation) {
-                                mCoverView.setClickable(false);
-                            }
+            fabMainManager.fabMainClose(mPagePosition);
 
-                            @Override
-                            public void onAnimationEnd(Animator animation) {
-                                mCoverView.setVisibility(View.GONE);
-                            }
-                        });
-
-                switch (fl_flag_now) {
-                    case "fl_navHome":
-                        if (mPagePosition == 0) {
-                            fl_Diary.newInstance(volleyManager).fabClose(false);
-                        } else if (mPagePosition == 1) {
-                            fl_Calories2.newInstance(volleyManager).fabClose(false);
-                        } else if (mPagePosition == 2) {
-                            //fl_Sleep.newInstance().fabClose(false);
-                        }
-                        break;
-                }
-
-            }
         }
     }
 
@@ -424,7 +355,8 @@ public class RootActivity2 extends AppCompatActivity
     public void flChange(String nav_s) {
         String sTitle = null;
         fl_flag_before = fl_flag_now;
-        fl_flag_now = nav_s;
+
+        setFl_FlagNow(nav_s);
         
         if (nav_s.equals("OS")) return;
         
@@ -462,8 +394,8 @@ public class RootActivity2 extends AppCompatActivity
             Fragment_RL.setVisibility(View.GONE);
             VP_RL.setVisibility(View.VISIBLE);
 
-            addPage(R.string.nav_Diary, fl_Diary.newInstance(volleyManager));
-            addPage(R.string.nav_Calories, fl_Calories2.newInstance(volleyManager));
+            addPage(R.string.nav_Diary, fl_Diary.newInstance(),"fl_Diary");
+            addPage(R.string.nav_Calories, fl_Calories2.newInstance(),"fl_Calories");
             //addPage(R.string.nav_Sleep, fl_Sleep.newInstance());
 
             mViewPagerAdapter = new ViewPagerAdapter(this, getSupportFragmentManager(), mListVPItem);
@@ -502,7 +434,7 @@ public class RootActivity2 extends AppCompatActivity
             if (mInfoMap.IMgetInt("VPhomeBefore") == 0) {
                 new ViewPagerListener().replaceTitle(mListVPItem.get(0).getTitle());
             }
-            fabMainChange(mInfoMap.IMgetInt("VPhomeBefore"));
+            fabMainManager.fabMainChange(mInfoMap.IMgetInt("VPhomeBefore"));
 
             boolean show1 = mViewPagerAdapter.getCount() >= 2;
             showIndicator(show1);
@@ -531,7 +463,7 @@ public class RootActivity2 extends AppCompatActivity
             assert supportActionBar != null;
             supportActionBar.setTitle(sTitle);
 
-            fabMainChange(0);
+            fabMainManager.fabMainChange();
 
             /*if (fl_flag_now.equals("fl_Heart")){
                 //supportActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
@@ -546,10 +478,11 @@ public class RootActivity2 extends AppCompatActivity
     }
 
     /** addPage>>負責多頁面的fl存儲到List **/
-    public List<ViewPagerItem> addPage(int titleResource, Fragment fragment) {
+    public List<ViewPagerItem> addPage(int titleResource, Fragment fragment, String TAG) {
         ViewPagerItem item = new ViewPagerItem();
         item.setTitle(this, titleResource);
         item.setFragment(fragment);
+        item.setFl_TAG(TAG);
         mListVPItem.add(item);
         return mListVPItem;
     }
@@ -560,202 +493,14 @@ public class RootActivity2 extends AppCompatActivity
         mViewPagerIndicator.setClickable(false);
     }
 
-    /** fabMainChange>>負責把主fab在更換fl或頁面時，進行互動動畫與標誌轉換 **/
-    public void fabMainChange(final int pagePositionVP) {
-        fabMain_NeedGONE = false;
-
-        if (fabMain_isGONE) {
-            //原本fabMain是GONE，所以要看他待會要不要回復，以及要的話應該長怎樣
-            switch (fl_flag_now) {
-                case "fl_navHome":
-                    fabMain.setVisibility(View.VISIBLE);
-                    fabMain.setClickable(false);
-                    fabMain_isGONE = false;
-                    switch (pagePositionVP) {
-                        case 0:
-                            fabMain.setImageResource(R.drawable.ic_fab_paint_bk);
-                            fabMain.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0x3f, 0xc0, 0x06)));
-                            break;
-                        case 1:
-                            fabMain.setImageResource(R.drawable.ic_menu_calories);
-                            fabMain.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0xff, 0x8f, 0x00)));
-                            break;
-                        case 2:
-                            fabMain.setImageResource(R.drawable.ic_menu_sleep);
-                            fabMain.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0xff, 0xd2, 0xf2)));
-                            break;
-                    }
-                    break;
-
-                case "fl_Map":
-                    fabMain.setVisibility(View.VISIBLE);
-                    fabMain.setClickable(false);
-                    fabMain_isGONE = false;
-                    fabMain.setImageResource(R.drawable.ic_fab_mylocation_blue);
-                    fabMain.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0xff, 0xff, 0xff)));
-                    break;
-
-                default:
-                    fabMain_NeedGONE = true;
-                    break;
-            }
-
-            if (!fabMain_NeedGONE) {
-                //而且待會也不需要隱藏，所以動畫開始把fabMain從無變到有
-                //記得要等到動畫結束，才能使fabMain可以點擊
-                fabMain.setRotation(0);
-                fabMain.animate().alpha(1f).scaleX(1f).scaleY(1f).setDuration(150)
-                        .setInterpolator(new OvershootInterpolator())
-                        .setListener(new Animator.AnimatorListener() {
-                            @Override
-                            public void onAnimationStart(Animator animation) {
-                                fabMain.setClickable(false);
-                            }
-
-                            @Override
-                            public void onAnimationEnd(Animator animation) {
-                                fabMain.setClickable(true);
-                            }
-
-                            @Override
-                            public void onAnimationCancel(Animator animation) {
-
-                            }
-
-                            @Override
-                            public void onAnimationRepeat(Animator animation) {
-
-                            }
-                        });
-            }
-
-        } else {
-            //原本fabMain是VISIBLE，所以要看他待會要不要回復，以及要的話應該長怎樣，所以先變成無
-            fabMain.animate().alpha(0f).scaleX(0f).scaleY(0f).setDuration(150)
-                    .setInterpolator(new OvershootInterpolator())
-                    .setListener(new Animator.AnimatorListener() {
-
-                        @Override
-                        public void onAnimationStart(Animator animation) {
-                            fabMain.setClickable(false);
-                        }
-
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            fabMain.setRotation(0);
-                            switch (fl_flag_now) {
-                                case "fl_navHome":
-                                    switch (pagePositionVP) {
-                                        case 0:
-                                            fabMain.setImageResource(R.drawable.ic_fab_paint_bk);
-                                            fabMain.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0x3f, 0xc0, 0x06)));
-                                            break;
-                                        case 1:
-                                            fabMain.setImageResource(R.drawable.ic_menu_calories);
-                                            fabMain.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0xff, 0x8f, 0x00)));
-                                            break;
-                                        case 2:
-                                            fabMain.setImageResource(R.drawable.ic_menu_sleep);
-                                            fabMain.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0xff, 0xd2, 0xf2)));
-                                            break;
-                                    }
-                                    break;
-
-                                case "fl_Map":
-                                    fabMain.setImageResource(R.drawable.ic_fab_mylocation_blue);
-                                    fabMain.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0xff, 0xff, 0xff)));
-                                    break;
-
-                                default:
-                                    fabMain_NeedGONE = true;
-                                    break;
-                            }
-                            fabMain.setRotation(0);
-
-                            if (fabMain_NeedGONE) {
-                                fabMain.setVisibility(View.GONE);
-                                fabMain_isGONE = true;
-                            } else {
-                                fabMain.animate().alpha(1f).scaleX(1f).scaleY(1f).setDuration(150)
-                                        .setInterpolator(new OvershootInterpolator())
-                                        .setListener(new Animator.AnimatorListener() {
-                                            @Override
-                                            public void onAnimationStart(Animator animation) {
-
-                                            }
-
-                                            @Override
-                                            public void onAnimationEnd(Animator animation) {
-                                                fabMain.setClickable(true);
-                                            }
-
-                                            @Override
-                                            public void onAnimationCancel(Animator animation) {
-
-                                            }
-
-                                            @Override
-                                            public void onAnimationRepeat(Animator animation) {
-
-                                            }
-                                        });
-                            }
-                        }
-
-                        @Override
-                        public void onAnimationCancel(Animator animation) {
-
-                        }
-
-                        @Override
-                        public void onAnimationRepeat(Animator animation) {
-
-                        }
-                    });
-        }
+    protected void setFl_FlagNow(String fl_flagNow){
+        fl_flag_now = fl_flagNow;
+        fabMainManager.setFl_FlagNow(fl_flag_now);
     }
 
-    /** fabMainClose>>負責將展開的小fab收回的動畫 **/
-    public static void fabMainClose() {
-        if (fabOpen) {
-            fabOpen = false;
-
-            mCoverView.animate().scaleX(0F)
-                    .scaleY(0F)
-                    .alpha(0F)
-                    .setDuration(100)
-                    .setListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationStart(Animator animation) {
-                            mCoverView.setClickable(false);
-                        }
-
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            mCoverView.setVisibility(View.GONE);
-                        }
-                    });
-
-            switch (fl_flag_now) {
-                case "fl_navHome":
-                    switch (mPagePosition) {
-                        case 0:
-                            fl_Diary.newInstance(volleyManager).fabClose(false);
-                            break;
-                        case 1:
-                            fl_Calories2.newInstance(volleyManager).fabClose(false);
-                            break;
-                        case 2:
-                            //fl_Sleep.newInstance().fabClose(false);
-                            break;
-                    }
-                    break;
-
-                case "fl_Map":
-                    //dimBackground(1.0f,0.5f);
-                    break;
-            }
-        }
+    protected void setPagePosition(int PagePosition){
+        mPagePosition = PagePosition;
+        fabMainManager.setPagePosition(PagePosition);
     }
 
     public static void HiCardPlay(String whereFrom,String wantTo,String newText) {
@@ -842,16 +587,18 @@ public class RootActivity2 extends AppCompatActivity
         @Override
         public void onPageScrolled(int position,
                                    float positionOffset,int positionOffsetPixels) {
-            fabMainClose();
+            fabMainManager.fabMainClose(mPagePosition);
         }
 
         @Override
         public void onPageSelected(int position) {
-            mPagePosition = position;
+            //mPagePosition = position;
+            setPagePosition(position);
+
             replaceTitle(String.valueOf(mViewPagerAdapter.getPageTitle(position)));
             //fabMainChange(mPagePosition);
             if (fl_flag_now.equals("fl_navHome")){
-                fabMainChange(mPagePosition);
+                fabMainManager.fabMainChange(mPagePosition);
             }
 
             Log.d(TAG, "**ViewPagerListener**"+mViewPagerAdapter.getPageTitle(position));

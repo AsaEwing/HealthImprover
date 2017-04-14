@@ -1,6 +1,5 @@
 package com.asaewing.healthimprover.app2.fl;
 
-import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.DatePickerDialog;
@@ -27,10 +26,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -45,7 +40,6 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.asaewing.healthimprover.app2.MainActivity2;
-import com.asaewing.healthimprover.app2.Manager.VolleyManager;
 import com.asaewing.healthimprover.app2.Others.CT48;
 import com.asaewing.healthimprover.app2.Others.HiDBHelper;
 import com.asaewing.healthimprover.app2.R;
@@ -54,6 +48,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -64,7 +59,7 @@ public class fl_Calories2 extends RootFragment
         implements View.OnClickListener {
     //implements View.OnClickListener, GestureDetector.OnGestureListener
 
-    private VolleyManager mVolleyManager;
+    //private VolleyManager mVolleyManager;
 
     //private CircularProgressBar CPBar;
     private ProgressBar mProgressBar_In,mProgressBar_Out;
@@ -96,22 +91,23 @@ public class fl_Calories2 extends RootFragment
     //MainActivity2.MyOnTouchListener myOnTouchListener;
 
     private static FloatingActionButton fabCal_Target,fabCal_Sport,fabCal_Recommend;
+    private static TextView fabCal_Target_T,fabCal_Sport_T,fabCal_Recommend_T;
     private static RelativeLayout fab_Sport_RL,fab_Target_RL,fab_Recommend_RL;
-    private static boolean fabFlag = true,fabAnimFlag=false;
+    //private static boolean fabFlag = true,fabAnimFlag=false;
     private TextView Target_text;
 
     //AnimationSet AS_fab = new AnimationSet(false);
-    private Animation alphaAnimationShow,alphaAnimationHide;
+    //private Animation alphaAnimationShow,alphaAnimationHide;
 
     //private float fabMoveR,fabMoveR45;
 
-    public fl_Calories2(VolleyManager volleyManager) {
+    public fl_Calories2() {
         // Required empty public constructor
-        this.mVolleyManager = volleyManager;
+
     }
 
-    public static fl_Calories2 newInstance(VolleyManager volleyManager) {
-        fl_Calories2 fragment = new fl_Calories2(volleyManager);
+    public static fl_Calories2 newInstance() {
+        fl_Calories2 fragment = new fl_Calories2();
 
         return fragment;
     }
@@ -286,11 +282,11 @@ public class fl_Calories2 extends RootFragment
 
         //initValueGet();
 
-        alphaAnimationShow = new AlphaAnimation(0.0F, 1.0F);
+        /*alphaAnimationShow = new AlphaAnimation(0.0F, 1.0F);
         alphaAnimationHide = new AlphaAnimation(1.0F, 0.0F);
 
         alphaAnimationShow.setDuration(360);
-        alphaAnimationHide.setDuration(360);
+        alphaAnimationHide.setDuration(360);*/
 
         //fabMoveR = -MainActivity2.mInfoMap.IMgetFloat("WindowWidth")/5;
         //fabMoveR45 = (float) (Math.cos(Math.PI/8)*fabMoveR);
@@ -303,6 +299,7 @@ public class fl_Calories2 extends RootFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater,container,savedInstanceState);
+        //this.mVolleyManager = getMainActivity().getVolleyManager();
 
         rootView = inflater.inflate(R.layout.fl_calories2, container, false);
 
@@ -345,10 +342,11 @@ public class fl_Calories2 extends RootFragment
         FrameLayout aView = (FrameLayout) getActivity().findViewById(R.id.fl_c_Main_fab);
         aView.addView(view);
 
-        fabCal_Target = (FloatingActionButton) view.findViewById(R.id.cfab_Target);
-        fabCal_Target.setOnClickListener(this);
+
         fabCal_Sport = (FloatingActionButton) view.findViewById(R.id.cfab_Sport);
         fabCal_Sport.setOnClickListener(this);
+        fabCal_Target = (FloatingActionButton) view.findViewById(R.id.cfab_Target);
+        fabCal_Target.setOnClickListener(this);
         fabCal_Recommend = (FloatingActionButton) view.findViewById(R.id.cfab_Recommend);
         fabCal_Recommend.setOnClickListener(this);
 
@@ -356,7 +354,33 @@ public class fl_Calories2 extends RootFragment
         fab_Target_RL = (RelativeLayout) view.findViewById(R.id.cfab_Target_RL);
         fab_Recommend_RL = (RelativeLayout) view.findViewById(R.id.cfab_Recommend_RL);
 
+        fabCal_Sport_T = (TextView) view.findViewById(R.id.cfab_Sport_Text);
+        fabCal_Target_T = (TextView) view.findViewById(R.id.cfab_Target_Text);
+        fabCal_Recommend_T = (TextView) view.findViewById(R.id.cfab_Recommend_Text);
+
         TargetUpdate();
+
+        setFabUse = true;
+        fabFlag = true;
+        fab_List = new ArrayList<>();
+        fab_List.add(fabCal_Sport);
+        fab_List.add(fabCal_Target);
+        fab_List.add(fabCal_Recommend);
+
+        fabRL_List = new ArrayList<>();
+        fabRL_List.add(fab_Sport_RL);
+        fabRL_List.add(fab_Target_RL);
+        fabRL_List.add(fab_Recommend_RL);
+
+        fabText_List = new ArrayList<>();
+        fabText_List.add(fabCal_Sport_T);
+        fabText_List.add(fabCal_Target_T);
+        fabText_List.add(fabCal_Recommend_T);
+
+        fabString_List = new ArrayList<>();
+        fabString_List.add(getString(R.string.cfab_Sport));
+        fabString_List.add(getString(R.string.cfab_Target));
+        fabString_List.add(getString(R.string.cfab_Recommend));
 
         return rootView;
     }
@@ -376,6 +400,9 @@ public class fl_Calories2 extends RootFragment
         super.onStart();
 
         initValueGet(false);
+
+        setFabUse = true;
+        fabFlag = true;
 
         mSManager = (SensorManager) getActivity().getSystemService(Service.SENSOR_SERVICE);
         // 震动
@@ -398,9 +425,6 @@ public class fl_Calories2 extends RootFragment
     @Override
     public void onPause() {
         super.onPause();
-
-        //MainActivity2.mInfoMap.IMput(HiDBHelper.KEY_BI_Step_before,mStep);
-        //MainActivity2.mInfoMap.IMput(HiDBHelper.KEY_BI_CalIn_before,mCalIn);
     }
 
     @Override
@@ -431,171 +455,27 @@ public class fl_Calories2 extends RootFragment
                 .unregisterMyOnTouchListener(myOnTouchListener);*/
     }
 
+    @Override
     public void fabMainClick() {
-        Log.d(TAG, "**" + TAG + "**buttonClick**fabMain******");
+        Log.d(TAG, "**" + TAG + "**buttonClick**fabMain******"+fabFlag);
 
         if (!fabFlag) {
             fabClose(true);
         } else {
             fabOpen(true);
 
-            MainActivity2.HiCardPlay("","","今天要做什麼運動呢？");
+            getMainActivity().HiCardPlay("","","今天要做什麼運動呢？");
         }
     }
 
-    public void fabClose(boolean fabMain) {
-        long tmpTime2;
-        if (!fabFlag) {
-            if (fabMain) {
-                tmpTime2 = 360;
-            } else {
-                tmpTime2 = 280;
-            }
-            fabAnimFlag=true;
-            fabCal_Sport.setClickable(false);
-            fabCal_Target.setClickable(false);
-            fabCal_Recommend.setClickable(false);
-
-            MainActivity2.fabMain.animate().rotationBy(180f)
-                    .setInterpolator(new AccelerateInterpolator()).setDuration(210)
-                    .setListener(new Animator.AnimatorListener() {
-                        @Override
-                        public void onAnimationStart(Animator animation) {
-                            MainActivity2.fabMain.setClickable(false);
-                            fabCal_Target.setClickable(false);
-                            fabCal_Sport.setClickable(false);
-                            fabCal_Recommend.setClickable(false);
-                        }
-
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            MainActivity2.fabMain.setImageResource(R.drawable.ic_menu_calories);
-
-                            MainActivity2.fabMain.animate().rotationBy(180f)
-                                    .setInterpolator(new OvershootInterpolator()).setDuration(210)
-                                    .setListener(new Animator.AnimatorListener() {
-                                        @Override
-                                        public void onAnimationStart(Animator animation) {
-
-                                        }
-
-                                        @Override
-                                        public void onAnimationEnd(Animator animation) {
-                                            MainActivity2.fabMain.setClickable(true);
-                                            fabCal_Target.setClickable(true);
-                                            fabCal_Sport.setClickable(true);
-                                            fabCal_Recommend.setClickable(true);
-                                            fabAnimFlag=false;
-                                            fabFlag = true;
-                                            MainActivity2.fabMain.setRotation(0);
-                                        }
-
-                                        @Override
-                                        public void onAnimationCancel(Animator animation) {
-
-                                        }
-
-                                        @Override
-                                        public void onAnimationRepeat(Animator animation) {
-
-                                        }
-                                    });
-                        }
-
-                        @Override
-                        public void onAnimationCancel(Animator animation) {
-
-                        }
-
-                        @Override
-                        public void onAnimationRepeat(Animator animation) {
-
-                        }
-                    });
-
-            closeRL(fab_Sport_RL, tmpTime2);
-            closeRL(fab_Target_RL, tmpTime2);
-            closeRL(fab_Recommend_RL, tmpTime2);
-
-            //fabFlag = true;
-        }
-    }
-
+    @Override
     public void fabOpen(boolean fabMain) {
-        if (fabFlag) {
-            fabAnimFlag = true;
-            fabCal_Target.setVisibility(View.VISIBLE);
-            fabCal_Sport.setVisibility(View.VISIBLE);
-            fabCal_Recommend.setVisibility(View.VISIBLE);
-            MainActivity2.fabMain.setClickable(false);
-            fabCal_Target.setClickable(false);
-            fabCal_Sport.setClickable(false);
-            fabCal_Recommend.setClickable(false);
+        super.fabOpen(fabMain);
+    }
 
-            if (fabMain) {
-                MainActivity2.fabMain.animate().rotationBy(180f)
-                        .setInterpolator(new AccelerateInterpolator()).setDuration(210)
-                        .setListener(new Animator.AnimatorListener() {
-                            @Override
-                            public void onAnimationStart(Animator animation) {
-                                //MainActivity2.fabMain.setClickable(false);
-                            }
-
-                            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-                            @Override
-                            public void onAnimationEnd(Animator animation) {
-                                MainActivity2.fabMain.setImageResource(R.drawable.ic_fab_cancel_bk);
-
-                                MainActivity2.fabMain.animate().rotationBy(180f)
-                                        .setInterpolator(new OvershootInterpolator()).setDuration(210)
-                                        .setListener(new Animator.AnimatorListener() {
-                                            @Override
-                                            public void onAnimationStart(Animator animation) {
-                                                //MainActivity2.fabMain.setClickable(false);
-                                            }
-
-                                            @Override
-                                            public void onAnimationEnd(Animator animation) {
-                                                MainActivity2.fabMain.setClickable(true);
-                                                fabCal_Target.setClickable(true);
-                                                fabCal_Sport.setClickable(true);
-                                                fabCal_Recommend.setClickable(true);
-
-                                                fabFlag = false;
-                                                fabAnimFlag=false;
-                                                MainActivity2.fabMain.setRotation(0);
-                                            }
-
-                                            @Override
-                                            public void onAnimationCancel(Animator animation) {
-
-                                            }
-
-                                            @Override
-                                            public void onAnimationRepeat(Animator animation) {
-
-                                            }
-                                        });
-                            }
-
-                            @Override
-                            public void onAnimationCancel(Animator animation) {
-
-                            }
-
-                            @Override
-                            public void onAnimationRepeat(Animator animation) {
-
-                            }
-                        });
-            }
-
-            //fabFlag = false;
-            double tmpWidth = MainActivity2.fabMain.getWidth()*1.15;
-            openMoveRL(fab_Sport_RL,tmpWidth*1);
-            openMoveRL(fab_Target_RL,tmpWidth*2);
-            openMoveRL(fab_Recommend_RL,tmpWidth*3);
-        }
+    @Override
+    public void fabClose(boolean fabMain) {
+        super.fabClose(fabMain);
     }
 
     @SuppressLint("DefaultLocale")
@@ -790,7 +670,8 @@ public class fl_Calories2 extends RootFragment
                 ,new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        MainActivity2.fabMainClose();
+                        //MainActivity2.fabMainClose();
+                        getMainActivity().getFabMainManager().fabMainClose(0);
                     }
                 });
 
@@ -801,7 +682,8 @@ public class fl_Calories2 extends RootFragment
         dialogTarget.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
-                MainActivity2.fabMainClose();
+                //MainActivity2.fabMainClose();
+                getMainActivity().getFabMainManager().fabMainClose(0);
             }
         });
 
@@ -947,21 +829,23 @@ public class fl_Calories2 extends RootFragment
                                 ,String.valueOf(rangeDayEdit[0]),String.valueOf(0)
                                 ,endDay[0],"00:00:00"
                                 ,target, String.valueOf(targetValue));*/
-                        mVolleyManager.vpostSend_TargetJson(startDay,startTime
+                        getMainActivity().getVolleyManager().vpostSend_TargetJson(startDay,startTime
                                 ,String.valueOf(rangeDayEdit[0]),String.valueOf(0)
                                 ,endDay[0],"00:00:00"
                                 ,target, String.valueOf(targetValue));
 
                         TargetUpdate();
 
-                        MainActivity2.fabMainClose();
+                        //MainActivity2.fabMainClose();
+                        getMainActivity().getFabMainManager().fabMainClose(0);
                     }
                 });
         builderTarget.setNegativeButton(R.string.Dialog_button_Cancel
                 ,new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        MainActivity2.fabMainClose();
+                        //MainActivity2.fabMainClose();
+                        getMainActivity().getFabMainManager().fabMainClose(0);
                     }
                 });
 
@@ -972,7 +856,8 @@ public class fl_Calories2 extends RootFragment
         dialogTarget.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
-                MainActivity2.fabMainClose();
+                //MainActivity2.fabMainClose();
+                getMainActivity().getFabMainManager().fabMainClose(0);
             }
         });
 
@@ -1171,21 +1056,23 @@ public class fl_Calories2 extends RootFragment
 
                                 /*MainActivity2.volleyMethod.vpostSend_SportJson(date[0],time[0]
                                 ,RB_List_KEY[ii],String.valueOf(cal),"","",String.valueOf(conTime),"");*/
-                                mVolleyManager.vpostSend_SportJson(date[0],time[0]
+                                getMainActivity().getVolleyManager().vpostSend_SportJson(date[0],time[0]
                                         ,RB_List_KEY[ii],String.valueOf(cal),"","",String.valueOf(conTime),"");
                                 initValueGet(false);
                                 break;
                             }
                         }
 
-                        MainActivity2.fabMainClose();
+                        //MainActivity2.fabMainClose();
+                        getMainActivity().getFabMainManager().fabMainClose(0);
                     }
                 });
         builderSport.setNegativeButton(R.string.Dialog_button_Cancel
                 ,new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        MainActivity2.fabMainClose();
+                        //MainActivity2.fabMainClose();
+                        getMainActivity().getFabMainManager().fabMainClose(0);
                     }
                 });
 
@@ -1196,7 +1083,8 @@ public class fl_Calories2 extends RootFragment
         dialogSport.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
-                MainActivity2.fabMainClose();
+                //MainActivity2.fabMainClose();
+                getMainActivity().getFabMainManager().fabMainClose(0);
             }
         });
 
@@ -1417,16 +1305,18 @@ public class fl_Calories2 extends RootFragment
                     public void onClick(DialogInterface dialog, int which) {
 
                         //MainActivity2.volleyMethod.vpostSend_Recommend(tmpStr[0]);
-                        mVolleyManager.vpostSend_Recommend(tmpStr[0]);
+                        getMainActivity().getVolleyManager().vpostSend_Recommend(tmpStr[0]);
 
-                        MainActivity2.fabMainClose();
+                        //MainActivity2.fabMainClose();
+                        getMainActivity().getFabMainManager().fabMainClose(0);
                     }
                 });
         builderRecommend.setNegativeButton(R.string.Dialog_button_Cancel
                 ,new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        MainActivity2.fabMainClose();
+                        //MainActivity2.fabMainClose();
+                        getMainActivity().getFabMainManager().fabMainClose(0);
                     }
                 });
 
@@ -1514,58 +1404,7 @@ public class fl_Calories2 extends RootFragment
         return false;
     }*/
 
-    private void closeRL(final RelativeLayout relativeLayout, long Time){
-        relativeLayout.animate().alpha(0f)
-                .translationY(0f).setDuration(Time)
-                .setListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        relativeLayout.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animator animation) {
-
-                    }
-                });
-    }
-
-    private void openMoveRL(RelativeLayout relativeLayout,double moveY){
-        relativeLayout.setVisibility(View.VISIBLE);
-        relativeLayout.animate().alpha(1f)
-                .translationY(-(float)(moveY))
-                .setDuration(360)
-                .setListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-
-                    }
-                    @Override
-                    public void onAnimationRepeat(Animator animation) {
-
-                    }
-                });
-    }
+    //Log.d(TAG, "**" + TAG + "**buttonClick**fabMain******"+fabFlag);
 
     private class sensorListener implements SensorEventListener {
         double tmpDD,tmpDD_before;

@@ -33,6 +33,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TimePicker;
 
+import com.asaewing.healthimprover.app2.Manager.VolleyManager;
 import com.asaewing.healthimprover.app2.Others.CT48;
 import com.asaewing.healthimprover.app2.Others.HiDBHelper;
 import com.asaewing.healthimprover.app2.Adapter.ListAdapter;
@@ -64,6 +65,8 @@ public class FoodActivity extends AppCompatActivity
     protected boolean fabOpen = false;       //判斷fab是否展開了小fab
     private String date = "";
     private String time = "";
+
+    private VolleyManager mVolleyManager;
 
     protected Toolbar mToolbar;
     private static HiDBHelper helper;
@@ -104,6 +107,8 @@ public class FoodActivity extends AppCompatActivity
         TAG = getClass().getSimpleName();
         Log.d(TAG, "**" + TAG + "**onCreate");  //Log，onCreate Start
         setContentView(R.layout.food_activity); //主Layout
+
+        mVolleyManager = MainActivity2.getVolleyManager();
 
         helper = new HiDBHelper(getApplicationContext());
 
@@ -844,7 +849,7 @@ public class FoodActivity extends AppCompatActivity
                 }
 
                 //MainActivity2.volleyMethod.vpostSend_FoodJson(new JSONObject[]{tmpJO});
-                MainActivity2.volleyManager.vpostSend_FoodJson(new JSONObject[]{tmpJO});
+                mVolleyManager.vpostSend_FoodJson(new JSONObject[]{tmpJO});
                 fabMainClose();
                 break;
             case R.id.Food_Cancel:

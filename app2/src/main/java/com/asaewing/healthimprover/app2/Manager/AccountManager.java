@@ -7,8 +7,11 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.system.ErrnoException;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +20,7 @@ import android.widget.NumberPicker;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.asaewing.healthimprover.app2.MainActivity2;
 import com.asaewing.healthimprover.app2.Others.CT48;
@@ -28,6 +32,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
@@ -38,31 +43,81 @@ public class AccountManager {
     private MainActivity2 mContext;
     private String mTAG;
 
+    private boolean isAccount = false;
+
     private InfoMap mInfoMap;
     private HiDBHelper helper;
     private VolleyManager volleyManager;
+    private DataManager dataManager;
 
-    private String personName;
-    private String personEmail;
-    private String personId;
-    private Uri personPhoto;
-    private GoogleAccount googleAccount;
-    private FacebookAccount facebookAccount;
+    public String personName;
+    public String personEmail;
+    public String personId;
+    public Uri personPhoto;
+
+    public GoogleAccount googleAccount;
+    public FacebookAccount facebookAccount;
+    public AccountChild accountChild;
 
     public AccountManager(MainActivity2 context,
-                          String TAG,
-                          InfoMap infoMap,
-                          HiDBHelper hiDBHelper,
-                          VolleyManager volleyManager){
+                          String TAG){
         this.mContext = context;
         this.mTAG = TAG+" , AC Manager";
-        this.mInfoMap = infoMap;
-        this.helper = hiDBHelper;
-        this.volleyManager = volleyManager;
+        //this.volleyManager = mContext.getVolleyManager();
+        this.dataManager = mContext.getDataManager();
+        this.mInfoMap = dataManager.mInfoMap;
+        this.helper = dataManager.helper;
+
+        Cursor hiCursor= helper.HiSelect();
+        hiCursor.moveToFirst();
+        String tmpAC_Google = "";
+        String tmpAC_Facebook = "";
+        try {
+            tmpAC_Google = hiCursor.getString(
+                    hiCursor.getColumnIndex(HiDBHelper.KEY_AC_GoogleMail));
+            tmpAC_Facebook = hiCursor.getString(
+                    hiCursor.getColumnIndex(HiDBHelper.KEY_AC_FacebookMail));
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        hiCursor.close();
+
+        int tmpCount_Google = tmpAC_Google.length();
+        int tmpCount_Facebook = tmpAC_Facebook.length();
+
+        String tmpShow = "";
+
+        if ((tmpCount_Google+tmpCount_Facebook)==0){
+            tmpShow = "No Account";
+            accountChild = null;
+            signInAccount();
+        } else if (tmpCount_Google>0 && tmpCount_Facebook>0){
+            tmpShow = "Two had";
+            accountChild = new GoogleAccount(mContext,TAG,this);
+            isAccount = true;
+        } else {
+            if (tmpCount_Google>0){
+                tmpShow = "Google";
+                accountChild = new GoogleAccount(mContext,TAG,this);
+                isAccount = true;
+            } else if (tmpCount_Facebook>0){
+                tmpShow = "Facebook";
+                accountChild = new FacebookAccount(mContext,TAG,this);
+                isAccount = true;
+            }
+        }
+
+        Toast.makeText(mContext,tmpShow, Toast.LENGTH_LONG).show();
+
+    }
+
+    public void signInAccount(){
+        signInDialog1();
     }
 
     private void signInDialog1(){
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(mContext.getApplicationContext());
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(mContext);
         builder1.setTitle(mContext.getString(R.string.signIn1_title));
         builder1.setView(R.layout.sign_in1);
 
@@ -81,7 +136,7 @@ public class AccountManager {
                     public void onClick(DialogInterface dialog, int which) {
                         //setBMI();
                         //MainActivity.fabMainClose();
-                        mContext.updateData();
+                        mContext.getDataManager().updateData();
                         mContext.initView();
                     }
                 });
@@ -95,10 +150,12 @@ public class AccountManager {
         assert text1 != null;
         text1.setText(mContext.getString(R.string.signIn1_content));
 
+        mContext.hidePreProgressDialog();
+
     }
 
     private void signInDialog2(){
-        AlertDialog.Builder builder2 = new AlertDialog.Builder(mContext.getApplicationContext());
+        AlertDialog.Builder builder2 = new AlertDialog.Builder(mContext);
         builder2.setTitle(mContext.getString(R.string.signIn2_title));
         builder2.setView(R.layout.sign_in2);
 
@@ -114,7 +171,7 @@ public class AccountManager {
                 ,new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mContext.updateData();
+                        mContext.getDataManager().updateData();
                         mContext.initView();
                         //setBMI();
                         //MainActivity.fabMainClose();
@@ -129,22 +186,45 @@ public class AccountManager {
         TextView text2 = (TextView)dialog2.findViewById(R.id.signIn2_Text);
         assert text2 != null;
         text2.setText(mContext.getString(R.string.signIn2_content));
+
         Button google_bt = (Button)dialog2.findViewById(R.id.signio_google_bt);
         assert google_bt != null;
         google_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                accountChild = new GoogleAccount(mContext,mTAG,AccountManager.this);
                 if (!mContext.flag_google) {
-                    googleAccount.signIn();
+                    //googleAccount.signIn();
+
+                    accountChild.signIn();
                     dialog2.cancel();
                 } else {
-                    googleAccount.signOut();
+                    //googleAccount.signOut();
+                    accountChild.signOut();
+                }
+            }
+        });
+
+        Button facebook_bt = (Button)dialog2.findViewById(R.id.signio_facebook_bt);
+        assert facebook_bt != null;
+        facebook_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                accountChild = new FacebookAccount(mContext,mTAG,AccountManager.this);
+                if (!mContext.flag_facebook) {
+                    //googleAccount.signIn();
+                    accountChild.signIn();
+                    dialog2.cancel();
+                } else {
+                    //googleAccount.signOut();
+                    accountChild.signOut();
                 }
             }
         });
     }
 
     public ArrayList<String> arrayListInfo = null;
+
     public void signInDialog3(final int ii){
         if (ii<arrayListInfo.size()){
             String tmpList = arrayListInfo.get(ii);
@@ -159,7 +239,7 @@ public class AccountManager {
                     BI_Dialog(ii,HiDBHelper.KEY_AC_Weight, R.string.Dialog_Title_Weight, R.layout.number_picker_sign);
                     break;
                 case HiDBHelper.KEY_AC_Birthday:
-                    DatePickerDialog datePickerDialog = 
+                    DatePickerDialog datePickerDialog =
                             new DatePickerDialog(mContext.getApplicationContext(), new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -209,7 +289,7 @@ public class AccountManager {
                     volleyManager.vpostSend_ACJson(tmpStr,mInfoMap.IMgetString(tmpStr));
             }
             arrayListInfo = null;
-            mContext.saveDataSP();
+            mContext.getDataManager().saveDataSP();
 
             //volleyMethod.vpostSend_ACJson();
             Log.d(mTAG, "**AccountInfoGet**DialogOver");
@@ -368,8 +448,59 @@ public class AccountManager {
 
     }
 
-    protected static class GoogleAccount {
-        
+    //TODO----Life----
+    public void mOnCreate() {
+        //super.mOnCreate(savedInstanceState);
+        if (isAccount) accountChild.mOnCreate();
+        //mContext.setVolleyManager();
+    }
+
+    public void mOnActivityResult(int requestCode, int resultCode, Intent data) {
+        //super.mOnActivityResult(requestCode, resultCode, data);
+        if (isAccount) accountChild.mOnActivityResult(requestCode,resultCode,data);
+    }
+
+    public void mOnStart() {
+        //super.mOnStart();
+
+        if (isAccount) accountChild.mOnStart();
+    }
+
+    public void mOnResume() {
+        //super.mOnResume();
+        if (isAccount) accountChild.mOnResume();
+    }
+
+    public void mOnPause() {
+        //super.mOnPause();
+        if (isAccount) accountChild.mOnPause();
+    }
+
+    public void mOnStop() {
+        //super.mOnStop();
+        if (isAccount) accountChild.mOnStop();
+    }
+
+    public void mOnRestart() {
+        //super.mOnRestart();
+        if (isAccount) accountChild.mOnRestart();
+    }
+
+    public void mOnDestroy() {
+        //super.mOnDestroy();
+        if (isAccount) accountChild.mOnDestroy();
+    }
+
+    public void signIn(){
+        if (isAccount) accountChild.signIn();
+    }
+
+    public void signOut(){
+        if (isAccount) accountChild.signOut();
+    }
+
+    public class GoogleAccount extends AccountChild {
+
         private String mTAG;
         private MainActivity2 mContext;
         private AccountManager mAccountManager;
@@ -405,7 +536,8 @@ public class AccountManager {
                     //tmp[0] = personIdToken;
                     //new HttpPHP("sendIdToken",tmp).execute();
                     //volleyMethod.vpostGet_IdToken(personIdToken);
-                    mAccountManager.volleyManager.vpostGet_IdToken(personIdToken);
+                    //mAccountManager.volleyManager.vpostGet_IdToken(personIdToken);
+                    mContext.getVolleyManager().vpostGet_IdToken(personIdToken);
                     //volleyMethod.vpost_GetAccountInfo();
                     //TAG
                     Log.d(mTAG, "**" + mTAG + "**acGot**" +
@@ -420,16 +552,23 @@ public class AccountManager {
             }
         }
 
-        private void signIn() {
+        @Override
+        public void signIn() {
 
             //TAG
             Log.d(mTAG, "**" + mTAG + "**signIn");
+            mOnCreate();
+            isAccount = true;
 
             Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
             mContext.startActivityForResult(signInIntent, RC_SIGN_IN);
+            mOnStart();
+
+            mOnResume();
         }
 
-        private void signOut() {
+        @Override
+        public void signOut() {
 
             //TAG
             Log.d(mTAG, "**" + mTAG + "**signOut");
@@ -461,12 +600,200 @@ public class AccountManager {
                     });
         }
 
+        //TODO----Life----
+        @Override
+        public void mOnCreate() {
+            super.mOnCreate();
+
+            gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestEmail()
+                    .requestId()
+                    .requestIdToken(mContext.getString(R.string.server_client_id))
+                    .build();
+            mGoogleApiClient = new GoogleApiClient.Builder(mContext)
+                    .enableAutoManage(mContext /* FragmentActivity */
+                            , mContext /* OnConnectionFailedListener */)
+                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                    .build();
+        }
+
+        @Override
+        public void mOnActivityResult(int requestCode, int resultCode, Intent data) {
+            super.mOnActivityResult(requestCode,resultCode,data);
+
+            if (requestCode == RC_SIGN_IN) {
+                GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+                handleSignInResult(result);
+            }
+        }
+
+        @Override
+        public void mOnStart() {
+            super.mOnStart();
+
+            OptionalPendingResult<GoogleSignInResult> opr
+                    = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
+            if (opr.isDone()) {
+                // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
+                // and the GoogleSignInResult will be available instantly.
+                Log.d(mTAG, "Got cached sign-in");
+                GoogleSignInResult result = opr.get();
+                handleSignInResult(result);
+            } else {
+                // If the user has not previously signed in on this device or the sign-in has expired,
+                // this asynchronous branch will attempt to sign in the user silently.  Cross-device
+                // single sign-on will occur in this branch.
+                //showProgressDialog();
+                opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
+                    @Override
+                    public void onResult(@NonNull GoogleSignInResult googleSignInResult) {
+                        //hideProgressDialog();
+                        handleSignInResult(googleSignInResult);
+                    }
+                });
+            }
+        }
+
+        @Override
+        public void mOnResume() {
+            super.mOnResume();
+        }
+
+        @Override
+        public void mOnPause() {
+            super.mOnPause();
+        }
+
+        @Override
+        public void mOnStop() {
+            super.mOnStop();
+        }
+
+        @Override
+        protected void mOnRestart() {
+            super.mOnRestart();
+        }
+
+        @Override
+        public void mOnDestroy() {
+            super.mOnDestroy();
+
+            mGoogleApiClient.stopAutoManage(mContext);
+        }
+
     }
 
-    protected static class FacebookAccount {
+    public class FacebookAccount extends AccountChild {
 
-        public FacebookAccount(){
+        private String mTAG;
+        private MainActivity2 mContext;
+        private AccountManager mAccountManager;
 
+        public FacebookAccount(MainActivity2 context,
+                               String TAG,
+                               AccountManager accountManager){
+            this.mTAG = TAG;
+            this.mContext = context;
+            this.mAccountManager = accountManager;
+        }
+
+        @Override
+        public void signIn() {
+
+        }
+
+        @Override
+        public void signOut() {
+
+        }
+
+        //TODO----Life----
+        @Override
+        public void mOnCreate() {
+            super.mOnCreate();
+        }
+
+        @Override
+        public void mOnActivityResult(int requestCode, int resultCode, Intent data) {
+            super.mOnActivityResult(requestCode,resultCode,data);
+        }
+
+        @Override
+        public void mOnStart() {
+            super.mOnStart();
+        }
+
+        @Override
+        public void mOnResume() {
+            super.mOnResume();
+        }
+
+        @Override
+        public void mOnPause() {
+            super.mOnPause();
+        }
+
+        @Override
+        public void mOnStop() {
+            super.mOnStop();
+        }
+
+        @Override
+        protected void mOnRestart() {
+            super.mOnRestart();
+        }
+
+        @Override
+        public void mOnDestroy() {
+            super.mOnDestroy();
+        }
+    }
+
+    protected class AccountChild {
+
+        public AccountChild(){
+
+        }
+
+        public void signIn() {
+
+        }
+
+        public void signOut() {
+
+        }
+
+        //TODO----Life----
+        public void mOnCreate() {
+            //super.mOnCreate(savedInstanceState);
+        }
+
+        public void mOnActivityResult(int requestCode, int resultCode, Intent data) {
+            //super.mOnActivityResult(requestCode, resultCode, data);
+        }
+
+        public void mOnStart() {
+            //super.mOnStart();
+        }
+
+        public void mOnResume() {
+            //super.mOnResume();
+        }
+
+        public void mOnPause() {
+            //super.mOnPause();
+        }
+
+        public void mOnStop() {
+            //super.mOnStop();
+        }
+
+        protected void mOnRestart() {
+            //super.mOnRestart();
+        }
+
+        public void mOnDestroy() {
+            //super.mOnDestroy();
         }
 
     }

@@ -6,10 +6,15 @@ import android.support.v4.app.Fragment;
 public class ViewPagerItem {
 
     private String mTitle;
+    private String mTAG;
     private Fragment mFragment;
 
     public String getTitle() {
         return mTitle;
+    }
+
+    public String getFl_TAG(){
+        return mTAG;
     }
 
     public void setTitle(Context context, int titleResource) {
@@ -18,6 +23,10 @@ public class ViewPagerItem {
 
     public void setTitle(String title) {
         this.mTitle = title;
+    }
+
+    public void setFl_TAG(String TAG) {
+        this.mTAG = TAG;
     }
 
     public Fragment getFragment() {
