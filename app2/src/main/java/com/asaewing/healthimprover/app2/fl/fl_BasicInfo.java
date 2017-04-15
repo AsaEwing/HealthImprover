@@ -187,13 +187,15 @@ public class fl_BasicInfo extends RootFragment implements
             google_bt.setText(R.string.signio_google_bt_out);
 
             try {
-                String tmpBitmap = getMainActivity().getDataManager().
-                        mInfoMap.IMgetString(HiDBHelper.KEY_AC_Image_url);
-                Bitmap bitmap = new DownloadImageTask(getMainActivity(),"acGoogleImage",acGoogleImage)
-                        .execute(tmpBitmap).get();
-                acGoogleImage.setImageBitmap(bitmap);
+                String tmpStr = getMainActivity().getAccountManager().personPhoto.toString();
+                try {
+                    Bitmap bitmap = new DownloadImageTask(getMainActivity(),"acGoogleImage",acGoogleImage)
+                            .execute(tmpStr).get();
+                    acGoogleImage.setImageBitmap(bitmap);
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
+                }
             } catch (Exception e) {
-                //InterruptedException | ExecutionException
                 e.printStackTrace();
             }
 

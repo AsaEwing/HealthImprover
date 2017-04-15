@@ -35,7 +35,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
-import Interface.RL_Action;
+import com.asaewing.healthimprover.app2.Interface.RL_Action;
 
 /**
  *  1.Click監聽，皆由class一次寫好，方便處理觸發順序、優先。

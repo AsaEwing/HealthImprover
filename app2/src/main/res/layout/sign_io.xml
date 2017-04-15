@@ -9,21 +9,23 @@
 
 
     <Button
+        android:id="@+id/signio_google_bt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/signio_google_bt_in"
-        android:id="@+id/signio_google_bt"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/signio_bt_google"/>
+        android:background="@drawable/signio_bt_google"
+        android:text="@string/signio_google_bt_in"
+        android:textColor="@android:color/black" />
 
     <Button
+        android:id="@+id/signio_facebook_bt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/signio_facebook_bt_in"
-        android:id="@+id/signio_facebook_bt"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="5dp"
         android:layout_marginBottom="30dp"
-        android:background="@drawable/signio_bt_facebook" />
+        android:layout_marginTop="5dp"
+        android:background="@drawable/signio_bt_facebook"
+        android:text="@string/signio_facebook_bt_in"
+        android:textColor="@android:color/black" />
 
 </LinearLayout>

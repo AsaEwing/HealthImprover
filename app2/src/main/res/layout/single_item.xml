@@ -47,7 +47,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:gravity="center_vertical" />
+            android:gravity="center_vertical"
+            android:textColor="@android:color/black" />
 
         <!-- 加入分隔線，因為RecylerView不能像ListView一樣設定項目分隔線 -->
         <View

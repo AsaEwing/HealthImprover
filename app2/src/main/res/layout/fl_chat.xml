@@ -33,7 +33,8 @@
                 android:id="@+id/send"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/send" />
+                android:text="@string/send"
+                android:textColor="@android:color/black" />
         </LinearLayout>
 
     </LinearLayout>

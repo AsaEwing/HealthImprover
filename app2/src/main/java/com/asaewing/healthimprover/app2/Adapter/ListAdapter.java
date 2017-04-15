@@ -1,6 +1,7 @@
 package com.asaewing.healthimprover.app2.Adapter;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -91,11 +92,18 @@ public class ListAdapter extends BaseAdapter {
         Log.d("List","**List**"+tmpO.length()+"**"+tmpO);
 
         if (tmpO.length()>0){
-            if(Objects.equals(tmpO.substring(tmpO.length() - 1), "，")){
+            if(tmpO.substring(tmpO.length() - 1).equals("，")){
                 tmpO = tmpO.substring(0,tmpO.length() - 1);
                 tmpO = "備註："+tmpO;
                 textO.setText(tmpO);
             }
+            /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if(Objects.equals(tmpO.substring(tmpO.length() - 1), "，")){
+                    tmpO = tmpO.substring(0,tmpO.length() - 1);
+                    tmpO = "備註："+tmpO;
+                    textO.setText(tmpO);
+                }
+            }*/
         } else {
             textO.setVisibility(View.GONE);
         }

@@ -7,6 +7,8 @@ import android.util.Base64;
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 
+import static junit.framework.Assert.assertSame;
+
 /**
  *
  */
@@ -16,11 +18,15 @@ public class InfoMap {
 
     //TODO----put somethings----
     public void IMput (String key, Object object) {
-        String ss;
+        String ss = "";
         if (object instanceof Bitmap) {
             ss= BitMapToString((Bitmap) object);
         } else {
-            ss = object.toString();
+            try {
+                ss = object.toString();
+            } catch (NullPointerException e){
+                ss = "";
+            }
         }
 
         if (IMisHaveKey(key)) {

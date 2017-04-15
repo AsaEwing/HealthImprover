@@ -11,11 +11,11 @@
     tools:context=".MainActivity2">
 
     <EditText
+        android:id="@+id/inputText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/inputText"
         android:singleLine="true"
-        />
+        android:textColor="@android:color/black" />
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

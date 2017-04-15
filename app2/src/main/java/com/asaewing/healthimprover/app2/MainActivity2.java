@@ -709,6 +709,7 @@ public class MainActivity2 extends RootActivity2
         Log.d(TAG, "**" + TAG + "**showProgressDialog");
 
         if (mProgressDialog == null) {
+            Log.d(TAG, "**" + TAG + "**showProgressDialog**Create");
             mProgressDialog = new ProgressDialog(this);
             mProgressDialog.setMessage(getString(R.string.loading));
             mProgressDialog.setIndeterminate(true);
@@ -838,10 +839,12 @@ public class MainActivity2 extends RootActivity2
             if (wantTo.equals("fl_navHome")) {
                 HiCard_Text.start("");
             }
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        } /*else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (Objects.equals(whereFrom,"") && Objects.equals(wantTo,"")) {
                 HiText = newText;
             }
+        }*/ else if (whereFrom.equals("") && wantTo.equals("")) {
+            HiText = newText;
         }
 
         HiCard_Text.start(HiText);
@@ -861,6 +864,10 @@ public class MainActivity2 extends RootActivity2
 
     public FabMainManager getFabMainManager(){
         return fabMainManager;
+    }
+
+    public fl_Manager getFlManager(){
+        return flManager;
     }
 
     public ViewPagerAdapter getViewPagerAdapter(){

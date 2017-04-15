@@ -7,10 +7,11 @@
     android:padding="2dp">
 
     <TextView
-        android:text="餐廳"
+        android:id="@+id/FI_text_R"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/FI_text_R" />
+        android:text="餐廳"
+        android:textColor="@android:color/black" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -19,23 +20,26 @@
         android:layout_weight="3">
 
         <TextView
-            android:text="食物"
+            android:id="@+id/FI_text_F"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/FI_text_F"
-            android:layout_weight="2" />
+            android:layout_weight="2"
+            android:text="食物"
+            android:textColor="@android:color/black" />
 
         <TextView
-            android:text="份數"
+            android:id="@+id/FI_text_Amount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/FI_text_Amount"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:text="份數"
+            android:textColor="@android:color/black" />
     </LinearLayout>
 
     <TextView
-        android:text="備註"
+        android:id="@+id/FI_text_O"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/FI_text_O" />
+        android:text="備註"
+        android:textColor="@android:color/black" />
 </LinearLayout>

@@ -18,15 +18,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.asaewing.healthimprover.app2.MainActivity2;
-import com.asaewing.healthimprover.app2.Manager.AccountManager;
-import com.asaewing.healthimprover.app2.Manager.DataManager;
-import com.asaewing.healthimprover.app2.Manager.VolleyManager;
 import com.asaewing.healthimprover.app2.R;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
-import Interface.RL_Action;
+import com.asaewing.healthimprover.app2.Interface.RL_Action;
 
 /**
  * 
@@ -163,7 +159,10 @@ public class RootFragment extends Fragment implements RL_Action{
 
     public MainActivity2 getMainActivity(){
         //super.getActivity();
-        if(getContext().getClass() == MainActivity2.class){
+        /*if(getContext().getClass() == MainActivity2.class){
+            return (MainActivity2) getContext();
+        }*/
+        if(getContext() instanceof MainActivity2){
             return (MainActivity2) getContext();
         }
         /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

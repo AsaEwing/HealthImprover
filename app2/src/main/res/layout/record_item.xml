@@ -9,16 +9,17 @@
     android:layout_margin="3dp">
 
     <TextView
-        android:text="nu"
+        android:id="@+id/record_item_number"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:id="@+id/record_item_number"
-        android:textSize="18sp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:layout_margin="8dp"
+        android:layout_weight="1"
+        android:background="@drawable/ic_record_number"
         android:gravity="center"
-        android:background="@drawable/ic_record_number" />
+        android:text="nu"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -28,19 +29,21 @@
         android:weightSum="3">
 
         <TextView
-            android:text="time"
+            android:id="@+id/record_item_time"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:id="@+id/record_item_time" />
+            android:text="time"
+            android:textColor="@android:color/black" />
 
         <TextView
-            android:text="text"
+            android:id="@+id/record_item_text"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
+            android:text="text"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:id="@+id/record_item_text" />
+            android:textColor="@android:color/black" />
 
     </LinearLayout>
 

@@ -459,12 +459,16 @@ public class DataManager implements Parcelable {
             if (strTmp!=null && !strTmp.equals("null") && !strTmp.equals("")){
                 mInfoMap.IMput(HiDBHelper.KEY_AC_LoginType,strTmp);
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (strTmp.equals("google")){
+                    mInfoMap.IMput(HiDBHelper.KEY_AC_GoogleMail,dataObject.getString(HiDBHelper.KEY_AC_Account));
+                    mInfoMap.IMput(HiDBHelper.KEY_AC_Account,dataObject.getString(HiDBHelper.KEY_AC_Account));
+                }
+                /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                     if (Objects.equals(strTmp, "google")){
                         mInfoMap.IMput(HiDBHelper.KEY_AC_GoogleMail,dataObject.getString(HiDBHelper.KEY_AC_Account));
                         mInfoMap.IMput(HiDBHelper.KEY_AC_Account,dataObject.getString(HiDBHelper.KEY_AC_Account));
                     }
-                }
+                }*/
             }
         } catch (JSONException e) {
             e.printStackTrace();

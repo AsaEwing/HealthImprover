@@ -40,14 +40,16 @@
                     android:paddingRight="5dp"
                     android:paddingStart="5dp"
                     android:paddingTop="5dp">
+
                     <TextView
-                        android:text="TextView"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:id="@+id/Cal_textIn"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true"
-                        android:id="@+id/Cal_textIn"
+                        android:text="TextView"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@android:color/black"
                         android:textSize="18sp" />
 
                     <ProgressBar
@@ -98,14 +100,16 @@
                     android:paddingRight="5dp"
                     android:paddingStart="5dp"
                     android:paddingTop="5dp">
+
                     <TextView
-                        android:text="TextView"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:id="@+id/Cal_textOut"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true"
-                        android:id="@+id/Cal_textOut"
+                        android:text="TextView"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@android:color/black"
                         android:textSize="18sp" />
 
                     <ProgressBar
@@ -147,16 +151,18 @@
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
                     android:padding="10dp">
+
                     <TextView
-                        android:text="TextView"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:id="@+id/Target_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true"
-                        android:id="@+id/Target_text"
-                        android:textSize="18sp"
-                        android:gravity="left" />
+                        android:gravity="left"
+                        android:text="TextView"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
 
                 </RelativeLayout>
 

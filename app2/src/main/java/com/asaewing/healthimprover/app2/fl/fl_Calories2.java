@@ -683,7 +683,8 @@ public class fl_Calories2 extends RootFragment
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //MainActivity2.fabMainClose();
-                        getMainActivity().getFabMainManager().fabMainClose(0);
+                        getMainActivity().getFabMainManager()
+                                .fabMainClose(getMainActivity().getFlManager().mPagePosition);
                     }
                 });
 
@@ -695,7 +696,8 @@ public class fl_Calories2 extends RootFragment
             @Override
             public void onCancel(DialogInterface dialog) {
                 //MainActivity2.fabMainClose();
-                getMainActivity().getFabMainManager().fabMainClose(0);
+                getMainActivity().getFabMainManager()
+                        .fabMainClose(getMainActivity().getFlManager().mPagePosition);
             }
         });
 
@@ -851,7 +853,8 @@ public class fl_Calories2 extends RootFragment
                         TargetUpdate();
 
                         //MainActivity2.fabMainClose();
-                        getMainActivity().getFabMainManager().fabMainClose(0);
+                        getMainActivity().getFabMainManager()
+                                .fabMainClose(getMainActivity().getFlManager().mPagePosition);
                     }
                 });
         builderTarget.setNegativeButton(R.string.Dialog_button_Cancel
@@ -859,7 +862,8 @@ public class fl_Calories2 extends RootFragment
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //MainActivity2.fabMainClose();
-                        getMainActivity().getFabMainManager().fabMainClose(0);
+                        getMainActivity().getFabMainManager()
+                                .fabMainClose(getMainActivity().getFlManager().mPagePosition);
                     }
                 });
 
@@ -871,7 +875,8 @@ public class fl_Calories2 extends RootFragment
             @Override
             public void onCancel(DialogInterface dialog) {
                 //MainActivity2.fabMainClose();
-                getMainActivity().getFabMainManager().fabMainClose(0);
+                getMainActivity().getFabMainManager()
+                        .fabMainClose(getMainActivity().getFlManager().mPagePosition);
             }
         });
 
@@ -1079,7 +1084,8 @@ public class fl_Calories2 extends RootFragment
                         }
 
                         //MainActivity2.fabMainClose();
-                        getMainActivity().getFabMainManager().fabMainClose(0);
+                        getMainActivity().getFabMainManager()
+                                .fabMainClose(getMainActivity().getFlManager().mPagePosition);
                     }
                 });
         builderSport.setNegativeButton(R.string.Dialog_button_Cancel
@@ -1087,7 +1093,8 @@ public class fl_Calories2 extends RootFragment
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //MainActivity2.fabMainClose();
-                        getMainActivity().getFabMainManager().fabMainClose(0);
+                        getMainActivity().getFabMainManager()
+                                .fabMainClose(getMainActivity().getFlManager().mPagePosition);
                     }
                 });
 
@@ -1099,7 +1106,8 @@ public class fl_Calories2 extends RootFragment
             @Override
             public void onCancel(DialogInterface dialog) {
                 //MainActivity2.fabMainClose();
-                getMainActivity().getFabMainManager().fabMainClose(0);
+                getMainActivity().getFabMainManager()
+                        .fabMainClose(getMainActivity().getFlManager().mPagePosition);
             }
         });
 
@@ -1323,7 +1331,8 @@ public class fl_Calories2 extends RootFragment
                         getMainActivity().getVolleyManager().vpostSend_Recommend(tmpStr[0]);
 
                         //MainActivity2.fabMainClose();
-                        getMainActivity().getFabMainManager().fabMainClose(1);
+                        getMainActivity().getFabMainManager()
+                                .fabMainClose(getMainActivity().getFlManager().mPagePosition);
                     }
                 });
         builderRecommend.setNegativeButton(R.string.Dialog_button_Cancel
@@ -1331,7 +1340,8 @@ public class fl_Calories2 extends RootFragment
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //MainActivity2.fabMainClose();
-                        getMainActivity().getFabMainManager().fabMainClose(1);
+                        getMainActivity().getFabMainManager()
+                                .fabMainClose(getMainActivity().getFlManager().mPagePosition);
                     }
                 });
 

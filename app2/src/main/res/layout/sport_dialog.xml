@@ -32,24 +32,28 @@
                 android:weightSum="9"
                 android:visibility="visible"
                 android:paddingRight="6dp">
+
                 <TextView
-                    android:layout_weight="3"
-                    android:text="結束日期："
+                    android:id="@+id/Sport_text_Date1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:id="@+id/Sport_text_Date1"
+                    android:layout_weight="3"
+                    android:gravity="center_vertical"
                     android:paddingLeft="6dp"
-                    android:textSize="@dimen/auto_text"
-                    android:gravity="center_vertical" />
+                    android:text="結束日期："
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/auto_text" />
+
                 <Button
-                    android:layout_weight="6"
-                    android:text="2016/09/01"
+                    android:id="@+id/Sport_text_Date2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/Sport_text_Date2"
+                    android:layout_weight="6"
+                    android:gravity="center_vertical"
                     android:paddingLeft="6dp"
-                    android:textSize="@dimen/auto_text"
-                    android:gravity="center_vertical" />
+                    android:text="2016/09/01"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/auto_text" />
 
             </LinearLayout>
 
@@ -71,15 +75,17 @@
                     android:paddingLeft="6dp"
                     android:textSize="@dimen/auto_text"
                     android:gravity="center_vertical" />
+
                 <Button
-                    android:layout_weight="6"
-                    android:text="09:00"
+                    android:id="@+id/Sport_text_Time2"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:id="@+id/Sport_text_Time2"
+                    android:layout_weight="6"
+                    android:gravity="center_vertical"
                     android:paddingLeft="6dp"
-                    android:textSize="@dimen/auto_text"
-                    android:gravity="center_vertical" />
+                    android:text="09:00"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/auto_text" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -90,49 +96,57 @@
                 android:weightSum="9"
                 android:visibility="visible"
                 android:paddingRight="6dp">
+
                 <TextView
-                    android:layout_weight="3"
-                    android:text="總共時間："
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
                     android:id="@+id/Sport_text_conTime"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:gravity="center_vertical"
                     android:paddingLeft="6dp"
-                    android:textSize="@dimen/auto_text"
-                    android:gravity="center_vertical" />
+                    android:text="總共時間："
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/auto_text" />
 
                 <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:ems="10"
                     android:id="@+id/Sport_edit_hour"
-                    android:layout_weight="1.5" />
-                <TextView
-                    android:layout_weight="1.5"
-                    android:text="小時"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:id="@+id/Sport_text_conTimeHour"
-                    android:paddingLeft="6dp"
-                    android:textSize="@dimen/auto_text"
-                    android:gravity="center_vertical" />
-
-                <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:ems="10"
-                    android:id="@+id/Sport_edit_min"
-                    android:layout_weight="1.5" />
-                <TextView
                     android:layout_weight="1.5"
-                    android:text="分鐘"
+                    android:ems="10"
+                    android:inputType="number"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/Sport_text_conTimeHour"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:id="@+id/Sport_text_conTimeMin"
+                    android:layout_weight="1.5"
+                    android:gravity="center_vertical"
                     android:paddingLeft="6dp"
-                    android:textSize="@dimen/auto_text"
-                    android:gravity="center_vertical" />
+                    android:text="小時"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/auto_text" />
+
+                <EditText
+                    android:id="@+id/Sport_edit_min"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:ems="10"
+                    android:inputType="number"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/Sport_text_conTimeMin"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="6dp"
+                    android:text="分鐘"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/auto_text" />
 
             </LinearLayout>
         </LinearLayout>
@@ -148,35 +162,40 @@
         android:padding="6dp">
 
         <RadioButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="11"
             android:id="@+id/Sport_RB11"
-            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:padding="2dp"
+            android:layout_weight="1"
             android:checked="true"
+            android:gravity="center"
+            android:padding="2dp"
+            android:text="11"
+            android:textColor="@android:color/black"
             android:textSize="18sp" />
+
         <RadioButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="12"
             android:id="@+id/Sport_RB12"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:padding="2dp"
-            android:textSize="18sp" />
-        <RadioButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="13"
-            android:id="@+id/Sport_RB13"
-            android:gravity="center"
             android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
             android:padding="2dp"
+            android:text="12"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/Sport_RB13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="2dp"
+            android:text="13"
+            android:textColor="@android:color/black"
             android:textSize="18sp" />
     </RadioGroup>
     <RadioGroup
@@ -188,34 +207,39 @@
         android:padding="6dp">
 
         <RadioButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="21"
             android:id="@+id/Sport_RB21"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:padding="2dp"
-            android:textSize="18sp" />
-        <RadioButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="22"
+            android:gravity="center"
+            android:padding="2dp"
+            android:text="21"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+        <RadioButton
             android:id="@+id/Sport_RB22"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:padding="2dp"
-            android:textSize="18sp" />
-        <RadioButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="23"
-            android:id="@+id/Sport_RB23"
-            android:gravity="center"
             android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
             android:padding="2dp"
+            android:text="22"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/Sport_RB23"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="2dp"
+            android:text="23"
+            android:textColor="@android:color/black"
             android:textSize="18sp" />
     </RadioGroup>
     <RadioGroup
@@ -227,34 +251,39 @@
         android:padding="6dp">
 
         <RadioButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="31"
             android:id="@+id/Sport_RB31"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:padding="2dp"
-            android:textSize="18sp" />
-        <RadioButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="32"
+            android:gravity="center"
+            android:padding="2dp"
+            android:text="31"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+        <RadioButton
             android:id="@+id/Sport_RB32"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:padding="2dp"
-            android:textSize="18sp" />
-        <RadioButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="33"
-            android:id="@+id/Sport_RB33"
-            android:gravity="center"
             android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
             android:padding="2dp"
+            android:text="32"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/Sport_RB33"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="2dp"
+            android:text="33"
+            android:textColor="@android:color/black"
             android:textSize="18sp" />
     </RadioGroup>
 

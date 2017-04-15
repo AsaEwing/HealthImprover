@@ -5,11 +5,12 @@
     android:layout_height="wrap_content">
 
     <EditText
+        android:id="@+id/editTextRecommend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:ems="10"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/editTextRecommend" />
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:textColor="@android:color/black" />
 </RelativeLayout>

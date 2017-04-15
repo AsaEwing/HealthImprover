@@ -57,7 +57,7 @@ public class fl_Diary extends RootFragment
         implements View.OnClickListener,View.OnKeyListener{
 
     //private VolleyManager mVolleyManager;
-
+//getMainActivity().getFlManager().mPagePosition
     private int HH,HL,WH,WL,tmpH,tmpL;
     private float Height,Weight;
     private String Dialog_Flag;
@@ -580,7 +580,8 @@ public class fl_Diary extends RootFragment
                         ListUpdate();
 
                         //MainActivity2.fabMainClose();
-                        getMainActivity().getFabMainManager().fabMainClose(0);
+                        getMainActivity().getFabMainManager()
+                                .fabMainClose(getMainActivity().getFlManager().mPagePosition);
                     }
                 });
         builder.setNegativeButton(R.string.Dialog_button_Cancel
@@ -589,7 +590,8 @@ public class fl_Diary extends RootFragment
                     public void onClick(DialogInterface dialog, int which) {
                         setBMI();
                         //MainActivity2.fabMainClose();
-                        getMainActivity().getFabMainManager().fabMainClose(0);
+                        getMainActivity().getFabMainManager()
+                                .fabMainClose(getMainActivity().getFlManager().mPagePosition);
                     }
                 });
 
@@ -601,7 +603,7 @@ public class fl_Diary extends RootFragment
             @Override
             public void onCancel(DialogInterface dialog) {
                 //MainActivity2.fabMainClose();
-                getMainActivity().getFabMainManager().fabMainClose(0);
+                getMainActivity().getFabMainManager().fabMainClose(getMainActivity().getFlManager().mPagePosition);
             }
         });
 

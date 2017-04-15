@@ -28,18 +28,20 @@
             android:id="@+id/signio_ac_image" />
 
         <TextView
+            android:id="@+id/signio_ac_mail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="User ID"
-            android:id="@+id/signio_ac_mail" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/black" />
 
         <TextView
+            android:id="@+id/signio_ac_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="User Name"
-            android:id="@+id/signio_ac_name" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/black" />
 
     </LinearLayout>
 

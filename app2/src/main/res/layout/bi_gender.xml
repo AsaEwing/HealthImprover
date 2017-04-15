@@ -13,27 +13,30 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:padding="6dp">
+
         <RadioButton
+            android:id="@+id/Diary_Sex_Male_RB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/Diary_Sex_Male"
-            android:id="@+id/Diary_Sex_Male_RB"
             android:layout_gravity="center"
-            android:gravity="center"
+            android:layout_weight="1"
             android:checked="true"
+            android:gravity="center"
             android:padding="2dp"
+            android:text="@string/Diary_Sex_Male"
+            android:textColor="@android:color/black"
             android:textSize="18sp" />
 
         <RadioButton
+            android:id="@+id/Diary_Sex_Female_RB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/Diary_Sex_Female"
-            android:id="@+id/Diary_Sex_Female_RB"
-            android:gravity="center"
             android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
             android:padding="2dp"
+            android:text="@string/Diary_Sex_Female"
+            android:textColor="@android:color/black"
             android:textSize="18sp" />
     </RadioGroup>
 </RelativeLayout>

@@ -17,21 +17,23 @@
         android:id="@+id/camera"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:text="開啟相機"
-        android:layout_weight="1"
         android:layout_gravity="center_vertical|center_horizontal"
         android:layout_margin="10dp"
+        android:layout_weight="1"
         android:paddingLeft="60dp"
-        android:paddingRight="60dp" />
+        android:paddingRight="60dp"
+        android:text="開啟相機"
+        android:textColor="@android:color/black" />
 
     <Button
         android:id="@+id/photo"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:text="開啟相簿"
-        android:layout_weight="1"
         android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_weight="1"
         android:paddingLeft="60dp"
-        android:paddingRight="60dp" />
+        android:paddingRight="60dp"
+        android:text="開啟相簿"
+        android:textColor="@android:color/black" />
 
 </LinearLayout>

@@ -548,10 +548,13 @@ public class VolleyManager implements Parcelable {
                     @Override
                     public void onResponse(Bitmap response) {
                         String strTmp= response.toString();
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                             if (!Objects.equals(strTmp, "")){
                                 mInfoMap.IMput(HiDBHelper.KEY_AC_Image,response);
                             }
+                        }*/
+                        if (!strTmp.equals("")){
+                            mInfoMap.IMput(HiDBHelper.KEY_AC_Image,response);
                         }
 
                         Log.d(mTAG, "vpost_GetAccountImage:OK**" + strTmp);

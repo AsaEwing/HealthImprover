@@ -44,10 +44,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:paddingStart="10dp"
                 android:text="目前身體狀況："
-                android:textSize="18sp"
-                android:paddingStart="10dp"/>
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -58,32 +59,38 @@
                 android:weightSum="3"
                 android:gravity="center"
                 android:padding="5dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:gravity="right|center_horizontal"
                     android:text="身高：\n體重：\nBMI："
 
-                    android:gravity="right|center_horizontal"
-                    android:textSize="18sp" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="BMI"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+
+                <TextView
                     android:id="@+id/Diary_BMI"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:gravity="center_horizontal"
+                    android:text="BMI"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/black"
                     android:textSize="18sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:gravity="left|center_horizontal"
                     android:text="公分\n公斤\n"
 
-                    android:gravity="left|center_horizontal"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
             </LinearLayout>
@@ -119,24 +126,27 @@
             android:paddingRight="5dp"
             android:paddingStart="5dp"
             android:paddingTop="5dp">
+
             <TextView
-                android:text="預測查詢"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/Pre_Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:id="@+id/Pre_Title"
-                android:textSize="18sp"
-                android:gravity="left" />
+                android:gravity="left"
+                android:text="預測查詢"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
 
             <Button
-                android:text="開始計算"
+                android:id="@+id/Pre_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
-                android:id="@+id/Pre_button" />
+                android:layout_centerVertical="true"
+                android:text="開始計算"
+                android:textColor="@android:color/black" />
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/Pre_edit_day_title"
@@ -145,13 +155,14 @@
                 android:layout_below="@+id/Pre_Title"
                 android:layout_alignParentStart="true"
                 android:layout_toStartOf="@+id/Pre_button">
+
                 <EditText
+                    android:id="@+id/Pre_edit_day"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
                     android:ems="10"
-                    android:id="@+id/Pre_edit_day"
-                    android:hint="想要預測幾天後" />
+                    android:hint="想要預測幾天後"
+                    android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -172,15 +183,16 @@
 
 
             <TextView
-                android:hint="預測結果"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/Pre_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/Pre_text"
-                android:layout_centerHorizontal="true"
                 android:layout_below="@+id/Pre_edit_weight_title"
-                android:textSize="18sp"
-                android:gravity="left" />
+                android:layout_centerHorizontal="true"
+                android:gravity="left"
+                android:hint="預測結果"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>

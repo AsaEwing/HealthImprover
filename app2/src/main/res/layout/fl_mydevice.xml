@@ -5,31 +5,34 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_alignParentBottom="true"
         android:text="我的設備TEST"
-        android:id="@+id/textView6"
-        android:layout_alignParentBottom="true" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/black" />
 
     <Button
+        android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button2"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
+        android:layout_marginBottom="201dp"
         android:layout_marginStart="38dp"
-        android:layout_marginBottom="201dp" />
+        android:text="New Button"
+        android:textColor="@android:color/black" />
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/textView"
         android:layout_alignBottom="@+id/button2"
+        android:layout_alignParentTop="true"
         android:layout_marginStart="44dp"
-        android:layout_alignParentTop="true" />
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/black" />
 
 </RelativeLayout>

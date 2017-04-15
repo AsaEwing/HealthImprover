@@ -14,13 +14,14 @@
         android:id="@+id/target_RL1">
 
         <TextView
-            android:text="請選擇一個目標"
+            android:id="@+id/Target_text1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
-            android:id="@+id/Target_text1"
-            android:layout_margin="10dp" />
+            android:layout_alignParentTop="true"
+            android:layout_margin="10dp"
+            android:text="請選擇一個目標"
+            android:textColor="@android:color/black" />
 
         <RadioGroup
             android:id="@+id/Target_Group1"
@@ -33,35 +34,40 @@
             android:layout_alignParentStart="true">
 
             <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/Diary_Weight"
                 android:id="@+id/Target_Weight_RB"
-                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:padding="2dp"
+                android:layout_weight="1"
                 android:checked="true"
+                android:gravity="center"
+                android:padding="2dp"
+                android:text="@string/Diary_Weight"
+                android:textColor="@android:color/black"
                 android:textSize="18sp" />
+
             <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/Diary_Height"
                 android:id="@+id/Target_Height_RB"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:padding="2dp"
-                android:textSize="18sp" />
-            <RadioButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/Diary_BMI"
-                android:id="@+id/Target_BMI_RB"
-                android:gravity="center"
                 android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:padding="2dp"
+                android:text="@string/Diary_Height"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/Target_BMI_RB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="2dp"
+                android:text="@string/Diary_BMI"
+                android:textColor="@android:color/black"
                 android:textSize="18sp" />
         </RadioGroup>
 
@@ -71,14 +77,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/target_RL2">
+
         <TextView
-            android:text="請選擇一個目標值"
+            android:id="@+id/Target_text2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
-            android:id="@+id/Target_text2"
-            android:layout_margin="10dp" />
+            android:layout_alignParentTop="true"
+            android:layout_margin="10dp"
+            android:text="請選擇一個目標值"
+            android:textColor="@android:color/black" />
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -92,9 +100,10 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_weight="1"
                 android:text=" "
-                android:layout_weight="1" />
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/black" />
 
             <NumberPicker
                 android:layout_width="0dp"
@@ -107,9 +116,10 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.2"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:gravity="center_vertical|center_horizontal"
                 android:text="@string/Diary_Dot"
-                android:gravity="center_vertical|center_horizontal" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/black" />
 
             <NumberPicker
                 android:layout_width="0dp"
@@ -121,9 +131,10 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_weight="1"
                 android:text=" "
-                android:layout_weight="1" />
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/black" />
 
         </LinearLayout>
     </RelativeLayout>
