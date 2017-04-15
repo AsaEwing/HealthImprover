@@ -76,14 +76,15 @@ public class fl_Note extends RootFragment {
         initView();
 
         String tmpHi = "有什麼要紀錄的事情呢？";
-        assert MainActivity2.HiCard_Text != null;
-        MainActivity2.HiCard_Text.start(tmpHi);
+        getMainActivity().HiCardPlay("","",tmpHi);
+        //assert MainActivity2.HiCard_Text != null;
+        //MainActivity2.HiCard_Text.start(tmpHi);
 
         return rootView;
     }
 
     private void initDB() {
-        helper = MainActivity2.helper;
+        helper = getMainActivity().getDataManager().helper;
         cursor = helper.NoteSelect();
         listInput = (ListView)rootView.findViewById(R.id.listInputText);
         cursorAdapter = new SimpleCursorAdapter(getActivity(),

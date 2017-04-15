@@ -26,10 +26,12 @@ import com.asaewing.healthimprover.app2.R;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import Interface.RL_Action;
+
 /**
  * 
  */
-public class RootFragment extends Fragment {
+public class RootFragment extends Fragment implements RL_Action{
 
     //TODO--宣告物件
     protected static String TAG = null;
@@ -161,11 +163,14 @@ public class RootFragment extends Fragment {
 
     public MainActivity2 getMainActivity(){
         //super.getActivity();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        if(getContext().getClass() == MainActivity2.class){
+            return (MainActivity2) getContext();
+        }
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if(Objects.equals(MainActivity2.class, getActivity())){
                 return (MainActivity2) getActivity();
             }
-        }
+        }*/
 
         return null;
     }
@@ -177,82 +182,35 @@ public class RootFragment extends Fragment {
         return getMainActivity().getVolleyManager();
     }*/
 
-    public DataManager getDataManager(){
+    /*public DataManager getDataManager(){
         if (getMainActivity() != null){
             return getMainActivity().getDataManager();
         }
         return null;
-    }
+    }*/
 
-    public AccountManager getAccountManager(){
+    /*public AccountManager getAccountManager(){
         if (getMainActivity() != null){
             return getMainActivity().getAccountManager();
         }
         return null;
+    }*/
+
+    @Override
+    public void openMoveRL(boolean setFabUse, RelativeLayout relativeLayout, double moveY) {
+        superAction.openMoveRL(setFabUse,relativeLayout,moveY);
     }
 
-    public void openMoveRL(RelativeLayout relativeLayout, double moveY){
-        if (setFabUse){
-            relativeLayout.setVisibility(View.VISIBLE);
-            relativeLayout.animate().alpha(1f)
-                    .translationY(-(float)(moveY))
-                    .setDuration(360)
-                    .setListener(new Animator.AnimatorListener() {
-                        @Override
-                        public void onAnimationStart(Animator animation) {
-
-                        }
-
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-
-                        }
-
-                        @Override
-                        public void onAnimationCancel(Animator animation) {
-
-                        }
-                        @Override
-                        public void onAnimationRepeat(Animator animation) {
-
-                        }
-                    });
-        }
-    }
-
-    public void closeRL(final RelativeLayout relativeLayout, long Time){
-        if (setFabUse) {
-            relativeLayout.animate().alpha(0f)
-                    .translationY(0f).setDuration(Time)
-                    .setListener(new Animator.AnimatorListener() {
-                        @Override
-                        public void onAnimationStart(Animator animation) {
-
-                        }
-
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            relativeLayout.setVisibility(View.GONE);
-                        }
-
-                        @Override
-                        public void onAnimationCancel(Animator animation) {
-
-                        }
-
-                        @Override
-                        public void onAnimationRepeat(Animator animation) {
-
-                        }
-                    });
-        }
+    @Override
+    public void closeRL(boolean setFabUse, RelativeLayout relativeLayout, long Time) {
+        superAction.closeRL(setFabUse,relativeLayout,Time);
     }
 
     public void fabMainClick(){
 
     }
 
-    public void fabClose(boolean fabMain) {
+    public void fabClose(boolean fabMain, final int fabImage) {
         if (setFabUse) {
 
             long tmpTime2;
@@ -263,13 +221,13 @@ public class RootFragment extends Fragment {
                     tmpTime2 = 280;
                 }
 
-                MainActivity2.fabMain.setClickable(false);
+                getMainActivity().getFabMainManager().fabMain.setClickable(false);
 
                 for (int ii=0;ii<fab_List.size();ii++){
                     fab_List.get(ii).setClickable(false);
                 }
 
-                MainActivity2.fabMain.animate().rotationBy(180f)
+                getMainActivity().getFabMainManager().fabMain.animate().rotationBy(180f)
                         .setInterpolator(new AccelerateInterpolator()).setDuration(210)
                         .setListener(new Animator.AnimatorListener() {
                             @Override
@@ -281,9 +239,9 @@ public class RootFragment extends Fragment {
 
                             @Override
                             public void onAnimationEnd(Animator animation) {
-                                MainActivity2.fabMain.setImageResource(R.drawable.ic_fab_paint_bk);
+                                getMainActivity().getFabMainManager().fabMain.setImageResource(fabImage);
 
-                                MainActivity2.fabMain.animate().rotationBy(180f)
+                                getMainActivity().getFabMainManager().fabMain.animate().rotationBy(180f)
                                         .setInterpolator(new OvershootInterpolator()).setDuration(210)
                                         .setListener(new Animator.AnimatorListener() {
                                             @Override
@@ -293,9 +251,9 @@ public class RootFragment extends Fragment {
 
                                             @Override
                                             public void onAnimationEnd(Animator animation) {
-                                                MainActivity2.fabMain.setClickable(true);
+                                                getMainActivity().getFabMainManager().fabMain.setClickable(true);
                                                 fabFlag = true;
-                                                MainActivity2.fabMain.setRotation(0);
+                                                getMainActivity().getFabMainManager().fabMain.setRotation(0);
                                             }
 
                                             @Override
@@ -322,7 +280,7 @@ public class RootFragment extends Fragment {
                         });
 
                 for (int ii=0;ii<fabRL_List.size();ii++){
-                    closeRL(fabRL_List.get(ii), tmpTime2);
+                    closeRL(setFabUse,fabRL_List.get(ii), tmpTime2);
                 }
 
                 //fabFlag = true;
@@ -333,7 +291,7 @@ public class RootFragment extends Fragment {
     public void fabOpen(boolean fabMain) {
         if (setFabUse) {
             if (fabFlag) {
-                getMainActivity().fabMain.setClickable(false);
+                getMainActivity().getFabMainManager().fabMain.setClickable(false);
 
                 for (int ii=0;ii<fab_List.size();ii++){
                     fab_List.get(ii).setClickable(false);
@@ -343,7 +301,7 @@ public class RootFragment extends Fragment {
                 }
 
                 if (fabMain) {
-                    MainActivity2.fabMain.animate().rotationBy(180f)
+                    getMainActivity().getFabMainManager().fabMain.animate().rotationBy(180f)
                             .setInterpolator(new AccelerateInterpolator()).setDuration(210)
                             .setListener(new Animator.AnimatorListener() {
                                 @Override
@@ -356,9 +314,9 @@ public class RootFragment extends Fragment {
                                 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
                                 @Override
                                 public void onAnimationEnd(Animator animation) {
-                                    MainActivity2.fabMain.setImageResource(R.drawable.ic_fab_cancel_bk);
+                                    getMainActivity().getFabMainManager().fabMain.setImageResource(R.drawable.ic_fab_cancel_bk);
 
-                                    MainActivity2.fabMain.animate().rotationBy(180f)
+                                    getMainActivity().getFabMainManager().fabMain.animate().rotationBy(180f)
                                             .setInterpolator(new OvershootInterpolator()).setDuration(210)
                                             .setListener(new Animator.AnimatorListener() {
                                                 @Override
@@ -368,14 +326,14 @@ public class RootFragment extends Fragment {
 
                                                 @Override
                                                 public void onAnimationEnd(Animator animation) {
-                                                    getMainActivity().fabMain.setClickable(true);
+                                                    getMainActivity().getFabMainManager().fabMain.setClickable(true);
 
                                                     for (int ii=0;ii<fab_List.size();ii++){
                                                         fab_List.get(ii).setClickable(true);
                                                     }
 
                                                     fabFlag = false;
-                                                    getMainActivity().fabMain.setRotation(0);
+                                                    getMainActivity().getFabMainManager().fabMain.setRotation(0);
                                                 }
 
                                                 @Override
@@ -402,10 +360,10 @@ public class RootFragment extends Fragment {
                             });
                 }
 
-                double tmpWidth = getMainActivity().fabMain.getWidth() * 1.15;
+                double tmpWidth = getMainActivity().getFabMainManager().fabMain.getWidth() * 1.15;
 
                 for (int ii=0;ii<fabRL_List.size();ii++){
-                    openMoveRL(fabRL_List.get(ii), tmpWidth * (ii+1));
+                    openMoveRL(setFabUse,fabRL_List.get(ii), tmpWidth * (ii+1));
                 }
 
                 //fabFlag = false;

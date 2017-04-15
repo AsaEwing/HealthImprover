@@ -113,8 +113,9 @@ public class fl_Camera extends RootFragment {
         });
 
         String tmpHi = "來拍下你想紀錄的事物吧！";
-        assert MainActivity2.HiCard_Text != null;
-        MainActivity2.HiCard_Text.start(tmpHi);
+        getMainActivity().HiCardPlay("","",tmpHi);
+        //assert MainActivity2.HiCard_Text != null;
+        //MainActivity2.HiCard_Text.start(tmpHi);
         return rootView;
     }
 

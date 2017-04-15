@@ -157,9 +157,9 @@ public class fl_BasicInfo extends RootFragment implements
             case R.id.signio_google_bt:
 
                 if (!flag_google) {
-                    getAccountManager().signIn();
+                    getMainActivity().getAccountManager().signIn();
                 } else {
-                    getAccountManager().signOut();
+                    getMainActivity().getAccountManager().signOut();
                 }
 
                 //TAG
@@ -189,7 +189,7 @@ public class fl_BasicInfo extends RootFragment implements
             try {
                 String tmpBitmap = getMainActivity().getDataManager().
                         mInfoMap.IMgetString(HiDBHelper.KEY_AC_Image_url);
-                Bitmap bitmap = new DownloadImageTask("acGoogleImage",acGoogleImage)
+                Bitmap bitmap = new DownloadImageTask(getMainActivity(),"acGoogleImage",acGoogleImage)
                         .execute(tmpBitmap).get();
                 acGoogleImage.setImageBitmap(bitmap);
             } catch (Exception e) {

@@ -5,6 +5,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Build;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -34,7 +36,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class VolleyManager {
+public class VolleyManager implements Parcelable {
 
     private MainActivity2 mContext;
     private String mTAG;
@@ -1292,5 +1294,30 @@ public class VolleyManager {
                 });
         jsObjRequest.setTag("vpostSend_SportJson");
         mRequestQueue.add(jsObjRequest);
+    }
+
+    public static final Parcelable.Creator<VolleyManager> CREATOR
+            = new Parcelable.Creator<VolleyManager>() {
+        public VolleyManager createFromParcel(Parcel in) {
+            return new VolleyManager(in);
+        }
+
+        public VolleyManager[] newArray(int size) {
+            return new VolleyManager[size];
+        }
+    };
+
+    private VolleyManager(Parcel in) {
+        //mData = in.readInt();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+
     }
 }

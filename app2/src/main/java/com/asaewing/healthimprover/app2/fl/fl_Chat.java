@@ -14,6 +14,7 @@ import android.widget.ListView;
 import com.asaewing.healthimprover.app2.Adapter.MsgAdapter;
 import com.asaewing.healthimprover.app2.MainActivity2;
 import com.asaewing.healthimprover.app2.Others.HiMsgItem;
+import com.asaewing.healthimprover.app2.Others.InfoMap;
 import com.asaewing.healthimprover.app2.R;
 
 import java.util.ArrayList;
@@ -323,6 +324,7 @@ public class fl_Chat extends RootFragment {
 
 
     public String getUnit(String content,String keyword,int numTotal) {
+        InfoMap mInfoMap = getMainActivity().getDataManager().mInfoMap;
 
         String[] keyUnit = new String[]{""};
         int keyWordUnit_space = -1;
@@ -339,8 +341,8 @@ public class fl_Chat extends RootFragment {
                 keyWordUnit_space = content.indexOf(keyUnit[i]);
                 if (keyUnit[i].equals("公克") || keyUnit[i].equals("g")) {
                     double weightBefore =
-                            MainActivity2.mInfoMap.IMgetInt("BI_Weight_H")
-                                    + MainActivity2.mInfoMap.IMgetInt("BI_Weight_L") * 0.01;
+                            mInfoMap.IMgetInt("BI_Weight_H")
+                                    + mInfoMap.IMgetInt("BI_Weight_L") * 0.01;
                     double gNum = numTmp[0]/1000;
                     double gNum1 = numTmp[1]/1000;
                     double gDelta = gNum - weightBefore;
@@ -396,8 +398,8 @@ public class fl_Chat extends RootFragment {
 
                 } else if (keyUnit[i].equals("公斤") || keyUnit[i].equals("kg")) {
                     double weightBefore =
-                            MainActivity2.mInfoMap.IMgetInt("BI_Weight_H")
-                                    + MainActivity2.mInfoMap.IMgetInt("BI_Weight_L") * 0.01;
+                            mInfoMap.IMgetInt("BI_Weight_H")
+                                    + mInfoMap.IMgetInt("BI_Weight_L") * 0.01;
                     double KgNum = numTmp[0];
                     double KgNum1 = numTmp[1];
                     double KgDelta = KgNum - weightBefore;
@@ -451,8 +453,8 @@ public class fl_Chat extends RootFragment {
 
                 }else if( keyUnit[i].equals("公分") || keyUnit[i].equals("cm")) {
                     double heightBefore =
-                            MainActivity2.mInfoMap.IMgetInt("BI_Height_H")
-                                    + MainActivity2.mInfoMap.IMgetInt("BI_Height_L") * 0.01;
+                            mInfoMap.IMgetInt("BI_Height_H")
+                                    + mInfoMap.IMgetInt("BI_Height_L") * 0.01;
                     double CmNum = numTmp[0];
                     double CmNum1 = numTmp[1];
                     double CmDelta = CmNum - heightBefore;
@@ -508,8 +510,8 @@ public class fl_Chat extends RootFragment {
 
                 } else if (keyUnit[i].equals("公尺") || keyUnit[i].equals("m")) {
                     double heightBefore =
-                            MainActivity2.mInfoMap.IMgetInt("BI_Height_H")
-                                    + MainActivity2.mInfoMap.IMgetInt("BI_Height_L") * 0.01;
+                            mInfoMap.IMgetInt("BI_Height_H")
+                                    + mInfoMap.IMgetInt("BI_Height_L") * 0.01;
                     double mNum = numTmp[0] * 100;
                     double mNum1 = numTmp[1] * 100;
                     double mDelta = mNum - heightBefore;
@@ -572,6 +574,8 @@ public class fl_Chat extends RootFragment {
     }
 
     public String getAsk(String content,String keyword) {
+        InfoMap mInfoMap = getMainActivity().getDataManager().mInfoMap;
+
         String[] keyAsk = new String[]{"多少", "多重", "多高", "多胖"};
         int keyAsk_space = -1;
         String msgString = "";
@@ -580,11 +584,11 @@ public class fl_Chat extends RootFragment {
                 keyAsk_space = content.indexOf(keyAsk[i]);
                 if (keyAsk[i].equals("多少")) {
                     double weightBefore =
-                            MainActivity2.mInfoMap.IMgetInt("BI_Weight_H")
-                                    + MainActivity2.mInfoMap.IMgetInt("BI_Weight_L") * 0.01;
+                            mInfoMap.IMgetInt("BI_Weight_H")
+                                    + mInfoMap.IMgetInt("BI_Weight_L") * 0.01;
                     double heightBefore =
-                            MainActivity2.mInfoMap.IMgetInt("BI_Height_H")
-                                    + MainActivity2.mInfoMap.IMgetInt("BI_Height_L") * 0.01;
+                            mInfoMap.IMgetInt("BI_Height_H")
+                                    + mInfoMap.IMgetInt("BI_Height_L") * 0.01;
                     if (keyword == "高" || keyword == "矮") {
                         msgString = "您目前的身高為" + heightBefore + "公分";
                     } else if (keyword == "胖" || keyword == "瘦") {
@@ -592,19 +596,19 @@ public class fl_Chat extends RootFragment {
                     }
                 } else if (keyAsk[i].equals("多重")) {
                     double weightBefore =
-                            MainActivity2.mInfoMap.IMgetInt("BI_Weight_H")
-                                    + MainActivity2.mInfoMap.IMgetInt("BI_Weight_L") * 0.01;
+                            mInfoMap.IMgetInt("BI_Weight_H")
+                                    + mInfoMap.IMgetInt("BI_Weight_L") * 0.01;
                     msgString = "您目前的體重為" + weightBefore + "公斤";
                 } else if (keyAsk[i].equals("多高")) {
                     double heightBefore =
-                            MainActivity2.mInfoMap.IMgetInt("BI_Height_H")
-                                    + MainActivity2.mInfoMap.IMgetInt("BI_Height_L") * 0.01;
+                            mInfoMap.IMgetInt("BI_Height_H")
+                                    + mInfoMap.IMgetInt("BI_Height_L") * 0.01;
                     msgString = "您目前的身高為" + heightBefore + "公分";
 
                 } else if (keyAsk[i].equals("多胖")) {
                     double weightBefore =
-                            MainActivity2.mInfoMap.IMgetInt("BI_Weight_H")
-                                    + MainActivity2.mInfoMap.IMgetInt("BI_Weight_L") * 0.01;
+                            mInfoMap.IMgetInt("BI_Weight_H")
+                                    + mInfoMap.IMgetInt("BI_Weight_L") * 0.01;
                     msgString = "您目前的體重為" + weightBefore + "公斤";
                 }
             }else if (keyAsk_space == -1){

@@ -29,6 +29,7 @@ import android.widget.TextView;
 
 import com.asaewing.healthimprover.app2.MainActivity2;
 import com.asaewing.healthimprover.app2.Others.HiDBHelper;
+import com.asaewing.healthimprover.app2.Others.InfoMap;
 import com.asaewing.healthimprover.app2.R;
 
 import java.text.ParseException;
@@ -113,10 +114,11 @@ public class fl_Calories extends RootFragment
         //mStep = MainActivity2.mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Step_before);
         //mCalIn = MainActivity2.mInfoMap.IMgetInt(HiDBHelper.KEY_BI_CalIn_before);
         double Height = 0,Weight = 0;
-        int HH = MainActivity2.mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Height_before_H);
-        int HL = MainActivity2.mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Height_before_L);
-        int WH = MainActivity2.mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Weight_before_H);
-        int WL = MainActivity2.mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Weight_before_L);
+        InfoMap mInfoMap = getMainActivity().getDataManager().mInfoMap;
+        int HH = mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Height_before_H);
+        int HL = mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Height_before_L);
+        int WH = mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Weight_before_H);
+        int WL = mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Weight_before_L);
         if ((HH + HL*0.01)<10) {
             HH = 165;
             HL = 0;
@@ -129,7 +131,7 @@ public class fl_Calories extends RootFragment
         Weight = (float) (WH + WL*0.01);
 
 
-        String strAge = MainActivity2.mInfoMap.IMgetString(HiDBHelper.KEY_AC_Birthday);
+        String strAge = mInfoMap.IMgetString(HiDBHelper.KEY_AC_Birthday);
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendarBirthday = Calendar.getInstance();
@@ -141,7 +143,7 @@ public class fl_Calories extends RootFragment
         }
         int intAge = calendaNow.get(Calendar.YEAR)-calendarBirthday.get(Calendar.YEAR);
         boolean isMale = false;
-        if (MainActivity2.mInfoMap.IMgetString(HiDBHelper.KEY_AC_Gender).equals("male")){
+        if (mInfoMap.IMgetString(HiDBHelper.KEY_AC_Gender).equals("male")){
             isMale = true;
         }
 
@@ -160,7 +162,7 @@ public class fl_Calories extends RootFragment
         alphaAnimationShow.setDuration(360);
         alphaAnimationHide.setDuration(360);
 
-        fabMoveR = -MainActivity2.mInfoMap.IMgetFloat("WindowWidth")/5;
+        fabMoveR = -mInfoMap.IMgetFloat("WindowWidth")/5;
         fabMoveR45 = (float) (Math.cos(Math.PI/8)*fabMoveR);
         Log.d(TAG, "**" + TAG + "**fabMoveR**" + fabMoveR + "**" + fabMoveR45);
 
@@ -362,7 +364,7 @@ public class fl_Calories extends RootFragment
         } else {
             fabOpen(true);
 
-            MainActivity2.HiCardPlay("","","今天要做什麼運動呢？");
+            getMainActivity().HiCardPlay("","","今天要做什麼運動呢？");
         }
     }
 
@@ -376,12 +378,14 @@ public class fl_Calories extends RootFragment
             }
             fabAnimFlag=true;
 
-            MainActivity2.fabMain.animate().rotationBy(180f)
+            final FloatingActionButton mFabMain = getMainActivity().getFabMainManager().fabMain;
+
+            mFabMain.animate().rotationBy(180f)
                     .setInterpolator(new AccelerateInterpolator()).setDuration(210)
                     .setListener(new Animator.AnimatorListener() {
                         @Override
                         public void onAnimationStart(Animator animation) {
-                            MainActivity2.fabMain.setClickable(false);
+                            mFabMain.setClickable(false);
                             fabCal_Run.setClickable(false);
                             fabCal_Swim.setClickable(false);
                             fabCal_Bike.setClickable(false);
@@ -389,9 +393,9 @@ public class fl_Calories extends RootFragment
 
                         @Override
                         public void onAnimationEnd(Animator animation) {
-                            MainActivity2.fabMain.setImageResource(R.drawable.ic_menu_calories);
+                            mFabMain.setImageResource(R.drawable.ic_menu_calories);
 
-                            MainActivity2.fabMain.animate().rotationBy(180f)
+                            mFabMain.animate().rotationBy(180f)
                                     .setInterpolator(new OvershootInterpolator()).setDuration(210)
                                     .setListener(new Animator.AnimatorListener() {
                                         @Override
@@ -401,13 +405,13 @@ public class fl_Calories extends RootFragment
 
                                         @Override
                                         public void onAnimationEnd(Animator animation) {
-                                            MainActivity2.fabMain.setClickable(true);
+                                            mFabMain.setClickable(true);
                                             fabCal_Run.setClickable(true);
                                             fabCal_Swim.setClickable(true);
                                             fabCal_Bike.setClickable(true);
                                             fabAnimFlag=false;
                                             fabFlag = true;
-                                            MainActivity2.fabMain.setRotation(0);
+                                            mFabMain.setRotation(0);
                                         }
 
                                         @Override
@@ -505,19 +509,21 @@ public class fl_Calories extends RootFragment
     }
 
     public void fabOpen(boolean fabMain) {
-        double tmpWidth = MainActivity2.fabMain.getWidth()*1.15;
+        final FloatingActionButton mFabMain = getMainActivity().getFabMainManager().fabMain;
+
+        double tmpWidth = mFabMain.getWidth()*1.15;
         if (fabFlag) {
             fabAnimFlag = true;
             fabCal_Run.setVisibility(View.VISIBLE);
             fabCal_Bike.setVisibility(View.VISIBLE);
             fabCal_Swim.setVisibility(View.VISIBLE);
-            MainActivity2.fabMain.setClickable(false);
+            mFabMain.setClickable(false);
             fabCal_Run.setClickable(false);
             fabCal_Swim.setClickable(false);
             fabCal_Bike.setClickable(false);
 
             if (fabMain) {
-                MainActivity2.fabMain.animate().rotationBy(180f)
+                mFabMain.animate().rotationBy(180f)
                         .setInterpolator(new AccelerateInterpolator()).setDuration(210)
                         .setListener(new Animator.AnimatorListener() {
                             @Override
@@ -528,9 +534,9 @@ public class fl_Calories extends RootFragment
                             @TargetApi(Build.VERSION_CODES.LOLLIPOP)
                             @Override
                             public void onAnimationEnd(Animator animation) {
-                                MainActivity2.fabMain.setImageResource(R.drawable.ic_fab_cancel_bk);
+                                mFabMain.setImageResource(R.drawable.ic_fab_cancel_bk);
 
-                                MainActivity2.fabMain.animate().rotationBy(180f)
+                                mFabMain.animate().rotationBy(180f)
                                         .setInterpolator(new OvershootInterpolator()).setDuration(210)
                                         .setListener(new Animator.AnimatorListener() {
                                             @Override
@@ -540,14 +546,14 @@ public class fl_Calories extends RootFragment
 
                                             @Override
                                             public void onAnimationEnd(Animator animation) {
-                                                MainActivity2.fabMain.setClickable(true);
+                                                mFabMain.setClickable(true);
                                                 fabCal_Run.setClickable(true);
                                                 fabCal_Swim.setClickable(true);
                                                 fabCal_Bike.setClickable(true);
 
                                                 fabFlag = false;
                                                 fabAnimFlag=false;
-                                                MainActivity2.fabMain.setRotation(0);
+                                                mFabMain.setRotation(0);
                                             }
 
                                             @Override
@@ -679,8 +685,9 @@ public class fl_Calories extends RootFragment
                 //MainActivity2.volleyMethod.vpost_GetCalInRecord("","2016-7-15");
 
                 String tmpHi = "慢跑～～";
-                assert MainActivity2.HiCard_Text != null;
-                MainActivity2.HiCard_Text.start(tmpHi);
+                getMainActivity().HiCardPlay("","",tmpHi);
+                //assert MainActivity2.HiCard_Text != null;
+                //MainActivity2.HiCard_Text.start(tmpHi);
                 break;
 
             case R.id.fabCal_Bike:
@@ -705,15 +712,17 @@ public class fl_Calories extends RootFragment
                 //CPBar.setProgress(tmp2);
 
                 tmpHi = "騎鐵馬～～";
-                assert MainActivity2.HiCard_Text != null;
-                MainActivity2.HiCard_Text.start(tmpHi);
+                getMainActivity().HiCardPlay("","",tmpHi);
+                //assert MainActivity2.HiCard_Text != null;
+                //MainActivity2.HiCard_Text.start(tmpHi);
                 break;
 
             case R.id.fabCal_Swim:
 
                 tmpHi = "游泳～～";
-                assert MainActivity2.HiCard_Text != null;
-                MainActivity2.HiCard_Text.start(tmpHi);
+                getMainActivity().HiCardPlay("","",tmpHi);
+                //assert MainActivity2.HiCard_Text != null;
+                //MainActivity2.HiCard_Text.start(tmpHi);
                 //mCPBar_Flag = mCPBar_Flag == 1 ? 0 : 1;
                 break;
         }

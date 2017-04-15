@@ -146,8 +146,9 @@ public class fl_Notification extends RootFragment {
         });
 
         String tmpHi = "來設定提醒時間吧！";
-        assert MainActivity2.HiCard_Text != null;
-        MainActivity2.HiCard_Text.start(tmpHi);
+        getMainActivity().HiCardPlay("","",tmpHi);
+        //assert MainActivity2.HiCard_Text != null;
+        //MainActivity2.HiCard_Text.start(tmpHi);
 
         return rootView;
     }

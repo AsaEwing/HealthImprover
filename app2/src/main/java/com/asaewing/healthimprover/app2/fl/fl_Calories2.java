@@ -42,6 +42,7 @@ import android.widget.Toast;
 import com.asaewing.healthimprover.app2.MainActivity2;
 import com.asaewing.healthimprover.app2.Others.CT48;
 import com.asaewing.healthimprover.app2.Others.HiDBHelper;
+import com.asaewing.healthimprover.app2.Others.InfoMap;
 import com.asaewing.healthimprover.app2.R;
 
 import java.math.BigDecimal;
@@ -126,10 +127,13 @@ public class fl_Calories2 extends RootFragment
 
     @SuppressLint("DefaultLocale")
     private void initValueGet(boolean isFirst){
-        int HH = MainActivity2.mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Height_before_H);
-        int HL = MainActivity2.mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Height_before_L);
-        int WH = MainActivity2.mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Weight_before_H);
-        int WL = MainActivity2.mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Weight_before_L);
+        InfoMap mInfoMap = getMainActivity().getDataManager().mInfoMap;
+        HiDBHelper helper = getMainActivity().getDataManager().helper;
+
+        int HH = mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Height_before_H);
+        int HL = mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Height_before_L);
+        int WH = mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Weight_before_H);
+        int WL = mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Weight_before_L);
         if ((HH + HL*0.01)<10) {
             HH = 165;
             HL = 0;
@@ -142,7 +146,7 @@ public class fl_Calories2 extends RootFragment
         Weight = (float) (WH + WL*0.01);
 
 
-        String strAge = MainActivity2.mInfoMap.IMgetString(HiDBHelper.KEY_AC_Birthday);
+        String strAge = mInfoMap.IMgetString(HiDBHelper.KEY_AC_Birthday);
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendarBirthday = Calendar.getInstance();
@@ -160,7 +164,7 @@ public class fl_Calories2 extends RootFragment
 
         int intAge = calendarNow.get(Calendar.YEAR)-calendarBirthday.get(Calendar.YEAR);
         boolean isMale = false;
-        if (MainActivity2.mInfoMap.IMgetString(HiDBHelper.KEY_AC_Gender).equals("male")){
+        if (mInfoMap.IMgetString(HiDBHelper.KEY_AC_Gender).equals("male")){
             isMale = true;
         }
 
@@ -174,10 +178,10 @@ public class fl_Calories2 extends RootFragment
                 , c.get(Calendar.MINUTE));
         double timeNow48 = new CT48(time).getCt48();
 
-        double tmpWake48 = MainActivity2.mInfoMap.IMgetInt(HiDBHelper.KEY_AC_WakeTime48);
+        double tmpWake48 = mInfoMap.IMgetInt(HiDBHelper.KEY_AC_WakeTime48);
 
         double tmpCalInToday = 0;
-        Cursor cursorCalIn = MainActivity2.helper.CalInSelect(today);
+        Cursor cursorCalIn = helper.CalInSelect(today);
         if (cursorCalIn.getCount()>0){
             cursorCalIn.moveToFirst();
 
@@ -211,7 +215,7 @@ public class fl_Calories2 extends RootFragment
         cursorCalIn.close();
 
         double tmpCalOutToday = 0;
-        Cursor cursorCalOut = MainActivity2.helper.CalOutSelect(today);
+        Cursor cursorCalOut = helper.CalOutSelect(today);
         if (cursorCalOut.getCount()>0){
             cursorCalOut.moveToFirst();
 
@@ -460,7 +464,7 @@ public class fl_Calories2 extends RootFragment
         Log.d(TAG, "**" + TAG + "**buttonClick**fabMain******"+fabFlag);
 
         if (!fabFlag) {
-            fabClose(true);
+            fabClose(true,R.drawable.ic_menu_calories);
         } else {
             fabOpen(true);
 
@@ -474,12 +478,15 @@ public class fl_Calories2 extends RootFragment
     }
 
     @Override
-    public void fabClose(boolean fabMain) {
-        super.fabClose(fabMain);
+    public void fabClose(boolean fabMain,int fabImage) {
+        super.fabClose(fabMain,R.drawable.ic_menu_calories);
     }
 
     @SuppressLint("DefaultLocale")
     public void TargetUpdate(){
+        InfoMap mInfoMap = getMainActivity().getDataManager().mInfoMap;
+        HiDBHelper helper = getMainActivity().getDataManager().helper;
+
         Calendar cNow = Calendar.getInstance();
         Calendar cTar = Calendar.getInstance();
 
@@ -488,7 +495,7 @@ public class fl_Calories2 extends RootFragment
 
         String targetStr = "";
         int countTarget = 0;
-        Cursor cursor = MainActivity2.helper.TargetSelect(HiDBHelper.KEY_Target_Weight);
+        Cursor cursor = helper.TargetSelect(HiDBHelper.KEY_Target_Weight);
         if (cursor.getCount()>0){
             String tmpW = "";
             cursor.moveToLast();
@@ -509,8 +516,8 @@ public class fl_Calories2 extends RootFragment
 
             double tmpWeight = Double.parseDouble(cursor.getString(cursor.getColumnIndex(HiDBHelper.KEY_Target_TargetValue)));
             double tmp = tmpWeight;
-            tmp -= MainActivity2.mInfoMap.IMgetFloat(HiDBHelper.KEY_BI_Weight_before_H);
-            tmp -= MainActivity2.mInfoMap.IMgetFloat(HiDBHelper.KEY_BI_Weight_before_L)/100;
+            tmp -= mInfoMap.IMgetFloat(HiDBHelper.KEY_BI_Weight_before_H);
+            tmp -= mInfoMap.IMgetFloat(HiDBHelper.KEY_BI_Weight_before_L)/100;
             tmp = Double.parseDouble(String.format("%.2f",tmp));
             if (tmp>0.2){
                 tmpW = String.format("目標體重：%s公斤\n" +
@@ -535,7 +542,7 @@ public class fl_Calories2 extends RootFragment
             countTarget++;
         }
 
-        cursor = MainActivity2.helper.TargetSelect(HiDBHelper.KEY_Target_Height);
+        cursor = helper.TargetSelect(HiDBHelper.KEY_Target_Height);
         if (cursor.getCount()>0){
             cursor.moveToLast();
             try {
@@ -556,8 +563,8 @@ public class fl_Calories2 extends RootFragment
             String tmpH = "";
             double tmpＨeight = Double.parseDouble(cursor.getString(cursor.getColumnIndex(HiDBHelper.KEY_Target_TargetValue)));
             double tmp = tmpＨeight;
-            tmp -= MainActivity2.mInfoMap.IMgetFloat(HiDBHelper.KEY_BI_Height_before_H);
-            tmp -= MainActivity2.mInfoMap.IMgetFloat(HiDBHelper.KEY_BI_Height_before_L)/100;
+            tmp -= mInfoMap.IMgetFloat(HiDBHelper.KEY_BI_Height_before_H);
+            tmp -= mInfoMap.IMgetFloat(HiDBHelper.KEY_BI_Height_before_L)/100;
             tmp = Double.parseDouble(String.format("%.2f",tmp));
             if (tmp>0.2){
                 tmpH = String.format("目標身高：%s公分\n" +
@@ -599,30 +606,35 @@ public class fl_Calories2 extends RootFragment
                 DialogSport();
 
                 String tmpHi = "記下你剛剛做了什麼運動吧！";
-                assert MainActivity2.HiCard_Text != null;
-                MainActivity2.HiCard_Text.start(tmpHi);
+                getMainActivity().HiCardPlay("","",tmpHi);
+                //assert MainActivity2.HiCard_Text != null;
+                //MainActivity2.HiCard_Text.start(tmpHi);
                 break;
 
             case R.id.cfab_Target:
                 DialogTarget();
 
                 tmpHi = "想新增什麼目標嗎？";
-                assert MainActivity2.HiCard_Text != null;
-                MainActivity2.HiCard_Text.start(tmpHi);
+                getMainActivity().HiCardPlay("","",tmpHi);
+                //assert MainActivity2.HiCard_Text != null;
+                //MainActivity2.HiCard_Text.start(tmpHi);
                 break;
 
             case R.id.cfab_Recommend:
                 DialogRecommend();
 
                 tmpHi = "你的意見，會使我變得更好！";
-                assert MainActivity2.HiCard_Text != null;
-                MainActivity2.HiCard_Text.start(tmpHi);
+                getMainActivity().HiCardPlay("","",tmpHi);
+                //assert MainActivity2.HiCard_Text != null;
+                //MainActivity2.HiCard_Text.start(tmpHi);
                 break;
         }
     }
 
     @SuppressLint("DefaultLocale")
     public void DialogTarget(){
+        final InfoMap mInfoMap = getMainActivity().getDataManager().mInfoMap;
+
         final String[] strFlag = {"w"};
         final int[] tmpH = {0};
         final int[] tmpL = {0};
@@ -713,7 +725,7 @@ public class fl_Calories2 extends RootFragment
         });
         mNP_HW_I.setMaxValue(250);
         mNP_HW_I.setMinValue(0);
-        mNP_HW_I.setValue(MainActivity2.mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Weight_before_H));
+        mNP_HW_I.setValue(mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Weight_before_H));
 
         mNP_HW_D = (NumberPicker) dialogTarget.findViewById(R.id.Target_NP_Dec);
         assert mNP_HW_D != null;
@@ -741,7 +753,7 @@ public class fl_Calories2 extends RootFragment
         });
         mNP_HW_D.setMaxValue(99);
         mNP_HW_D.setMinValue(0);
-        //mNP_HW_D.setValue(MainActivity2.mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Weight_before_L));
+        //mNP_HW_D.setValue(mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Weight_before_L));
         mNP_HW_D.setValue(0);
 
         RadioGroup rGroup = (RadioGroup)dialogTarget.findViewById(R.id.Target_Group1);
@@ -757,20 +769,20 @@ public class fl_Calories2 extends RootFragment
                 if (isChecked) {
                     switch (checkedId) {
                         case R.id.Target_Height_RB:
-                            mNP_HW_I.setValue(MainActivity2.mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Height_before_H));
-                            mNP_HW_D.setValue(MainActivity2.mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Height_before_L));
+                            mNP_HW_I.setValue(mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Height_before_H));
+                            mNP_HW_D.setValue(mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Height_before_L));
                             strFlag[0] = "h";
                             break;
                         case R.id.Target_Weight_RB:
-                            mNP_HW_I.setValue(MainActivity2.mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Weight_before_H));
-                            mNP_HW_D.setValue(MainActivity2.mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Weight_before_L));
+                            mNP_HW_I.setValue(mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Weight_before_H));
+                            mNP_HW_D.setValue(mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Weight_before_L));
                             strFlag[0] = "w";
                             break;
                         case R.id.Target_BMI_RB:
-                            double height = MainActivity2.mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Height_before_H);
-                            height += MainActivity2.mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Height_before_L)*0.01;
-                            double weight = MainActivity2.mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Weight_before_H);
-                            weight += MainActivity2.mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Weight_before_L)*0.01;
+                            double height = mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Height_before_H);
+                            height += mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Height_before_L)*0.01;
+                            double weight = mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Weight_before_H);
+                            weight += mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Weight_before_L)*0.01;
                             float tmp = (float) (weight/Math.pow(height*0.01,2));
                             tmp = new BigDecimal(tmp).setScale(2, RoundingMode.HALF_UP).floatValue();
                             //String tmpDF = new DecimalFormat("#.00").format(tmp);
@@ -786,6 +798,8 @@ public class fl_Calories2 extends RootFragment
 
     @SuppressLint("DefaultLocale")
     public void DialogTarget2(final String target, final double targetValue){
+        final HiDBHelper helper = getMainActivity().getDataManager().helper;
+
         final int[] rangeDayEdit = {30};
 
         final Calendar c = Calendar.getInstance();
@@ -823,7 +837,7 @@ public class fl_Calories2 extends RootFragment
 
                         values.put(HiDBHelper.KEY_Target_Target, target);
                         values.put(HiDBHelper.KEY_Target_TargetValue, String.valueOf(targetValue));
-                        MainActivity2.helper.TargetInsert(values);
+                        helper.TargetInsert(values);
 
                         /*MainActivity2.volleyMethod.vpostSend_TargetJson(startDay,startTime
                                 ,String.valueOf(rangeDayEdit[0]),String.valueOf(0)
@@ -970,6 +984,7 @@ public class fl_Calories2 extends RootFragment
 
     @SuppressLint("DefaultLocale")
     public void DialogSport(){
+        final HiDBHelper helper = getMainActivity().getDataManager().helper;
 
         final int[] rg_id = {R.id.Sport_RB11};
         double calOut=0;
@@ -1052,7 +1067,7 @@ public class fl_Calories2 extends RootFragment
                                 values.put(HiDBHelper.KEY_CalOut_Sport,RB_List_KEY[ii]);
                                 values.put(HiDBHelper.KEY_CalOut_Cal,String.valueOf(cal));
                                 values.put(HiDBHelper.KEY_CalOut_Continue,String.valueOf(conTime));
-                                MainActivity2.helper.CalOutInsert(values);
+                                helper.CalOutInsert(values);
 
                                 /*MainActivity2.volleyMethod.vpostSend_SportJson(date[0],time[0]
                                 ,RB_List_KEY[ii],String.valueOf(cal),"","",String.valueOf(conTime),"");*/
@@ -1308,7 +1323,7 @@ public class fl_Calories2 extends RootFragment
                         getMainActivity().getVolleyManager().vpostSend_Recommend(tmpStr[0]);
 
                         //MainActivity2.fabMainClose();
-                        getMainActivity().getFabMainManager().fabMainClose(0);
+                        getMainActivity().getFabMainManager().fabMainClose(1);
                     }
                 });
         builderRecommend.setNegativeButton(R.string.Dialog_button_Cancel
@@ -1316,7 +1331,7 @@ public class fl_Calories2 extends RootFragment
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //MainActivity2.fabMainClose();
-                        getMainActivity().getFabMainManager().fabMainClose(0);
+                        getMainActivity().getFabMainManager().fabMainClose(1);
                     }
                 });
 

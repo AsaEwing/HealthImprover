@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.asaewing.healthimprover.app2.MainActivity2;
@@ -15,13 +16,16 @@ import java.io.InputStream;
  */
 public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 
-    ImageView bmImage;
-    Bitmap mIcon = null;
-    String key = null;
+    private ImageView bmImage;
+    private Bitmap mIcon = null;
+    private String key = null;
+    private MainActivity2 mContext;
 
-    public DownloadImageTask(String mkey, ImageView bmImage) {
+
+    public DownloadImageTask(MainActivity2 context, String mkey, ImageView bmImage) {
         this.key = mkey;
         this.bmImage = bmImage;
+        this.mContext = context;
     }
 
     protected Bitmap doInBackground(String... urls) {
@@ -36,7 +40,7 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
             e.printStackTrace();
         }
 
-        MainActivity2.mInfoMap.IMput(key,mIcon);
+        mContext.getDataManager().mInfoMap.IMput(key,mIcon);
         return mIcon;
     }
 

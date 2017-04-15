@@ -8,24 +8,25 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 
+import com.asaewing.healthimprover.app2.MainActivity2;
 import com.asaewing.healthimprover.app2.R;
 import com.asaewing.healthimprover.app2.RootActivity2;
 
 public class FabMainManager {
 
-    private RootActivity2 mContext;
+    private MainActivity2 mContext;
     private String mTAG;
     private boolean fabMain_NeedGONE;
     private boolean fabMain_isGONE;
     private boolean fabOpen;
 
     private String fl_flag_now;
-    private FloatingActionButton fabMain;
+    public FloatingActionButton fabMain;
 
     private int mPagePosition;
     private View mCoverView;
 
-    public FabMainManager(RootActivity2 context,
+    public FabMainManager(MainActivity2 context,
                           String TAG,
                           FloatingActionButton fab,
                           View CoverView){
@@ -53,7 +54,7 @@ public class FabMainManager {
 
     /** fabMainChange>>負責把主fab在更換fl或頁面時，進行互動動畫與標誌轉換 **/
     public void fabMainChange() {
-        fabMainChange(0);
+        fabMainChange(mPagePosition);
     }
 
     /** fabMainChange>>負責把主fab在更換fl或頁面時，進行互動動畫與標誌轉換 **/
@@ -232,10 +233,10 @@ public class FabMainManager {
 
                 switch (mPagePosition){
                     case 0:
-                        mContext.mViewPagerAdapter.getSelfFragment(0).fabMainClick();
+                        mContext.getViewPagerAdapter().getSelfFragment(0).fabMainClick();
                         break;
                     case 1:
-                        mContext.mViewPagerAdapter.getSelfFragment(1).fabMainClick();
+                        mContext.getViewPagerAdapter().getSelfFragment(1).fabMainClick();
                         break;
                     case 2:
                         break;
@@ -257,10 +258,12 @@ public class FabMainManager {
                 case "fl_navHome":
                     switch (mPagePosition) {
                         case 0:
-                            mContext.mViewPagerAdapter.getSelfFragment(0).fabClose(false);
+                            mContext.getViewPagerAdapter().getSelfFragment(0)
+                                    .fabClose(false,R.drawable.ic_fab_paint_bk);
                             break;
                         case 1:
-                            mContext.mViewPagerAdapter.getSelfFragment(1).fabClose(false);
+                            mContext.getViewPagerAdapter().getSelfFragment(1)
+                                    .fabClose(false,R.drawable.ic_menu_calories);
                             break;
                         case 2:
                             //fl_Sleep.newInstance().fabClose(false);

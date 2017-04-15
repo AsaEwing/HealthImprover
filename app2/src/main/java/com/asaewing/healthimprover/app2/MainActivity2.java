@@ -12,19 +12,28 @@ import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 //import com.facebook.FacebookSdk;
@@ -33,9 +42,15 @@ import com.asaewing.healthimprover.app2.Manager.AccountManager;
 import com.asaewing.healthimprover.app2.Manager.DataManager;
 import com.asaewing.healthimprover.app2.Manager.FabMainManager;
 import com.asaewing.healthimprover.app2.Manager.VolleyManager;
+import com.asaewing.healthimprover.app2.Manager.fl_Manager;
 import com.asaewing.healthimprover.app2.ViewOthers.CircleImageView;
 import com.asaewing.healthimprover.app2.Others.DownloadImageTask;
 import com.asaewing.healthimprover.app2.Others.HiDBHelper;
+import com.asaewing.healthimprover.app2.ViewOthers.TypeTextView;
+import com.asaewing.healthimprover.app2.ViewPager.CirclePageIndicator;
+import com.asaewing.healthimprover.app2.ViewPager.ViewPagerAdapter;
+import com.asaewing.healthimprover.app2.fl.fl_Calories2;
+import com.asaewing.healthimprover.app2.fl.fl_Diary;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -46,6 +61,7 @@ import com.google.firebase.crash.FirebaseCrash;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 
@@ -88,18 +104,22 @@ import java.util.concurrent.ExecutionException;
 
 public class MainActivity2 extends RootActivity2
         implements GoogleApiClient.OnConnectionFailedListener,
-        NavigationView.OnNavigationItemSelectedListener ,FragmentManager.OnBackStackChangedListener {
+        NavigationView.OnNavigationItemSelectedListener ,
+        FragmentManager.OnBackStackChangedListener {
 
     @SuppressLint("StaticFieldLeak")
+    //Manager
     protected static VolleyManager volleyManager;
     protected static DataManager dataManager;
     protected AccountManager accountManager;
+    protected fl_Manager flManager;
 
     //TODO----Object----
     public static boolean flag_google = false, flag_facebook = false;
     public static boolean flag_FCM = false;
+    protected static boolean fabOpen = false;       //判斷fab是否展開了小fab
 
-    public static HiDBHelper helper;
+    private HiDBHelper helper;
 
     //private FirebaseAnalytics mFirebaseAnalytics;
     //private FirebaseAuth mAuth;
@@ -107,86 +127,14 @@ public class MainActivity2 extends RootActivity2
 
     //Flag
     private int id_nav_now = 0, id_nav_before = 0, id_nav_temp = 0;
-    public static boolean need_flChange = false;
-    public static String need_flChange_nav = "";
     public boolean firstOpen = true;
 
     private NavigationView mNavView;
-    private LocationManager locationMgr;
-    private String provider;
 
     //ProgressDialog
     protected ProgressDialog mProgressDialog;   //進度提示
     protected ProgressDialog mPreProgressDialog;   //進度提示
 
-    private GpsStatus.Listener gpsListener = new GpsStatus.Listener() {
-        @Override
-        public void onGpsStatusChanged(int event) {
-            switch (event) {
-                case GpsStatus.GPS_EVENT_STARTED:
-                    Log.d(TAG, "GPS_EVENT_STARTED");
-                    Toast.makeText(MainActivity2.this, "GPS_EVENT_STARTED", Toast.LENGTH_SHORT).show();
-                    break;
-                case GpsStatus.GPS_EVENT_STOPPED:
-                    Log.d(TAG, "GPS_EVENT_STOPPED");
-                    Toast.makeText(MainActivity2.this, "GPS_EVENT_STOPPED", Toast.LENGTH_SHORT).show();
-                    break;
-                case GpsStatus.GPS_EVENT_FIRST_FIX:
-                    Log.d(TAG, "GPS_EVENT_FIRST_FIX");
-                    Toast.makeText(MainActivity2.this, "GPS_EVENT_FIRST_FIX", Toast.LENGTH_SHORT).show();
-                    break;
-                case GpsStatus.GPS_EVENT_SATELLITE_STATUS:
-                    Log.d(TAG, "GPS_EVENT_SATELLITE_STATUS");
-                    break;
-            }
-        }
-    };
-
-    private LocationListener locationListener = new LocationListener() {
-
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-
-        }
-
-        @Override
-        public void onLocationChanged(Location location) {
-            updateWithNewLocation(location);
-        }
-
-        @Override
-        public void onProviderDisabled(String provider) {
-            updateWithNewLocation(null);
-        }
-
-        @Override
-        public void onProviderEnabled(String provider) {
-
-        }
-    };
-
-    private ArrayList<MyOnTouchListener> onTouchListeners = new ArrayList<MyOnTouchListener>(
-            10);
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        for (MyOnTouchListener listener : onTouchListeners) {
-            listener.onTouch(ev);
-        }
-        return super.dispatchTouchEvent(ev);
-    }
-
-    public void registerMyOnTouchListener(MyOnTouchListener myOnTouchListener) {
-        onTouchListeners.add(myOnTouchListener);
-    }
-
-    public void unregisterMyOnTouchListener(MyOnTouchListener myOnTouchListener) {
-        onTouchListeners.remove(myOnTouchListener);
-    }
-
-    public interface MyOnTouchListener {
-        public boolean onTouch(MotionEvent ev);
-    }
 
     public void setVolleyManager(){
         volleyManager = new VolleyManager(this,TAG);
@@ -206,6 +154,56 @@ public class MainActivity2 extends RootActivity2
         //helper.SAID_jsonUpdate();
 
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main); //主Layout
+
+        @SuppressLint("HardwareIds")
+        String android_deviceId = Settings.Secure.getString(this.getContentResolver(),
+                Settings.Secure.ANDROID_ID);                    //取得裝置Id
+        mInfoMap.IMput("deviceId",MD5(android_deviceId).toUpperCase()); //存入mInfoMap
+        Log.i("device id=",mInfoMap.IMgetString("deviceId"));          //Log，標出裝置Id
+
+        //Toolbar Settings
+        mToolbar = (Toolbar)findViewById(R.id.toolbar);
+        this.setSupportActionBar(mToolbar);                 //請看ActionBar與Toolbar的不同
+        mToolbar.setOnClickListener(this);                  //設置監聽
+
+        //HiCard
+        HiCard = (CardView)findViewById(R.id.HiCardView);
+        assert HiCard != null;
+        HiCard.setOnClickListener(this);
+        HiCard_Text = (TypeTextView)findViewById(R.id.HiCardView_Text);
+        HiCard_Text.setOnTypeViewListener( new TypeTextView.OnTypeViewListener( ) {
+            @Override
+            public void onTypeStart() {
+                //print( "onTypeStart" );
+            }
+
+            @Override
+            public void onTypeOver() {
+                //print( "onTypeOver" );
+            }
+        });
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            HiCard.setTranslationZ(mToolbar.getTranslationZ()+4f);
+        }
+
+        assert HiCard_Text != null;
+        HiCard_Text.start(getString(R.string.HiCard_firstOpen));
+
+        //mCoverView
+        mCoverView = findViewById(R.id.cover);
+        assert mCoverView != null;
+        mCoverView.setVisibility(View.GONE);
+        mCoverView.setOnClickListener(this);
+
+        //FAB Main
+        fabMain = (FloatingActionButton)findViewById(R.id.fab_Main);
+        assert fabMain != null;
+        fabMain.setOnClickListener(this);
+
+        flManager = new fl_Manager(this,TAG);
+        fabMainManager = new FabMainManager(this,TAG,fabMain,mCoverView);
 
 
         //FacebookSdk.sdkInitialize(getApplicationContext());
@@ -230,7 +228,7 @@ public class MainActivity2 extends RootActivity2
                 //fl_Calories.fabClose(false);
                 //fl_Calories.newInstance().fabClose(false);
                 //fl_Diary.newInstance().fabClose(false);
-                fabMainManager.fabMainClose(mPagePosition);
+                fabMainManager.fabMainClose(flManager.mPagePosition);
                 Log.d(TAG, "**" + TAG + "**onDrawerSlide**");
 
                 String strTmp = "";
@@ -249,7 +247,7 @@ public class MainActivity2 extends RootActivity2
                 }
 
                 try {
-                    if (!fl_flag_now.equals(strTmp)){
+                    if (!flManager.fl_flag_now.equals(strTmp)){
                         int nav_int = flManager.getIdFromTagString(strTmp);
 
                         MenuItem item = mNavView.getMenu().findItem(nav_int);
@@ -294,6 +292,8 @@ public class MainActivity2 extends RootActivity2
 
         accountManager = new AccountManager(this,TAG);
         accountManager.mOnCreate();
+
+        //flManager.initView();
     }
 
     @Override
@@ -345,8 +345,40 @@ public class MainActivity2 extends RootActivity2
         mInfoMap.IMput(HiDBHelper.KEY_BI_Weight_before_H, tmpH);
         mInfoMap.IMput(HiDBHelper.KEY_BI_Weight_before_L, tmpL);
 
-        /////////////////////////////////////////////////////
-        super.initView();
+        //DisplayMetrics
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        mInfoMap.IMput("WindowWidth",metrics.widthPixels);
+        mInfoMap.IMput("WindowHeight",metrics.heightPixels);
+
+
+
+        /*//HiCard
+        HiCard = (CardView)findViewById(R.id.HiCardView);
+        assert HiCard != null;
+        HiCard.setOnClickListener(this);
+        HiCard_Text = (TypeTextView)findViewById(R.id.HiCardView_Text);
+        HiCard_Text.setOnTypeViewListener( new TypeTextView.OnTypeViewListener( ) {
+            @Override
+            public void onTypeStart() {
+                //print( "onTypeStart" );
+            }
+
+            @Override
+            public void onTypeOver() {
+                //print( "onTypeOver" );
+            }
+        });
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            HiCard.setTranslationZ(mToolbar.getTranslationZ()+4f);
+        }
+
+        assert HiCard_Text != null;
+        HiCard_Text.start(getString(R.string.HiCard_firstOpen));*/
+
+        //Home初始頁面在Calories
+        //mViewPager.setCurrentItem(1);
         /////////////////////////////////////////////////////
 
         TextView ac_user_name = (TextView)findViewById(R.id.ac_user_name);
@@ -360,7 +392,7 @@ public class MainActivity2 extends RootActivity2
         try {
             String tmpStr = accountManager.personPhoto.toString();
             try {
-                Bitmap bitmap = new DownloadImageTask("acGoogleImage",acGoogleImage)
+                Bitmap bitmap = new DownloadImageTask(this,"acGoogleImage",acGoogleImage)
                         .execute(tmpStr).get();
                 acGoogleImage.setImageBitmap(bitmap);
             } catch (InterruptedException | ExecutionException e) {
@@ -372,6 +404,7 @@ public class MainActivity2 extends RootActivity2
 
         hideProgressDialog();
         Log.d(TAG, "**initView**End");
+        flManager.initView();
 
         Calendar calendar = Calendar.getInstance();
         String crash = mInfoMap.IMgetString(HiDBHelper.KEY_AC_Account);
@@ -427,7 +460,7 @@ public class MainActivity2 extends RootActivity2
     @Override
     protected void onStop() {
 
-        if (fabOpen)fabMainManager.fabMainClose(mPagePosition);
+        if (fabOpen)fabMainManager.fabMainClose(flManager.mPagePosition);
 
         //saveDataSP();
 
@@ -443,8 +476,10 @@ public class MainActivity2 extends RootActivity2
         //helper = new HiDBHelper(getApplicationContext());
         dataManager.onRestart();
         Log.d(TAG,"**Yes_onRestart**");
-        //fabOpen = true;
-        //if (fabOpen)fabMainClose();
+
+        fabOpen = false;
+        fabMainManager.fabMainClose(flManager.mPagePosition);
+        //if (fabOpen) fabMainManager.fabMainClose(mPagePosition);
     }
 
     @Override
@@ -479,9 +514,9 @@ public class MainActivity2 extends RootActivity2
             mDrawer.closeDrawer(GravityCompat.START);
         } else if (fabOpen) {
             fabOpen = false;
-            fabMainManager.fabMainClose(mPagePosition);
+            fabMainManager.fabMainClose(flManager.mPagePosition);
         } else {
-            if (fl_flag != 1) {
+            if (flManager.fl_flag != 1) {
                 try {
                     strTmp = getSupportFragmentManager().findFragmentById(R.id.fl_c_MainFragment).getTag();
                 } catch (Exception e1) {
@@ -498,13 +533,13 @@ public class MainActivity2 extends RootActivity2
 
                 Log.d(TAG, "**" + TAG + "**onBackPressed" + strTmp);
 
-                if (fl_flag_now.equals("fl_Chat") && !strTmp.equals("fl_Chat")){
-                    this.flChange("fl_Chat");
+                if (flManager.fl_flag_now.equals("fl_Chat") && !strTmp.equals("fl_Chat")){
+                    flManager.flChange("fl_Chat");
                     MenuItem item = mNavView.getMenu().findItem(R.id.nav_Chat);
                     item.setChecked(true);
 
-                }else if (fl_flag_now.equals("fl_Heart")){
-                    this.flChange("fl_navHome");
+                }else if (flManager.fl_flag_now.equals("fl_Heart")){
+                    flManager.flChange("fl_navHome");
                     MenuItem item = mNavView.getMenu().findItem(R.id.nav_Home);
                     item.setChecked(true);
 
@@ -514,7 +549,7 @@ public class MainActivity2 extends RootActivity2
 
                     //mToolbar.setNavigationIcon(R.drawable.ic_nav_humburger);
                 } else {
-                    this.flChange("fl_navHome");
+                    flManager.flChange("fl_navHome");
                     MenuItem item = mNavView.getMenu().findItem(R.id.nav_Home);
                     item.setChecked(true);
 
@@ -531,11 +566,33 @@ public class MainActivity2 extends RootActivity2
 
     @Override
     public void onClick(View v) {
+
         super.onClick(v);
 
         int vId = v.getId();
 
-        if (vId == R.id.fab_Main && fl_flag_now.equals("fl_Map")) {
+        if (vId == R.id.toolbar) {
+            fabMainManager.fabMainClose(flManager.mPagePosition);
+
+        } else if (vId == R.id.fab_Main && !flManager.fl_flag_now.equals("fl_Map")) {
+            fabOpen = !fabOpen;
+            fabMainManager.fabMainClick(flManager.mPagePosition);
+
+        } else if (vId == R.id.cover  || vId == R.id.HiCardView) {
+
+            fabOpen = false;
+
+            if (vId == R.id.HiCardView) {
+                String tmpHi = "叫我幹嘛呢？";
+                assert HiCard_Text != null;
+                HiCard_Text.start(tmpHi);
+            }
+
+            fabMainManager.fabMainClose(flManager.mPagePosition);
+
+        }
+
+        if (vId == R.id.fab_Main && flManager.fl_flag_now.equals("fl_Map")) {
 
             //initLocationProvider();
             whereAmI();
@@ -583,7 +640,8 @@ public class MainActivity2 extends RootActivity2
         if (itemId != id_nav_now) {
             id_nav_before = id_nav_temp;
             id_nav_now = itemId;
-            flChange(flManager.getTagStringFromId(itemId));
+            flManager.flChange(flManager.getTagStringFromId(itemId));
+            //flManager.flChange(itemId);
         }
 
         mDrawer.closeDrawer(GravityCompat.START);
@@ -623,111 +681,6 @@ public class MainActivity2 extends RootActivity2
         Log.d(TAG,"HomeNot");
         return super.onOptionsItemSelected(item);
     }*/
-
-
-
-    @Override
-    public void flChange(String nav_s) {
-        super.flChange(nav_s);
-
-        Log.d(TAG,"**fl_Change**"+fl_flag_now);
-    }
-
-    private boolean initLocationProvider() {
-        locationMgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        /*//1.選擇最佳提供器
-        Criteria criteria = new Criteria();
-        criteria.setAccuracy(Criteria.ACCURACY_FINE);
-        criteria.setAltitudeRequired(false);
-        criteria.setBearingRequired(false);
-        criteria.setCostAllowed(true);
-        criteria.setPowerRequirement(Criteria.POWER_LOW);
-
-        provider = locationMgr.getBestProvider(criteria, true);
-
-        if (provider != null) {
-            return true;
-        }*/
-
-        //2.選擇使用GPS提供器
-        if (locationMgr.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            provider = LocationManager.GPS_PROVIDER;
-            return true;
-        }
-
-        /*//3.選擇使用網路提供器
-        if (locationMgr.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-            provider = LocationManager.NETWORK_PROVIDER;
-            return true;
-        }*/
-        return false;
-    }
-
-    private void whereAmI() {
-        //取得上次已知的位置
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        Location location = locationMgr.getLastKnownLocation(provider);//
-        updateWithNewLocation(location);
-        //GPS Listener
-        locationMgr.addGpsStatusListener(gpsListener);
-        //Location Listener
-        int minTime = 2000;//ms
-        int minDist = 2;//meter
-        locationMgr.requestLocationUpdates(provider, minTime, minDist,locationListener);
-        if (location != null) {
-            //經度
-            double lng = location.getLongitude();
-            //緯度
-            double lat = location.getLatitude();
-            cameraFocusOnMe(lat, lng);
-            //G_Map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 16));
-        }
-    }
-
-    private void cameraFocusOnMe(double lat, double lng){
-        CameraPosition camPosition = new CameraPosition.Builder()
-                .target(new LatLng(lat, lng))
-                .zoom(16)
-                .build();
-        G_Map.animateCamera(
-                CameraUpdateFactory.newCameraPosition(camPosition)
-                ,2000,null);
-    }
-
-    private void updateWithNewLocation(Location location) {
-        String where = "";
-        if (location != null) {
-            //經度
-            double lng = location.getLongitude();
-            //緯度
-            double lat = location.getLatitude();
-            //速度
-            float speed = location.getSpeed();
-
-            where = "經度: " + lng +
-                    "緯度: " + lat +
-                    "\n速度: " + speed +
-                    "\nProvider: " + provider;
-            //"我"
-            //showMarkerMe(lat, lng);
-            cameraFocusOnMe(lat, lng);
-            G_Map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat,lng), 16));
-        }else{
-            where = "~ ~ ~" ;
-        }
-        //顯示資訊
-        //txtOutput.setText(where);
-    }
 
     //TODO----Up Down
     @Override
@@ -818,6 +771,82 @@ public class MainActivity2 extends RootActivity2
         }
     }
 
+    public void HiCardPlay(String whereFrom, String wantTo, String newText) {
+
+        String HiText = "";
+
+        if (whereFrom.equals("flChange")) {
+            switch (wantTo) {
+                case "fl_navHome":
+                    switch (flManager.mPagePosition) {
+                        case 0:
+                            HiText = "有沒有忘記紀錄體重？";
+                            break;
+
+                        case 1:
+                            HiText = "今天運動了嗎？";
+                            break;
+
+                        case 2:
+                            HiText = "今日睡的如何？";
+                            break;
+                    }
+                    break;
+
+                case "fl_Map":
+                    HiText = "想找找附近餐廳？";
+                    break;
+
+                case "fl_Chat":
+                    HiText = "讓我來陪你聊天吧！";
+                    break;
+
+                case "fl_BasicInfo":
+                    HiText = "帳戶資料要更動嗎？";
+                    break;
+
+                case "fl_MyDevice":
+                    HiText = "尚未有藍牙裝置連結";
+                    break;
+
+                case "fl_Heart":
+                    HiText = "來測測心律！";
+                    break;
+
+                case "fl_ProductTour":
+                    HiText = "HiApp導覽";
+                    break;
+
+                case "fl_AR_Exp":
+                    HiText = "權責說明";
+                    break;
+
+                case "fl_Settings":
+                    HiText = "HiApp設定";
+                    break;
+
+                case "fl_Test01":
+                    HiText = "程式測試1";
+                    break;
+
+                case "fl_Test02":
+                    HiText = "程式測試2";
+                    break;
+            }
+
+        } else if (whereFrom.equals("onClick")) {
+            if (wantTo.equals("fl_navHome")) {
+                HiCard_Text.start("");
+            }
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (Objects.equals(whereFrom,"") && Objects.equals(wantTo,"")) {
+                HiText = newText;
+            }
+        }
+
+        HiCard_Text.start(HiText);
+    }
+
     public static VolleyManager getVolleyManager(){
         return volleyManager;
     }
@@ -830,8 +859,12 @@ public class MainActivity2 extends RootActivity2
         return accountManager;
     }
 
-    public static FabMainManager getFabMainManager(){
+    public FabMainManager getFabMainManager(){
         return fabMainManager;
+    }
+
+    public ViewPagerAdapter getViewPagerAdapter(){
+        return flManager.mViewPagerAdapter;
     }
 
 }

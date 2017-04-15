@@ -92,8 +92,8 @@ public class FoodMap {
             this.FoodSugar = FoodSugar;
             this.FoodHotCold = FoodHotCold;
 
-            this.StoreId = MainActivity2.helper.SAID_NameFindId(StoreName);
-            this.FoodId = MainActivity2.helper.FoodNameFindId(StoreName,FoodName);
+            this.StoreId = MainActivity2.getDataManager().helper.SAID_NameFindId(StoreName);
+            this.FoodId = MainActivity2.getDataManager().helper.FoodNameFindId(StoreName,FoodName);
 
             this.FoodRemarks = FoodRemarks;
         }
@@ -128,9 +128,9 @@ public class FoodMap {
                     this.StoreName = newString;
 
                     this.StoreId = MainActivity2
-                            .helper.SAID_NameFindId(newString);
+                            .getDataManager().helper.SAID_NameFindId(newString);
                     this.FoodId = MainActivity2
-                            .helper.FoodNameFindId(this.StoreName,this.FoodName);
+                            .getDataManager().helper.FoodNameFindId(this.StoreName,this.FoodName);
                 }
                 
             } else if (indexString.equals(index_FoodName)) {
@@ -138,7 +138,7 @@ public class FoodMap {
                     this.FoodName = newString;
 
                     this.FoodId = MainActivity2
-                            .helper.FoodNameFindId(this.StoreName,this.FoodName);
+                            .getDataManager().helper.FoodNameFindId(this.StoreName,this.FoodName);
                 }
 
             } else if (indexString.equals(index_FoodAmount)) {

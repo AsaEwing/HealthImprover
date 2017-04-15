@@ -149,6 +149,7 @@ public class fl_Record extends RootFragment {
     }
 
     private void initRecordList(int position){
+        HiDBHelper helper = getMainActivity().getDataManager().helper;
 
         String[] recordChoice = {"飲食", "體重", "身高", "運動", "目標"};
         ArrayList<RecordItem> mRecord = new ArrayList<>();
@@ -157,7 +158,7 @@ public class fl_Record extends RootFragment {
 
         switch (position){
             case 0:
-                Cursor cursorCI = MainActivity2.helper.CalInSelect();
+                Cursor cursorCI = helper.CalInSelect();
                 int countCI = cursorCI.getCount();
                 countList = countCI;
 
@@ -184,7 +185,7 @@ public class fl_Record extends RootFragment {
                 break;
 
             case 1:
-                Cursor cursorW = MainActivity2.helper.WeightSelect();
+                Cursor cursorW = helper.WeightSelect();
                 int countW = cursorW.getCount();
                 countList = countW;
 
@@ -229,7 +230,7 @@ public class fl_Record extends RootFragment {
                 break;
 
             case 2:
-                Cursor cursorH = MainActivity2.helper.HeightSelect();
+                Cursor cursorH = helper.HeightSelect();
                 int countH = cursorH.getCount();
                 countList = countH;
 

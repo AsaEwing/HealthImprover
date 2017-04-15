@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Build;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import com.asaewing.healthimprover.app2.MainActivity2;
@@ -17,7 +19,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class DataManager {
+public class DataManager implements Parcelable {
 
     private MainActivity2 mContext;
     private String mTAG;
@@ -561,5 +563,30 @@ public class DataManager {
                 mContext.initView();
             }
         }
+    }
+
+    public static final Parcelable.Creator<DataManager> CREATOR
+            = new Parcelable.Creator<DataManager>() {
+        public DataManager createFromParcel(Parcel in) {
+            return new DataManager(in);
+        }
+
+        public DataManager[] newArray(int size) {
+            return new DataManager[size];
+        }
+    };
+
+    private DataManager(Parcel in) {
+        //mData = in.readInt();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+
     }
 }

@@ -4,6 +4,7 @@ package com.asaewing.healthimprover.app2.FCM;
 import android.util.Log;
 
 import com.asaewing.healthimprover.app2.MainActivity2;
+import com.asaewing.healthimprover.app2.Manager.DataManager;
 import com.asaewing.healthimprover.app2.Others.HiDBHelper;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
@@ -20,8 +21,14 @@ public class MyInstanceIDService extends FirebaseInstanceIdService {
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         Log.d(TAG, "**"+TAG+"**"+"Refreshed token: " + refreshedToken);
         //MainActivity.volleyMethod.vpostSend_FCMId(refreshedToken);
-        MainActivity2.mInfoMap.IMput(HiDBHelper.KEY_AC_FCM_id,refreshedToken);
-        MainActivity2.flag_FCM = true;
+        //MainActivity2.mInfoMap.IMput(HiDBHelper.KEY_AC_FCM_id,refreshedToken);
+        //MainActivity2.flag_FCM = true;
+        if (getApplicationContext().getClass()==MainActivity2.class){
+            MainActivity2 mContext = (MainActivity2)getApplicationContext();
+            DataManager dataManager = mContext.getDataManager();
+            dataManager.mInfoMap.IMput(HiDBHelper.KEY_AC_FCM_id,refreshedToken);
+            mContext.flag_FCM = true;
+        }
 
         // If you want to send messages to this application instance or
         // manage this apps subscriptions on the server side, send the

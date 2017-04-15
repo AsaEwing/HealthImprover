@@ -51,6 +51,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import Interface.RL_Action;
+
 import static android.text.InputType.TYPE_CLASS_NUMBER;
 import static android.text.InputType.TYPE_CLASS_TEXT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -59,10 +61,11 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 public class FoodActivity extends AppCompatActivity
         implements View.OnClickListener
         ,AdapterView.OnItemClickListener
-        ,View.OnTouchListener{
+        ,View.OnTouchListener, RL_Action{
 
     protected String TAG = null;
     protected boolean fabOpen = false;       //判斷fab是否展開了小fab
+    protected boolean setFabUse = true;
     private String date = "";
     private String time = "";
 
@@ -388,8 +391,8 @@ public class FoodActivity extends AppCompatActivity
                         }
                     });
 
-            closeRL(RL_Cancel, tmpTime2);
-            closeRL(RL_Send, tmpTime2);
+            closeRL(setFabUse, RL_Cancel, tmpTime2);
+            closeRL(setFabUse, RL_Send, tmpTime2);
 
             mCoverView.animate().scaleX(0F)
                     .scaleY(0F)
@@ -823,7 +826,7 @@ public class FoodActivity extends AppCompatActivity
                     //values.put(HiDBHelper., tmpMap.get(ListAdapter.KEY_FI_Type));
 
                     Log.d(TAG,"**Food_fab_Send**"+values);
-                    MainActivity2.helper.CalInInsert(values);
+                    MainActivity2.getDataManager().helper.CalInInsert(values);
                 }
 
                 /*
@@ -1193,8 +1196,8 @@ public class FoodActivity extends AppCompatActivity
                     });
 
             double tmpWidth = fabMain.getWidth()*1.15;
-            openMoveRL(RL_Cancel,tmpWidth*1);
-            openMoveRL(RL_Send,tmpWidth*2);
+            openMoveRL(setFabUse, RL_Cancel,tmpWidth*1);
+            openMoveRL(setFabUse, RL_Send,tmpWidth*2);
 
             mCoverView.setVisibility(View.VISIBLE);
 
@@ -1278,8 +1281,8 @@ public class FoodActivity extends AppCompatActivity
                         }
                     });
 
-            closeRL(RL_Cancel, tmpTime2);
-            closeRL(RL_Send, tmpTime2);
+            closeRL(setFabUse, RL_Cancel, tmpTime2);
+            closeRL(setFabUse, RL_Send, tmpTime2);
 
             mCoverView.animate().scaleX(0F)
                     .scaleY(0F)
@@ -1300,56 +1303,13 @@ public class FoodActivity extends AppCompatActivity
         }
     }
 
-    private void closeRL(final RelativeLayout relativeLayout, long Time){
-        relativeLayout.animate().alpha(0f)
-                .translationY(0f).setDuration(Time)
-                .setListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        relativeLayout.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animator animation) {
-
-                    }
-                });
+    @Override
+    public void openMoveRL(boolean setFabUse, RelativeLayout relativeLayout, double moveY) {
+        superAction.openMoveRL(setFabUse,relativeLayout,moveY);
     }
 
-    private void openMoveRL(final RelativeLayout relativeLayout, double moveY){
-        relativeLayout.animate().alpha(1f)
-                .translationY(-(float)(moveY))
-                .setDuration(360)
-                .setListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-                        relativeLayout.setVisibility(View.VISIBLE);
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-
-                    }
-                    @Override
-                    public void onAnimationRepeat(Animator animation) {
-
-                    }
-                });
+    @Override
+    public void closeRL(boolean setFabUse, RelativeLayout relativeLayout, long Time) {
+        superAction.closeRL(setFabUse,relativeLayout,Time);
     }
-
 }

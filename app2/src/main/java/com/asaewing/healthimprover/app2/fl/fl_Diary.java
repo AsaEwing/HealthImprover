@@ -40,6 +40,7 @@ import com.asaewing.healthimprover.app2.MainActivity2;
 import com.asaewing.healthimprover.app2.Manager.VolleyManager;
 import com.asaewing.healthimprover.app2.Others.CT48;
 import com.asaewing.healthimprover.app2.Others.HiDBHelper;
+import com.asaewing.healthimprover.app2.Others.InfoMap;
 import com.asaewing.healthimprover.app2.R;
 
 import java.math.BigDecimal;
@@ -85,10 +86,11 @@ public class fl_Diary extends RootFragment
     //TODO----Data----
     @Override
     public void mSaveState(){
-        MainActivity2.mInfoMap.IMput(HiDBHelper.KEY_BI_Height_before_H,HH);
-        MainActivity2.mInfoMap.IMput(HiDBHelper.KEY_BI_Height_before_L,HL);
-        MainActivity2.mInfoMap.IMput(HiDBHelper.KEY_BI_Weight_before_H,WH);
-        MainActivity2.mInfoMap.IMput(HiDBHelper.KEY_BI_Weight_before_L,WL);
+        InfoMap mInfoMap = getMainActivity().getDataManager().mInfoMap;
+        mInfoMap.IMput(HiDBHelper.KEY_BI_Height_before_H,HH);
+        mInfoMap.IMput(HiDBHelper.KEY_BI_Height_before_L,HL);
+        mInfoMap.IMput(HiDBHelper.KEY_BI_Weight_before_H,WH);
+        mInfoMap.IMput(HiDBHelper.KEY_BI_Weight_before_L,WL);
     }
 
     //TODO----生命週期----
@@ -184,7 +186,7 @@ public class fl_Diary extends RootFragment
                 final Calendar calendar = Calendar.getInstance();
                 @SuppressLint("DefaultLocale")
                 String nowTime = String.format("%02d:%02d:00",calendar.get(Calendar.HOUR),calendar.get(Calendar.MINUTE));
-                if (MainActivity2.mInfoMap.IMgetFloat(HiDBHelper.KEY_AC_WakeTime48)<new CT48(nowTime).getCt48()){
+                if (getMainActivity().getDataManager().mInfoMap.IMgetFloat(HiDBHelper.KEY_AC_WakeTime48)<new CT48(nowTime).getCt48()){
                     calendar.add(Calendar.DAY_OF_YEAR,-1);
                 } else {
                     calendar.add(Calendar.DAY_OF_YEAR,-2);
@@ -274,8 +276,10 @@ public class fl_Diary extends RootFragment
     }
 
     public void ListUpdate(){
+        HiDBHelper helper = getMainActivity().getDataManager().helper;
+
         if (canSeeList){
-            Cursor cursorW = MainActivity2.helper.WeightSelect();
+            Cursor cursorW = helper.WeightSelect();
             String[] stringListW = new String[]{"無任何體重資料"};
             int countW = cursorW.getCount();
             if (countW>0){
@@ -300,7 +304,7 @@ public class fl_Diary extends RootFragment
                     stringListW);
             WeightList.setAdapter(mAdapterW);
 
-            Cursor cursorC = MainActivity2.helper.CalInSelect();
+            Cursor cursorC = helper.CalInSelect();
             String[] stringListC = new String[]{"無任何飲食資料"};
             int countC = cursorC.getCount();
             if (countC>0){
@@ -416,10 +420,11 @@ public class fl_Diary extends RootFragment
     }
 
     private void initValueGet(){
-        HH = MainActivity2.mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Height_before_H);
-        HL = MainActivity2.mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Height_before_L);
-        WH = MainActivity2.mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Weight_before_H);
-        WL = MainActivity2.mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Weight_before_L);
+        InfoMap mInfoMap = getMainActivity().getDataManager().mInfoMap;
+        HH = mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Height_before_H);
+        HL = mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Height_before_L);
+        WH = mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Weight_before_H);
+        WL = mInfoMap.IMgetInt(HiDBHelper.KEY_BI_Weight_before_L);
         if ((HH + HL*0.01)<10) {
             Height = 165f;
             HH = 165;
@@ -451,17 +456,20 @@ public class fl_Diary extends RootFragment
         Log.d(TAG,"**"+TAG+"**buttonClick**fabMain******"+fabFlag);
 
         if (!fabFlag) {
-            fabClose(true);
+            fabClose(true,R.drawable.ic_fab_paint_bk);
         } else {
             fabOpen(true);
 
-            MainActivity2.HiCardPlay("","","你要紀錄什麼呢？");
+            getMainActivity().HiCardPlay("","","你要紀錄什麼呢？");
         }
     }
 
 
     @SuppressLint("DefaultLocale")
     private void NumberPickerDialogCreate(String s) {
+        final HiDBHelper helper = getMainActivity().getDataManager().helper;
+        InfoMap mInfoMap = getMainActivity().getDataManager().mInfoMap;
+
         final Button AutoDate,AutoTime;
         Calendar c = Calendar.getInstance();
         int hourOfDay = c.get(Calendar.HOUR_OF_DAY);
@@ -532,7 +540,7 @@ public class fl_Diary extends RootFragment
                             values.put(HiDBHelper.KEY_Height_Time,strTime);
                             values.put(HiDBHelper.KEY_Height_Time48,ct48.getCt48());
                             values.put(HiDBHelper.KEY_Height_Height,String.valueOf(HH+HL*0.01));
-                            MainActivity2.helper.HeightInsert(values);
+                            helper.HeightInsert(values);
 
                         } else if (Dialog_Flag.equals("Weight")) {
                             WH = tmpH;
@@ -559,7 +567,7 @@ public class fl_Diary extends RootFragment
                             values.put(HiDBHelper.KEY_Weight_Time,strTime);
                             values.put(HiDBHelper.KEY_Weight_Time48,ct48.getCt48());
                             values.put(HiDBHelper.KEY_Weight_Weight,String.valueOf(wAll));
-                            MainActivity2.helper.WeightInsert(values);
+                            helper.WeightInsert(values);
 
                             /*MainActivity2.volleyMethod.vpostSend_WeightJson(new String[]{strDate},
                                     new String[]{strTime},
@@ -720,23 +728,25 @@ public class fl_Diary extends RootFragment
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.DiaryMainLayout:
-                fabClose(false);
+                fabClose(false,R.drawable.ic_fab_paint_bk);
                 break;
 
             case R.id.FABM_Height:
                 NumberPickerDialogCreate("Height");
 
                 String tmpHi = "喔～是身高！";
-                assert MainActivity2.HiCard_Text != null;
-                MainActivity2.HiCard_Text.start(tmpHi);
+                getMainActivity().HiCardPlay("","",tmpHi);
+                //assert MainActivity2.HiCard_Text != null;
+                //MainActivity2.HiCard_Text.start(tmpHi);
                 break;
 
             case R.id.FABM_Weight:
                 NumberPickerDialogCreate("Weight");
 
                 tmpHi = "喔～是體重";
-                assert MainActivity2.HiCard_Text != null;
-                MainActivity2.HiCard_Text.start(tmpHi);
+                getMainActivity().HiCardPlay("","",tmpHi);
+                //assert MainActivity2.HiCard_Text != null;
+                //MainActivity2.HiCard_Text.start(tmpHi);
                 break;
 
             case R.id.FABM_Food:
@@ -746,8 +756,9 @@ public class fl_Diary extends RootFragment
                 startActivity(intent);
 
                 tmpHi = "喔～是食物";
-                assert MainActivity2.HiCard_Text != null;
-                MainActivity2.HiCard_Text.start(tmpHi);
+                getMainActivity().HiCardPlay("","",tmpHi);
+                //assert MainActivity2.HiCard_Text != null;
+                //MainActivity2.HiCard_Text.start(tmpHi);
                 break;
         }
     }

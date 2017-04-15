@@ -9,6 +9,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.system.ErrnoException;
@@ -38,7 +40,7 @@ import com.google.android.gms.common.api.Status;
 
 import java.util.ArrayList;
 
-public class AccountManager {
+public class AccountManager implements Parcelable {
 
     private MainActivity2 mContext;
     private String mTAG;
@@ -497,6 +499,31 @@ public class AccountManager {
 
     public void signOut(){
         if (isAccount) accountChild.signOut();
+    }
+
+    public static final Parcelable.Creator<AccountManager> CREATOR
+            = new Parcelable.Creator<AccountManager>() {
+        public AccountManager createFromParcel(Parcel in) {
+            return new AccountManager(in);
+        }
+
+        public AccountManager[] newArray(int size) {
+            return new AccountManager[size];
+        }
+    };
+
+    private AccountManager(Parcel in) {
+        //mData = in.readInt();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+
     }
 
     public class GoogleAccount extends AccountChild {
