@@ -44,6 +44,28 @@ public class VolleyManager implements Parcelable {
     private HiDBHelper helper;
     private DataManager dataManager;
 
+    public RequestQueue mRequestQueue;
+    //private String sURL_Server = "http://asa-asa.noip.me:4";
+    private String sURL_Server = "http://hiapp2.ddns.net:8000";
+    //private String sURL_Server = "http://140.124.39.42:8000";
+    //private String sURL_Server = "http://192.168.1.4";
+    private String sURL_getGoogleIdToken = sURL_Server+"/weight_control/app_web_vers/google_verified.php";
+    private String sURL_InfoPutGet = sURL_Server+"/weight_control/app_web_vers/record_modify.php";
+    private String sURL_sendAccountInfo = sURL_Server+"/weight_control/app_web_vers/profile_modify.php";
+    private String sURL_FCMID_Send = sURL_Server+"/weight_control/app_web_vers/fcm_register.php";
+    private String sURL_Recommend_Send = sURL_Server+"/weight_control/app_web_vers/recommend_accepter.php";
+    private String sURL_Pre_Get = sURL_Server+"/weight_control/app_web_vers/command_handler.php";
+
+    public String uid = "";
+    public String idToken = "";
+
+    @SuppressLint("SimpleDateFormat")
+    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    int dayDiffW,countOp;
+    Calendar cStartW,cEndW,tmpcStartW,tmpcEndW;
+    int dayDiffC,countOpC;
+    Calendar cStartC,cEndC,tmpcStartC,tmpcEndC;
+
     public VolleyManager(MainActivity2 context,
                          String TAG){
         mContext = context;
@@ -185,32 +207,6 @@ public class VolleyManager implements Parcelable {
             }
         });
     }
-
-    public RequestQueue mRequestQueue;
-    private String sURL_Server = "http://asa-asa.noip.me:4";
-    //private String sURL_Server = "http://192.168.1.4";
-    private String sURL_getGoogleIdToken = sURL_Server+"/weight_control/app_web_vers/google_verified.php";
-    private String sURL_InfoPutGet = sURL_Server+"/weight_control/app_web_vers/record_modify.php";
-    private String sURL_sendAccountInfo = sURL_Server+"/weight_control/app_web_vers/profile_modify.php";
-    private String sURL_FCMID_Send = sURL_Server+"/weight_control/app_web_vers/fcm_register.php";
-    private String sURL_Recommend_Send = sURL_Server+"/weight_control/app_web_vers/recommend_accepter.php";
-    private String sURL_Pre_Get = sURL_Server+"/weight_control/app_web_vers/command_handler.php";
-
-    public String uid = "";
-    public String idToken = "";
-
-    private String TAG = "VolleyMethod";
-
-    //private String pre_Target = "PreActivity.py %d %04d/%02d/%02d %d 2 %.2f";
-    //private String pre_NoTarget = "PreActivity.py %d %04d/%02d/%02d %d 3";
-
-    @SuppressLint("SimpleDateFormat")
-    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-    int dayDiffW,countOp;
-    Calendar cStartW,cEndW,tmpcStartW,tmpcEndW;
-    int dayDiffC,countOpC;
-    Calendar cStartC,cEndC,tmpcStartC,tmpcEndC;
-
 
     public void VVvpost_GetWeightRecord(String startDate,String endDate){
         Calendar c1 = Calendar.getInstance();
@@ -461,9 +457,10 @@ public class VolleyManager implements Parcelable {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         //System.out.println("请求错误:" + error.toString());
-                        Log.d(mTAG, "vpostGet_IdToken_Error:" + error.toString());
+                        Log.d(mTAG, "**vpostGet_IdToken_Error**:" + error.toString());
+                        error.printStackTrace();
 
-                        Toast.makeText(mContext,"MS登入失敗",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext,"MS登入失敗"+ error.toString(),Toast.LENGTH_LONG).show();
 
                     }
                 }
@@ -486,11 +483,15 @@ public class VolleyManager implements Parcelable {
             }*/
 
         };
+        Log.d(mTAG, "**vpostGet_IdToken_NoSure*******************:");
+        Log.d(mTAG, "**vpostGet_IdToken_NoSure**:" + sendStr);
+
         mStringRequest.setTag("vpostGet_IdToken");
         mStringRequest.setRetryPolicy(new DefaultRetryPolicy(
                 10000,
                 2,
                 2f));
+        Log.d(mTAG, "**vpostGet_IdToken_NoSure**:" + mStringRequest.toString());
         mRequestQueue.add(mStringRequest);
     }
 

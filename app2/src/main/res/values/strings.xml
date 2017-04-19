@@ -11,6 +11,8 @@
         508947969277201</string>
     <string name="server_client_id" translatable="false">
         39764648669-e48v01id62s1b3tq0gn8h039qvlr49pj.apps.googleusercontent.com</string>
+    <string name="server_client_id2" translatable="false">
+        39764648669-7ja8hc0agg74mfi3jjl3pt17pgjb3me7.apps.googleusercontent.com</string>
 
     <!--TODO:__nav_Main-->
     <string name="nav_Home">Home</string>
